@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3855732540101303350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8263446021740738837}
+  - component: {fileID: 8718000322979039497}
+  m_Layer: 0
+  m_Name: LaserWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8263446021740738837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3855732540101303350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.63672763, y: 0.51155037, z: 0.040738594}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8718000322979039497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3855732540101303350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a3f7ef6f92de34a98e649766f36147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: LaserWeapon
+  weaponId: 0
+  weaponUnlocked: 1
+  weaponDamage: 1
+  bulletSpeed: 50
+  weaponMeleRanged: 0
+  ammoMax: 8
+  bulletPrefab: {fileID: 7947561117168798786, guid: c8fd1db23a4bfa244b3e62330472efa2, type: 3}
+  attackSound: {fileID: 0}
+  explosionSound: {fileID: 0}
+  UISprite: {fileID: 7482667652216324306, guid: 39686c2cb262d5c4c8f7b17726791e97, type: 3}
+  inHandSprite: {fileID: 7482667652216324306, guid: 39686c2cb262d5c4c8f7b17726791e97, type: 3}
+  CrossHair: {fileID: 0}
+  meleKnockback: 0
+  firerate: 0.5
