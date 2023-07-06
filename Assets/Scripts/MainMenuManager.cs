@@ -15,6 +15,7 @@ public class MainMenuManager : MonoBehaviour
         MainMenu.SetActive(true);
         PlayMenu.SetActive(false);
         SettingsMenu.SetActive(false);
+        //marty
     }
 
     public void newGameBtn()
