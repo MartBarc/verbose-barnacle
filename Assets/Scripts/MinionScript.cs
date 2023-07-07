@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MinionScript : MonoBehaviour
 {
@@ -28,9 +29,34 @@ public class MinionScript : MonoBehaviour
     public Rigidbody2D weaponRb;
     public Transform firepos;
     public float gravity = 2f;
+    public bool purchaseable;
+    public bool isActive;
+    public TextMeshProUGUI buyText;
+    public int price = 10;
+    public float defaultCollider = 0.77f;
 
     void Start()
     {
+        buyText.SetText("Press E to purchase " + this.gameObject.name + " for $" + price + ".");
+        buyText.gameObject.SetActive(false);
+        if (purchaseable)
+        {
+            CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
+            myCollider.radius = 3f;
+            myCollider.isTrigger = true;
+            LayerMask mask1 = LayerMask.GetMask("Minion");
+            this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+            //buyText.gameObject.SetActive(false);
+        }
+        else 
+        {
+            CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
+            myCollider.radius = defaultCollider;
+            myCollider.isTrigger = false;
+            LayerMask mask1 = LayerMask.GetMask("Player") | LayerMask.GetMask("Minion");
+            this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+        }
+        
         hitPoints = maxHitPoints;
         healthbar.SetHealth(hitPoints, maxHitPoints);
         //healthbar.SetHealth(hitPoints, maxHitPoints);
@@ -67,6 +93,35 @@ public class MinionScript : MonoBehaviour
     public void Update()
     {
         this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        if (!isActive)
+        {
+            EnemyAnimation.SetBool("isActive", false);
+            if (purchaseable)
+            {
+                //buyText.SetText("Press E to purchase " + this.gameObject.name + " for $" + price + ".");
+                CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
+                myCollider.radius = 3f;
+                myCollider.isTrigger = true;
+                LayerMask mask1 = LayerMask.GetMask("Minion");
+                this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+            }
+            else
+            {
+                CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
+                myCollider.radius = defaultCollider;
+                myCollider.isTrigger = false;
+                LayerMask mask1 = LayerMask.GetMask("Player") | LayerMask.GetMask("Minion");
+                this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+            }
+            return;
+        }
+        else 
+        {
+            EnemyAnimation.SetBool("isActive", true);
+        }
+
+
+
         if (isAlive && moveTo != null)
         {
             if (isTower)//ranged
@@ -231,4 +286,39 @@ public class MinionScript : MonoBehaviour
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
     }
+
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        buyText.gameObject.SetActive(true);
+    //    }
+    //}
+
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        buyText.gameObject.SetActive(false);
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("trigger circle");
+        if (collision.gameObject.tag == "Player")
+        {
+            buyText.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            buyText.gameObject.SetActive(false);
+        }
+    }
+
 }

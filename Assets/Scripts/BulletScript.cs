@@ -14,7 +14,7 @@ public class BulletScript : MonoBehaviour
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Minion")
         {
             Debug.Log("Bullet collided with " + collision.gameObject.name.ToString());
-            Destroy(gameObject);
+            //Destroy(gameObject);
             //return;
         }
         else 
