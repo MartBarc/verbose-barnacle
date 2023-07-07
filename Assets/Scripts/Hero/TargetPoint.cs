@@ -32,11 +32,11 @@ namespace Pathfinding {
         //}
 
         /// <summary>Update is called once per frame</summary>
-        void Update () {
+        //void Update () {
             //if (!onlyOnDoubleClick && cam != null) {
             //    UpdateTargetPosition();
             //}
-        }
+        //}
 
         public void UpdateTargetPosition () {
             //Vector3 newPosition = Vector3.zero;
