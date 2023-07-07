@@ -10,7 +10,7 @@ public class MinionScript : MonoBehaviour
     public int attackDamage = 1;
     public float shootDistance = 6f;
     public bool canbeHurt = true;
-    public bool isMeleEnemy; //1=mele, 0=ranged
+    public bool isTower; //1=tower, 0=nontower
     public float attackDistance = 1f;
     public bool canAttack = true;
     public Transform moveTo;
@@ -24,8 +24,7 @@ public class MinionScript : MonoBehaviour
     public int id = -1;//301 = orc (EnemyMele), 302 = skele (EnemyRanged)
     public float bulletForce = 10f;
     public Animator EnemyAnimation;
-    [SerializeField] private BulletScriptEnemy projectilePrefab;
-    [SerializeField] private MeleHitboxEnemy hitboxPrefab;
+    [SerializeField] private BulletScript projectilePrefab;
     public Rigidbody2D weaponRb;
     public Transform firepos;
     public float gravity = 2f;
@@ -52,9 +51,9 @@ public class MinionScript : MonoBehaviour
         }
 
         //debug
-        if (GameObject.Find("EnemyMele"))
+        if (GameObject.Find("Hero_peter"))//change this to final hero name
         {
-            moveTo = GameObject.Find("EnemyMele").transform;
+            moveTo = GameObject.Find("Hero_peter").transform;//change this to final hero name
         }
         else 
         {
@@ -70,25 +69,17 @@ public class MinionScript : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         if (isAlive && moveTo != null)
         {
-            if (!isMeleEnemy && canAttack)//ranged
+            if (isTower)//ranged
             {
-                if (Vector2.Distance(transform.position, moveTo.position) < shootDistance)
+                if (canAttack)
                 {
-                    isWalking = false;
-                    EnemyAnimation.SetBool("isWalking", false);
                     canAttack = false;
-                    EnemyScript target = moveTo.gameObject.GetComponent<EnemyScript>();
-                    StartCoroutine(rangeAttackCooldown(target, moveTo));
+                    StartCoroutine(rangeAttackCooldown(moveTo));
                 }
-                else
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, moveTo.position, speed * Time.deltaTime);
-                    isWalking = true;
-                    EnemyAnimation.SetBool("isWalking", true);
-                }
+                
                 return;
             }
-            if (isMeleEnemy)//mele
+            if (!isTower)//mele
             {
                 if (Vector2.Distance(transform.position, moveTo.position) < attackDistance)
                 {
@@ -172,7 +163,7 @@ public class MinionScript : MonoBehaviour
         waitToSpawn = false;
     }
 
-    IEnumerator rangeAttackCooldown(EnemyScript player, Transform moveTo)
+    IEnumerator rangeAttackCooldown(Transform moveTo)
     {
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (isAlive)
@@ -227,7 +218,7 @@ public class MinionScript : MonoBehaviour
 
     public void Shoot(Transform target)
     {
-        BulletScriptEnemy projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
+        BulletScript projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
 
         Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
@@ -240,20 +231,4 @@ public class MinionScript : MonoBehaviour
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
     }
-
-    public void Swing(Transform target)
-    {
-        //Vector2 targetposition = target.position;
-        //Vector2 lookDir = targetposition - weaponRb.position;
-        //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        //weaponRb.rotation = angle;
-
-        MeleHitboxEnemy projectile = Instantiate(hitboxPrefab, firepos.position, firepos.rotation);
-        projectile.damage = attackDamage;
-        Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-
-        projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
-    }
-
-   
 }
