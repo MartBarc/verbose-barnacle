@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Ground
   - Minion
+  - Obs
   layers:
   - Default
   - TransparentFX

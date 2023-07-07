@@ -53,6 +53,24 @@ public class HeroController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Obs")
+        {
+            Debug.Log($"{other.gameObject.name} found in player aggro range");
+            Destroy(other.gameObject);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Obs")
+        {
+            Debug.Log($"{other.gameObject.name} found outside in player aggro range");
+            Destroy(other.gameObject);
+        }
+    }
+
     public void TakeHit(float damage)
     {
         if (canbeHurt)
