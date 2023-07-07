@@ -28,7 +28,6 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private MeleHitboxEnemy hitboxPrefab;
     public Rigidbody2D weaponRb;
     public Transform firepos;
-    private bool isTopdown; //taken from gamemanager, true = topdown, false = 2d side scroller
     public float gravity = 2f;
 
     void Start()
@@ -41,16 +40,8 @@ public class EnemyScript : MonoBehaviour
 
 
         //attackSound = GameObject.Find("Sounds/enemyAttackNoise").GetComponent<AudioSource>();
-
-        isTopdown = GameObject.Find("GameManager").GetComponent<GameManagerScript>().isTopdown;
-        if (isTopdown)
-        {
-            this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
-        }
-        else
-        {
-            this.gameObject.GetComponent<Rigidbody2D>().gravityScale = gravity;
-        }
+        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+        
 
         if (id == 301)//orc sprite was facing wrong way
         {

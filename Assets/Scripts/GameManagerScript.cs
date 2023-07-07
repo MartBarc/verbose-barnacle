@@ -11,7 +11,6 @@ public class GameManagerScript : MonoBehaviour
     public int score;
     public TextMeshProUGUI scoreText;
     public GameObject GameOverUI;
-    public bool isTopdown = true; //true = top down, false = 2d side scroller
 
     private void Start()
     {

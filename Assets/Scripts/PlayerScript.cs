@@ -19,7 +19,6 @@ public class PlayerScript : MonoBehaviour
     public GameObject weaponImage;
     [SerializeField] public GameObject gameOverText;
     private GameObject gameover;
-    private bool isTopdown; //taken from gamemanager, true = topdown, false = 2d side scroller
     public bool isGrounded = false; 
     public float jumpForce = 10f;
     public float gravity = 2f;
@@ -34,15 +33,7 @@ public class PlayerScript : MonoBehaviour
     {
         hitPoints = maxHitPoints;
         healthbar.SetHealth(hitPoints, maxHitPoints);
-        isTopdown = GameObject.Find("GameManager").GetComponent<GameManagerScript>().isTopdown;
-        if (isTopdown)
-        {
-            rb.gravityScale = 0f;
-        }
-        else 
-        {
-            rb.gravityScale = gravity;
-        }
+        rb.gravityScale = 0f;
     }
 
     void Update()
@@ -50,31 +41,15 @@ public class PlayerScript : MonoBehaviour
         if (!isAlive)
         {
             animator.SetFloat("Horizontal", 0);
-            if (isTopdown)
-            {
-                animator.SetFloat("Vertical", 0);
-            }
-            else
-            {
-
-            }
+            animator.SetFloat("Vertical", 0);
             animator.SetFloat("Speed", 0); 
             return; 
         }
 
         //Input
         movement.x = Input.GetAxisRaw("Horizontal");
-        if (isTopdown)
-        {
-            movement.y = Input.GetAxisRaw("Vertical");
-        }
-        else 
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
-            {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            }
-        }
+        movement.y = Input.GetAxisRaw("Vertical");
+        
         
         if (movement.x > 0)
         {
@@ -92,14 +67,8 @@ public class PlayerScript : MonoBehaviour
         }
 
         animator.SetFloat("Horizontal", movement.x);
-        if (isTopdown)
-        {
-            animator.SetFloat("Vertical", movement.y);
-        }
-        else
-        {
-
-        }
+        animator.SetFloat("Vertical", movement.y);
+        
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
         mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -121,14 +90,8 @@ public class PlayerScript : MonoBehaviour
         if (!isAlive)
         { return; }
         //Movement
-        if (isTopdown)
-        {
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        }
-        else
-        {
-            rb.position += movement * moveSpeed * Time.fixedDeltaTime;
-        }
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        
 
         //weapon movement
         moveWeapon = new Vector2(rb.position.x, rb.position.y - 0.2f);
