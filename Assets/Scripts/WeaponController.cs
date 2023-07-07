@@ -60,6 +60,12 @@ public class WeaponController : MonoBehaviour
             //explosionSound1 = GameObject.Find("Sounds/explosionSound").GetComponent<AudioSource>();
             //hitSound1 = GameObject.Find("Sounds/explosionSound (5)").GetComponent<AudioSource>();
         }
+        if (currentWeapon.GetComponent<WeaponData>().weaponId == 3) //bat
+        {
+            attackSound = GameObject.Find("Sounds/SwingSound").GetComponent<AudioSource>();
+            //explosionSound1 = GameObject.Find("Sounds/explosionSound").GetComponent<AudioSource>();
+            //hitSound1 = GameObject.Find("Sounds/explosionSound (5)").GetComponent<AudioSource>();
+        }
     }
 
     public void updateAmmo()

@@ -141,7 +141,8 @@ public class PlayerScript : MonoBehaviour
         gameObject.SetActive(false);
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-        Application.Quit();
+        //Application.Quit();
+        //do other things when die
     }
 
 

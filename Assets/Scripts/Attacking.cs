@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attacking : MonoBehaviour
 {
@@ -11,7 +12,13 @@ public class Attacking : MonoBehaviour
     public bool fireRateWaitBool = false; //if true = shooting on cd
     public float bulletForce = 20f;
     //public bool ShootingEnabled = true;
+    public Image abilityImage;
 
+    private void Start()
+    {
+        //firerate = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().firerate;
+        abilityImage.fillAmount = 0;
+    }
 
     void Update()
     {
@@ -19,55 +26,63 @@ public class Attacking : MonoBehaviour
         {
             return;
         }
-      
-        if ((Input.GetButtonDown("Fire1") || Input.GetMouseButton(0)))// && ShootingEnabled)
+
+        if (fireRateWaitBool)
         {
-            if (!fireRateWaitBool)
+            abilityImage.fillAmount -= 1 / firerate * Time.deltaTime;
+            if (abilityImage.fillAmount <= 0)
             {
-                firerate = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().firerate;
-                fireRateWaitBool = true;
-                StartCoroutine(fireRateWait(firerate));
-                this.gameObject.GetComponent<WeaponController>().updateAmmo();
-                if (this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().weaponMeleRanged) //true = mele
-                {
-                    //mele
-                    Swing();
-                }
-                else
-                {
-                    //ranged
-                    Shoot();
-                }
-                this.gameObject.GetComponent<WeaponController>().attackSound.enabled = true;
-                this.gameObject.GetComponent<WeaponController>().attackSound.Play();
-                this.gameObject.GetComponent<WeaponController>().ammo--;
-                this.gameObject.GetComponent<WeaponController>().updateAmmo();
+                abilityImage.fillAmount = 0;
+                fireRateWaitBool = false;
             }
         }
 
-        void Shoot() //ranged attack
+        if ((Input.GetButtonDown("Fire1") || Input.GetMouseButton(0)) && !fireRateWaitBool)// && ShootingEnabled)
         {
-            //Debug.Log("shot fired");
-            GameObject bullet = Instantiate(this.gameObject.GetComponent<WeaponController>().bulletPrefab, firepos.position, firepos.rotation);
-            bullet.transform.Rotate(0, 0, 0);
-            bullet.GetComponent<BulletScript>().player = this.gameObject;
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(Gun.up * this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().bulletSpeed, ForceMode2D.Impulse);
-
-        }
-
-        void Swing() //mele attack
-        {
-            //Debug.Log("shot swung");
-            GameObject bullet = Instantiate(this.gameObject.GetComponent<WeaponController>().bulletPrefab, firepos.position, firepos.rotation);
-            bullet.GetComponent<MeleHitbox>().player = this.gameObject;
-            bullet.GetComponent<MeleHitbox>().knockBack = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().meleKnockback;
-        }
-
-        IEnumerator fireRateWait(float waitTime)
-        {
-            yield return new WaitForSecondsRealtime(waitTime);
-            fireRateWaitBool = false;
+            firerate = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().firerate;
+            fireRateWaitBool = true;
+            abilityImage.fillAmount = 1;
+            //StartCoroutine(fireRateWait(firerate));
+            if (this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().weaponName == "BatWeapon")
+            {
+                SpawnBat();
+            }
+            this.gameObject.GetComponent<WeaponController>().attackSound.enabled = true;
+            this.gameObject.GetComponent<WeaponController>().attackSound.Play();
         }
     }
+
+    void Shoot() //ranged attack
+    {
+        //Debug.Log("shot fired");
+        GameObject bullet = Instantiate(this.gameObject.GetComponent<WeaponController>().bulletPrefab, firepos.position, firepos.rotation);
+        bullet.transform.Rotate(0, 0, 0);
+        bullet.GetComponent<BulletScript>().player = this.gameObject;
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(Gun.up * this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().bulletSpeed, ForceMode2D.Impulse);
+
+    }
+
+    void Swing() //mele attack
+    {
+        //Debug.Log("shot swung");
+        GameObject bullet = Instantiate(this.gameObject.GetComponent<WeaponController>().bulletPrefab, firepos.position, firepos.rotation);
+        bullet.GetComponent<MeleHitbox>().player = this.gameObject;
+        bullet.GetComponent<MeleHitbox>().knockBack = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().meleKnockback;
+    }
+
+    void SpawnBat() 
+    {
+        Debug.Log("make bat");
+        GameObject bullet = Instantiate(this.gameObject.GetComponent<WeaponController>().bulletPrefab, firepos.position, firepos.rotation);
+        Vector3 newRotation = new Vector3(0, 0, 0);
+        bullet.transform.eulerAngles = newRotation;
+    }
+
+    IEnumerator fireRateWait(float waitTime)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        fireRateWaitBool = false;
+    }
 }
+

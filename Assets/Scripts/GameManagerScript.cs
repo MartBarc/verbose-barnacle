@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject player;
-    public int enemiesKilled;
-    public int score;
+    public int score;//money
     public TextMeshProUGUI scoreText;
     public GameObject GameOverUI;
 
@@ -16,7 +15,6 @@ public class GameManagerScript : MonoBehaviour
     {
         player = GameObject.Find("Player");
         score = 0;
-        enemiesKilled = 0;
         scoreText.text = "Score: " + score;
         GameOverUI.SetActive(false);
     }
@@ -34,10 +32,15 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    public void addEnemyScore()
+    public void ScoreAdd(int scoreIncrease)
     {
-        score += 10;
-        enemiesKilled++;
+        score += scoreIncrease;
+        scoreText.text = "Score: " + score;
+    }
+
+    public void ScoreSub(int scoreDecrease)
+    {
+        score -= scoreDecrease;
         scoreText.text = "Score: " + score;
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour
+public class MinionScript : MonoBehaviour
 {
     public float speed = 5;
     public float hitPoints;
@@ -38,12 +38,11 @@ public class EnemyScript : MonoBehaviour
         //healthbar.transform.position = new Vector3(0f, healthbarOffset);
         //MoveToTransform = GameObject.Find("player").transform;
 
-
         //attackSound = GameObject.Find("Sounds/enemyAttackNoise").GetComponent<AudioSource>();
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
-        
 
-        if (id == 301)//orc sprite was facing wrong way
+
+        if (id == 301 || id == 100)//orc sprite was facing wrong way
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -51,9 +50,17 @@ public class EnemyScript : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-        
+
         //debug
-        moveTo = GameObject.Find("Player").transform;
+        if (GameObject.Find("EnemyMele"))
+        {
+            moveTo = GameObject.Find("EnemyMele").transform;
+        }
+        else 
+        {
+            moveTo = null;
+        }
+        
 
         StartCoroutine(WaitToAttack());
     }
@@ -61,7 +68,7 @@ public class EnemyScript : MonoBehaviour
     public void Update()
     {
         this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        if (isAlive)
+        if (isAlive && moveTo != null)
         {
             if (!isMeleEnemy && canAttack)//ranged
             {
@@ -70,8 +77,8 @@ public class EnemyScript : MonoBehaviour
                     isWalking = false;
                     EnemyAnimation.SetBool("isWalking", false);
                     canAttack = false;
-                    PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
-                    StartCoroutine(rangeAttackCooldown(player, moveTo));
+                    EnemyScript target = moveTo.gameObject.GetComponent<EnemyScript>();
+                    StartCoroutine(rangeAttackCooldown(target, moveTo));
                 }
                 else
                 {
@@ -87,11 +94,11 @@ public class EnemyScript : MonoBehaviour
                 {
                     isWalking = false;
                     EnemyAnimation.SetBool("isWalking", false);
-                    PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
+                    EnemyScript target = moveTo.gameObject.GetComponent<EnemyScript>();
                     if (canAttack)
                     {
                         canAttack = false;
-                        StartCoroutine(meleAttackCooldown(player));
+                        StartCoroutine(meleAttackCooldown(target));
                     }
                     return;
                 }
@@ -137,11 +144,10 @@ public class EnemyScript : MonoBehaviour
 
             if (hitPoints <= 0 && isAlive)
             {
-                //GameObject.Find("GameManager").GetComponent<GameManagerScript>().addEnemyScore();
                 isAlive = false;
                 //Destroy(gameObject);
                 EnemyAnimation.SetTrigger("EnemyDieTrig");
-                if (id == 301 || id == 302)  //301 = orc, 302 = skele
+                if (id == 301 || id == 302 || id == 100)  //301 = orc, 302 = skele, 100 = batminion
                 {
                     Destroy(gameObject, 2f);
                 }
@@ -166,7 +172,7 @@ public class EnemyScript : MonoBehaviour
         waitToSpawn = false;
     }
 
-    IEnumerator rangeAttackCooldown(PlayerScript player, Transform moveTo)
+    IEnumerator rangeAttackCooldown(EnemyScript player, Transform moveTo)
     {
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (isAlive)
@@ -183,10 +189,11 @@ public class EnemyScript : MonoBehaviour
         canAttack = true;
     }
 
-    IEnumerator meleAttackCooldown(PlayerScript player)
+    IEnumerator meleAttackCooldown(EnemyScript target)
     {
+        Debug.Log("Bat attack hero");
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
-        if (player != null)
+        if (target != null)
         {
             Vector2 targetposition = moveTo.position;
             Vector2 lookDir = targetposition - weaponRb.position;
@@ -200,8 +207,8 @@ public class EnemyScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
             //maybe check if player is still in range of attack to deal damage?
             //or maybe turn into a melehitbox/bullet thing
-            ///player.TakeHit(attackDamage);//testing above comments, bring this back if not working
-            Swing(player.gameObject.transform);
+            target.TakeHit(attackDamage);//testing above comments, bring this back if not working
+            //Swing(player.gameObject.transform);
         }
         yield return new WaitForSecondsRealtime(attackDelay);
         canAttack = true;
@@ -248,4 +255,5 @@ public class EnemyScript : MonoBehaviour
         projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
     }
 
+   
 }
