@@ -103,6 +103,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -255,7 +261,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -399,11 +407,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2619516689336693098}
-  - component: {fileID: 2619516689336693099}
   - component: {fileID: 2619516689336693108}
   - component: {fileID: 2619516689336693109}
   - component: {fileID: 2619516689336693110}
   - component: {fileID: 2619516689336693097}
+  - component: {fileID: 44463015111474922}
   m_Layer: 0
   m_Name: RangedSkele
   m_TagString: Enemy
@@ -419,51 +427,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2619516689336693111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.96, y: 0.26, z: 0.0736556}
+  m_LocalPosition: {x: 8.02855, y: 3.3596792, z: 0.0736556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6821507035462985588}
   - {fileID: 2619516688859119452}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2619516689336693099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2619516689336693111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5590099fa0d44f640a00b7f221b94f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  hitPoints: 0
-  maxHitPoints: 5
-  attackDamage: 1
-  shootDistance: 6
-  canbeHurt: 1
-  isMeleEnemy: 0
-  attackDistance: 1.75
-  canAttack: 1
-  moveTo: {fileID: 0}
-  waitToSpawn: 1
-  isAlive: 1
-  healthbar: {fileID: 2619516688859119443}
-  isWalking: 0
-  attackDelay: 2
-  beforeAttackDelay: 0.15
-  beforeDamageDelay: 0.3
-  id: 302
-  bulletForce: 10
-  EnemyAnimation: {fileID: 2619516689336693097}
-  projectilePrefab: {fileID: 215707932674357262, guid: a11bdb68b9d9f984b971f2b6e35c58c8, type: 3}
-  hitboxPrefab: {fileID: 0}
-  weaponRb: {fileID: 7274871678964726905}
-  firepos: {fileID: 3766741436806252495}
 --- !u!50 &2619516689336693108
 Rigidbody2D:
   serializedVersion: 4
@@ -481,6 +453,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -495,6 +473,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -555,7 +552,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &2619516689336693097
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -572,7 +569,45 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &44463015111474922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619516689336693111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3545536018cb37a42b3785bfc9c31c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  hitPoints: 0
+  maxHitPoints: 5
+  attackDamage: 1
+  shootDistance: 6
+  canbeHurt: 1
+  isMeleEnemy: 0
+  attackDistance: 1
+  canAttack: 1
+  moveTo: {fileID: 0}
+  waitToSpawn: 1
+  isAlive: 1
+  healthbar: {fileID: 0}
+  isWalking: 0
+  attackDelay: 1
+  beforeAttackDelay: 0.15
+  beforeDamageDelay: 0.3
+  id: -1
+  bulletForce: 10
+  EnemyAnimation: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  hitboxPrefab: {fileID: 0}
+  weaponRb: {fileID: 0}
+  firepos: {fileID: 0}
+  gravity: 2
 --- !u!1 &2619516689408630532
 GameObject:
   m_ObjectHideFlags: 0
