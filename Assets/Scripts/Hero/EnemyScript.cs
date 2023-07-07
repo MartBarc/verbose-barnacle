@@ -1,5 +1,7 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
@@ -10,10 +12,10 @@ public class EnemyScript : MonoBehaviour
     public int attackDamage = 1;
     public float shootDistance = 6f;
     public bool canbeHurt = true;
-    public bool isMeleEnemy; //1=mele, 0=ranged
+    //public bool isMeleEnemy; //1=mele, 0=ranged
     public float attackDistance = 1f;
     public bool canAttack = true;
-    public Transform moveTo;
+    //public Transform moveTo;
     public bool waitToSpawn = true;
     public bool isAlive = true;
     public HealthbarScript healthbar;
@@ -28,7 +30,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private MeleHitboxEnemy hitboxPrefab;
     public Rigidbody2D weaponRb;
     public Transform firepos;
-    public float gravity = 2f;
+    public Transform target;
 
     void Start()
     {
@@ -40,7 +42,7 @@ public class EnemyScript : MonoBehaviour
 
 
         //attackSound = GameObject.Find("Sounds/enemyAttackNoise").GetComponent<AudioSource>();
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
+        //this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
         
 
         if (id == 301)//orc sprite was facing wrong way
@@ -53,74 +55,79 @@ public class EnemyScript : MonoBehaviour
         }
         
         //debug
-        moveTo = GameObject.Find("Player").transform;
+        //moveTo = GameObject.Find("Player").transform;
 
         StartCoroutine(WaitToAttack());
     }
 
     public void Update()
     {
-        this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
+
+        //this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         if (isAlive)
         {
-            if (!isMeleEnemy && canAttack)//ranged
-            {
-                if (Vector2.Distance(transform.position, moveTo.position) < shootDistance)
-                {
-                    isWalking = false;
-                    EnemyAnimation.SetBool("isWalking", false);
-                    canAttack = false;
-                    PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
-                    StartCoroutine(rangeAttackCooldown(player, moveTo));
-                }
-                else
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, moveTo.position, speed * Time.deltaTime);
-                    isWalking = true;
-                    EnemyAnimation.SetBool("isWalking", true);
-                }
-                return;
-            }
-            if (isMeleEnemy)//mele
-            {
-                if (Vector2.Distance(transform.position, moveTo.position) < attackDistance)
-                {
-                    isWalking = false;
-                    EnemyAnimation.SetBool("isWalking", false);
-                    PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
-                    if (canAttack)
-                    {
-                        canAttack = false;
-                        StartCoroutine(meleAttackCooldown(player));
-                    }
-                    return;
-                }
-                else
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, moveTo.position, speed * Time.deltaTime);
-                    isWalking = true;
-                    EnemyAnimation.SetBool("isWalking", true);
-                }
+            //if (target != null && ai != null) ai.destination = target.position;
 
-                Vector2 targetPos = moveTo.position;
-                Vector2 lookDir = targetPos - weaponRb.position;
-                float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-                weaponRb.rotation = angle;
-            }
+            //if (!isMeleEnemy && canAttack)//ranged
+            //{
+            //    if (Vector2.Distance(transform.position, moveTo.position) < shootDistance)
+            //    {
+            //        isWalking = false;
+            //        EnemyAnimation.SetBool("isWalking", false);
+            //        canAttack = false;
+            //        PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
+            //        StartCoroutine(rangeAttackCooldown(player, moveTo));
+            //    }
+            //    else
+            //    {
+            //        transform.position = Vector2.MoveTowards(transform.position, moveTo.position, speed * Time.deltaTime);
+            //        isWalking = true;
+            //        EnemyAnimation.SetBool("isWalking", true);
+            //    }
+            //    return;
+            //}
 
-            Vector3 Dir = gameObject.transform.position - moveTo.position;
-            if (Dir.x > 0)
-            {
-                gameObject.transform.localScale = new Vector3(1, 1, 1);
-                healthbar.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                weaponRb.position = new Vector3(0f, -0.75f, 0);
-            }
-            if (Dir.x < 0)
-            {
-                gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                healthbar.transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
-                weaponRb.position = new Vector3(0f, -0.75f, 0);
-            }
+            //if (isMeleEnemy)//mele
+            //{
+            //if (Vector2.Distance(transform.position, moveTo.position) < attackDistance)
+            //{
+            //    isWalking = false;
+            //    EnemyAnimation.SetBool("isWalking", false);
+            //    PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
+            //    if (canAttack)
+            //    {
+            //        canAttack = false;
+            //        StartCoroutine(meleAttackCooldown(player));
+            //    }
+            //    return;
+            //}
+            //else
+            //{
+            //    transform.position = Vector2.MoveTowards(transform.position, moveTo.position, speed * Time.deltaTime);
+            //    isWalking = true;
+            //    EnemyAnimation.SetBool("isWalking", true);
+            //}
+
+            //Vector2 targetPos = moveTo.position;
+            //Vector2 lookDir = targetPos - weaponRb.position;
+            //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            //weaponRb.rotation = angle;
+            //}
+
+            //Vector3 Dir = gameObject.transform.position - moveTo.position;
+            //if (Dir.x > 0)
+            //{
+            //    gameObject.transform.localScale = new Vector3(1, 1, 1);
+            //    healthbar.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            //    weaponRb.position = new Vector3(0f, -0.75f, 0);
+            //}
+            //if (Dir.x < 0)
+            //{
+            //    gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            //    healthbar.transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            //    weaponRb.position = new Vector3(0f, -0.75f, 0);
+            //}
         }
     }
 
@@ -188,7 +195,7 @@ public class EnemyScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (player != null)
         {
-            Vector2 targetposition = moveTo.position;
+            Vector2 targetposition = target.position;
             Vector2 lookDir = targetposition - weaponRb.position;
             float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             weaponRb.rotation = angle;
