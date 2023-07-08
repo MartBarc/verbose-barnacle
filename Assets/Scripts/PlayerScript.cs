@@ -27,6 +27,8 @@ public class PlayerScript : MonoBehaviour
     Vector2 moveWeapon;
     Vector2 mousepos;
 
+    public float OGmoveSpeed;
+
     //[SerializeField] public GameObject playerWeap;
 
     void Start()
@@ -34,6 +36,7 @@ public class PlayerScript : MonoBehaviour
         hitPoints = maxHitPoints;
         healthbar.SetHealth(hitPoints, maxHitPoints);
         rb.gravityScale = 0f;
+        OGmoveSpeed = moveSpeed;
     }
 
     void Update()
@@ -68,7 +71,6 @@ public class PlayerScript : MonoBehaviour
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
-        
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
         mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
