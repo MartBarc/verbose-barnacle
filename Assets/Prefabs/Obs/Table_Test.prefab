@@ -53,7 +53,7 @@ MonoBehaviour:
   priority: 30
   health: 100
   insuranceValue: 10
-  debriPrefab: {fileID: 8312599151372264871, guid: ae8305a528acee346a21ad7c8d73d7b2, type: 3}
+  insuranceCost: 10
   isActive: 0
   isTower: 0
   purchased: 0
@@ -62,6 +62,9 @@ MonoBehaviour:
   buyableCollider: {fileID: 8011012822445061982}
   normalColliderTower: {fileID: 0}
   normalColliderObs: {fileID: 3380770233419762083}
+  debriPrefab: {fileID: 8312599151372264871, guid: ae8305a528acee346a21ad7c8d73d7b2, type: 3}
+  rightMod: 0
+  upMod: 0
 --- !u!212 &3389403617812524021
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -102,8 +105,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fa35a77503f6a45eea6c469775ee446e, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 1462490332, guid: 7a17bb1355f17de4993d1806638a144e, type: 3}
   m_Color: {r: 0.754717, g: 0.5745996, b: 0.3097188, a: 1}
   m_FlipX: 0
   m_FlipY: 0
