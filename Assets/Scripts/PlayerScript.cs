@@ -42,6 +42,10 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameIsPaused)
+        {
+            return;
+        }
         if (!isAlive)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -91,6 +95,10 @@ public class PlayerScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameIsPaused)
+        {
+            return;
+        }
         if (!isAlive)
         { return; }
         //Movement
