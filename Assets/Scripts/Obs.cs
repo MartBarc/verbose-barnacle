@@ -10,9 +10,15 @@ public class Obs : MonoBehaviour
 
     [SerializeField] public int insuranceValue = 0;
 
+    // Dustruction
     [SerializeField] public GameObject debriPrefab;
+    [SerializeField] public float rightMod = 0;
+    [SerializeField] public float upMod = 0;
 
-    //public GameObject obstacle;
+    //public void Start()
+    //{
+    //    debriPrefab.GetComponent<DebrisScript>().ModDir(rightMod, upMod);
+    //}
 
     public void TriggerDestroy()
     {
@@ -44,13 +50,20 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
-        Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
-        yield return new WaitForSecondsRealtime(0f);
+        if (debriPrefab != null) 
+        {
+            GameObject spawnedDebris = Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
+        }
+       
+        //spawnedDebris.GetComponent<DebrisScript>().ModDir(rightMod, upMod);
+
+        //yield return new WaitForSecondsRealtime(0f);
 
         //Spawn destruction
 
         Destroy(this.gameObject);
 
         //do blow up physics on delete
+        yield return new WaitForSecondsRealtime(0f);
     }
 }

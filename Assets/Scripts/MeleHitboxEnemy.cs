@@ -20,7 +20,6 @@ public class MeleHitboxEnemy : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Obs>() != null)//(collision.gameObject.tag == "Player")
         {
-            
             collision.gameObject.GetComponent<Obs>().TakeHit(damage);
             //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * knockBack);
         }
