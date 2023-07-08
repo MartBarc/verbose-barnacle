@@ -23,12 +23,12 @@ public class HeroController : MonoBehaviour
     public bool canAttack = true;
     public int attackDamage = 110;
     //private float shootDistance = 6f;
-    private float attackDistance = 2f;
+    public float attackDistance = 2f;
     public GameObject weaponObj;
-    
-    private float attackDelay = 1f; //How long to wait before able to attack again
-    private float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
-    private float beforeDamageDelay = 0.3f;//how long to wait to deal damage after starting animation
+
+    public float attackDelay = 2f; //How long to wait before able to attack again
+    public float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
+    public float beforeDamageDelay = 0.8f;//how long to wait to deal damage after starting animation
 
     public Transform firepos;
 
@@ -50,6 +50,9 @@ public class HeroController : MonoBehaviour
 
     // Animation
     public Animator EnemyAnimation;
+    public Animator HandAnimation;
+    public bool attackAnimStarted;//dont accurately follow target after starting swing anim
+    public bool isFacingRight;
 
     // Start is called before the first frame update
     void Start()
@@ -84,20 +87,32 @@ public class HeroController : MonoBehaviour
             }
             RecalcTargets();
 
-            
-            
+            //if (rb.rotation <= 0f && rb.rotation >= -180f)
+            //{
+            //    isFacingRight = true;
+            //    gameObject.transform.localScale = new Vector3(1, 1, 1);
+            //    //flip weapon hand sprite here
+            //}
+            //else
+            //{
+            //    isFacingRight = false;
+            //    gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            //    //flip weapon hand sprite here
+            //}
+
+
 
             // Attack object?
             if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
             {
-                Vector2 lookDir = curTarget.transform.position - transform.position;
-                float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-                gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
-                //gameObject.GetComponent<AIPath>().canMove = false;
+                if (!attackAnimStarted)
+                {
+                    Vector2 lookDir = curTarget.transform.position - transform.position;
+                    float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+                    gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
+                }
                 if (canAttack)
                 {
-                    //mele
-                    
                     EnemyAnimation.SetBool("isWalking", false);
                     canAttack = false;
                     ReduceHeroStam(1f);
@@ -245,7 +260,7 @@ public class HeroController : MonoBehaviour
 
     IEnumerator meleAttackCooldown()
     {
-        weaponObj.SetActive(false);
+        //weaponObj.SetActive(false);
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (player != null)
         {
@@ -254,6 +269,7 @@ public class HeroController : MonoBehaviour
             //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             //weaponRb.rotation = angle;
             playAttackAnim();
+            attackAnimStarted = true;
 
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
             //maybe check if player is still in range of attack to deal damage?
@@ -263,7 +279,8 @@ public class HeroController : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(attackDelay);
         canAttack = true;
-        weaponObj.SetActive(true);
+        attackAnimStarted = false;
+        //weaponObj.SetActive(true);
     }
 
     public void Swing(Transform target)
@@ -283,6 +300,7 @@ public class HeroController : MonoBehaviour
     public void playAttackAnim()
     {
         EnemyAnimation.SetTrigger("EnemyMeleAttackTrig");
+        HandAnimation.SetTrigger("EnemyAttackTrig");
     }
 
     public void playDieAnim()
