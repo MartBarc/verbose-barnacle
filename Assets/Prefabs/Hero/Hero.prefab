@@ -555,7 +555,7 @@ MonoBehaviour:
   spawner: {fileID: 0}
   healthbar: {fileID: 6965254653632302710}
   stam: 0
-  maxStam: 5
+  maxStam: 100
   hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1
   canAttack: 1
