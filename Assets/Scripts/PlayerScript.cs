@@ -136,12 +136,14 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator playerDied()
     {
+        Debug.Log("Player died");
         animator.SetTrigger("PlayerDieTrig");
 
         yield return new WaitForSecondsRealtime(5f);
 
         gameObject.SetActive(false);
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
 
         //Application.Quit();
         //do other things when die

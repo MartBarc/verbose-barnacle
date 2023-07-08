@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 2619516689336693110}
   - component: {fileID: 7743251260128709269}
   m_Layer: 7
-  m_Name: SlowTower
+  m_Name: StamTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ Transform:
   - {fileID: 7844897242015897500}
   - {fileID: 4253762861734997621}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2619516689336693109
 CircleCollider2D:
@@ -544,7 +544,7 @@ MonoBehaviour:
   buyText: {fileID: 2421842201835190344}
   price: 10
   defaultCollider: 10
-  towerid: 2
+  towerid: 3
   AoeImage: {fileID: 6420037925025093522}
   newPlayerSpeed: 10
   abilityOn: 0
@@ -902,7 +902,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a8a212664661d5e479a4a9390ed8e39f, type: 3}
-  m_Color: {r: 0.2971698, g: 0.4706328, b: 1, a: 0.20392157}
+  m_Color: {r: 1, g: 0.38101208, b: 0.3607843, a: 0.20392157}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

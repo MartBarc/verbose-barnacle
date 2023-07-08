@@ -1993,7 +1993,7 @@ MonoBehaviour:
   timerText: {fileID: 1239251327}
   GameOverUI: {fileID: 871896485}
   GameStarted: 0
-  setupTime: 4
+  setupTime: 40
   currentTimeLeft: 0
   heroSpawnLocation: {fileID: 1653307597}
   HeroPrefab: {fileID: 6795446374486143253, guid: 16e7ecca95aaab942896e693d1eed409, type: 3}

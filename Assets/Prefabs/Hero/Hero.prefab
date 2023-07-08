@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8494927008898559836
 Transform:
   m_ObjectHideFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193309520563991157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.16, z: 0}
-  m_LocalScale: {x: 3.925, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: 2.4838, z: 0}
+  m_LocalScale: {x: 2, y: 4.5076, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5428331571641410952}
@@ -101,7 +101,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 264
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -507,7 +507,6 @@ GameObject:
   - component: {fileID: 5428331571641410952}
   - component: {fileID: 5379991397529421395}
   - component: {fileID: 6688963239604149443}
-  - component: {fileID: 2545390836775030239}
   - component: {fileID: 8334903768913298601}
   - component: {fileID: 619688551704650793}
   - component: {fileID: 7362143332672073826}
@@ -516,7 +515,7 @@ GameObject:
   - component: {fileID: 1884303113563920596}
   m_Layer: 0
   m_Name: Hero
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -551,22 +550,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4bad7335b79e8458d0f9330603e4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 100
   pathing: {fileID: 8334903768913298601}
   healthbar: {fileID: 6965254653632302710}
   hitPoints: 0
   isAlive: 1
+  hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1
+  canAttack: 1
+  attackDamage: 110
   firepos: {fileID: 1865067820835090595}
   bulletForce: 10
   weaponRb: {fileID: 5543270977292285896}
-  projectilePrefab: {fileID: 0}
-  hitboxPrefab: {fileID: 0}
+  hitboxPrefab: {fileID: 875825041422809747, guid: c506907d3051b96439a3097d2ddfd393, type: 3}
   player: {fileID: 0}
+  playerPriority: 0
   curTarget: {fileID: 0}
   obsList: []
   priorityIndex: 0
   priorityValue: 0
+  currentSpeed: 0
+  OGSpeed: 0
   EnemyAnimation: {fileID: 2832734891439358546}
 --- !u!114 &6688963239604149443
 MonoBehaviour:
@@ -596,33 +599,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &2545390836775030239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3402274289338021390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radiusBackingField: 0.2
-  heightBackingField: 1
-  centerBackingField: 0
-  locked: 0
-  lockWhenNotMoving: 0
-  agentTimeHorizon: 0.6
-  obstacleTimeHorizon: 0.2
-  maxNeighbours: 10
-  layer: 1
-  collidesWith: -1
-  wallAvoidForce: 1
-  wallAvoidFalloff: 1
-  priority: 0.5
-  debug: 1
 --- !u!114 &8334903768913298601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,7 +711,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 100
+  m_Radius: 3
 --- !u!50 &623401833633815117
 Rigidbody2D:
   serializedVersion: 4
@@ -811,7 +787,7 @@ GameObject:
   - component: {fileID: 2643604633915210482}
   - component: {fileID: 4306705253055723438}
   m_Layer: 0
-  m_Name: HitBox
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -899,7 +875,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -958,7 +934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8947653914397844618
 Transform:
   m_ObjectHideFlags: 0
