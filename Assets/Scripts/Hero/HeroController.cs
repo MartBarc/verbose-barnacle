@@ -19,7 +19,7 @@ public class HeroController : MonoBehaviour
     [SerializeField] public HeroHitbox hitbox;
     public bool canbeHurt = true;
     public bool canAttack = true;
-    private int attackDamage = 1;
+    public int attackDamage = 110;
     //private float shootDistance = 6f;
     private float attackDistance = 2f;
     
