@@ -136,6 +136,7 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator playerDied()
     {
+        Debug.Log("Player died");
         animator.SetTrigger("PlayerDieTrig");
 
         yield return new WaitForSecondsRealtime(5f);

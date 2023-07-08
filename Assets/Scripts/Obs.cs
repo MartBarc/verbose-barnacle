@@ -8,18 +8,22 @@ public class Obs : MonoBehaviour
 
     public int health = 100;
 
+    [SerializeField] public int insuranceValue = 0;
+
     //public GameObject obstacle;
 
     public void TriggerDestroy()
     {
         priority = 0;
 
+        this.gameObject.GetComponent<Rigidbody2D>().drag = 0f;
+        this.gameObject.GetComponent<Rigidbody2D>().mass = 4f;
+
         StartCoroutine(obsDestroyed());
     }
 
     public void TakeHit(int help)
     {
-        Debug.Log("Hero did damage");
         health -= help;
 
         if (health <= 0)
@@ -30,8 +34,7 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
-        Debug.Log("Hero destroyed obs");
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2f);
 
         //Spawn destruction
 

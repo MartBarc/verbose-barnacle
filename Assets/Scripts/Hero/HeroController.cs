@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-using UnityEditor.Tilemaps;
 
 public class HeroController : MonoBehaviour
 {
@@ -70,7 +69,15 @@ public class HeroController : MonoBehaviour
     {
         if (isAlive)
         {
-            RecalcTargets();
+            if (player != null)
+            {
+                RecalcTargets();
+            }
+            else
+            {
+                // Player dead
+
+            }
 
             // Attack object?
             if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
@@ -101,7 +108,6 @@ public class HeroController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Obs>() != null)
         {
-            Debug.Log("Adding new OBS");
             AddNewObs(other.gameObject.GetComponent<Obs>());
         }
     }
@@ -148,9 +154,13 @@ public class HeroController : MonoBehaviour
         // Calc distance to player and adjust his value
         if (player != null)
         {
-            playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 2;
+            playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 5;
         }
-        
+        else
+        {
+            Debug.Log("Player dead!!!");
+            return;
+        }
 
         obsList[0].priority = playerPriority;
 
