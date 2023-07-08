@@ -22,7 +22,7 @@ public class MeleHitboxEnemy : MonoBehaviour
         {
             
             collision.gameObject.GetComponent<Obs>().TakeHit(damage);
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * knockBack);
+            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * knockBack);
         }
     }
 }

@@ -37,7 +37,7 @@ public class Attacking : MonoBehaviour
             }
         }
 
-        if ((Input.GetButtonDown("Fire1") || Input.GetMouseButton(0)) && !fireRateWaitBool)// && ShootingEnabled)
+        if (Input.GetKey(KeyCode.Space) && !fireRateWaitBool)// && ShootingEnabled)
         {
             firerate = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().firerate;
             fireRateWaitBool = true;

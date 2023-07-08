@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour
     public bool isGrounded = false; 
     public float jumpForce = 10f;
     public float gravity = 2f;
+    [SerializeField] public int insuranceValue = 0;
 
     Vector2 movement;
     Vector2 moveWeapon;
@@ -43,6 +44,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!isAlive)
         {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
             animator.SetFloat("Speed", 0); 
@@ -137,6 +139,7 @@ public class PlayerScript : MonoBehaviour
     IEnumerator playerDied()
     {
         Debug.Log("Player died");
+        GameObject.Find("GameManager").GetComponent<GameManagerScript>().ScoreSub(insuranceValue);
         animator.SetTrigger("PlayerDieTrig");
 
         yield return new WaitForSecondsRealtime(5f);

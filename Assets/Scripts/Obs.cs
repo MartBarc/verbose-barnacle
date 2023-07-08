@@ -16,8 +16,8 @@ public class Obs : MonoBehaviour
     {
         priority = 0;
 
-        this.gameObject.GetComponent<Rigidbody2D>().drag = 0f;
-        this.gameObject.GetComponent<Rigidbody2D>().mass = 4f;
+        //this.gameObject.GetComponent<Rigidbody2D>().drag = 0f;
+        //this.gameObject.GetComponent<Rigidbody2D>().mass = 4f;
 
         StartCoroutine(obsDestroyed());
     }
@@ -28,6 +28,7 @@ public class Obs : MonoBehaviour
 
         if (health <= 0)
         {
+            GameObject.Find("GameManager").GetComponent<GameManagerScript>().ScoreAdd(insuranceValue);
             if (this.gameObject.GetComponent<PlayerScript>())//dont destroy the player
             {
                 this.gameObject.GetComponent<PlayerScript>().TakeHit(help);
@@ -41,10 +42,12 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(0f);
 
         //Spawn destruction
 
         Destroy(this.gameObject);
+
+        //do blow up physics on delete
     }
 }

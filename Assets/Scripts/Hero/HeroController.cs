@@ -77,6 +77,11 @@ public class HeroController : MonoBehaviour
         }
         else
         {
+            if (stam <= 0)
+            {
+                isRoundOver = false;
+                EnemyAnimation.SetTrigger("EnemyDieTrig");
+            }
             RecalcTargets();
 
             
@@ -169,6 +174,10 @@ public class HeroController : MonoBehaviour
         if (player != null)
         {
             playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 5;
+            //if (playerPriority <= 35)
+            //{
+            //    playerPriority = 35;
+            //}
         }
         else
         {

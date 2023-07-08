@@ -11,7 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject player;
     public int roundScore;//money
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI totalDestroyedText;
+    //public TextMeshProUGUI totalDestroyedText;
     public TextMeshProUGUI timerText;
     public GameObject GameOverUI;
     public bool GameStarted;
@@ -34,6 +34,8 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] public InsuredObsHandler insuredObs;
 
+    
+
     ///// <summary>
     ///// Grid graph to update.
     ///// This will be set at Start based on <see cref="graphIndex"/>.
@@ -45,12 +47,19 @@ public class GameManagerScript : MonoBehaviour
 
     private void Start()
     {
-        roundScore = SharedInfo.Funds;
+
+        //load stuff here
+        roundScore = PlayerPrefs.GetInt("ScoreData");
+        if (roundScore <= 0)
+        {
+            roundScore = 100;
+        }
+
         GameStarted = false;
         currentTimeLeft = setupTime;
         player = GameObject.Find("Player");
         scoreText.text = "Score: " + roundScore;
-        totalDestroyedText.text = "Score: " + 0;
+        //totalDestroyedText.text = "Score: " + 0;
         timerText.text = "";
         GameOverUI.SetActive(false);
         //start counting down from 30sec when game starts, spawn hero after 30 seconds
@@ -77,8 +86,8 @@ public class GameManagerScript : MonoBehaviour
         if (GameStarted)
         {
             timerText.text = "";
-            int tempScore = roundScore + insuredObs.GetDestroyedInsurance();
-            totalDestroyedText.text = "Total: " + tempScore;
+            
+            //totalDestroyedText.text = "Total: " + tempScore;
 
             if (canCountStam)
             {
@@ -131,7 +140,7 @@ public class GameManagerScript : MonoBehaviour
             // Check player splattered
             if (player == null || !player.GetComponent<PlayerScript>().isAlive)
             {
-                roundScore -= 50;
+                //ScoreSub(int scoreDecrease)
                 StartCoroutine(roundOverRoutine());
                 return;
             }
@@ -201,9 +210,21 @@ public class GameManagerScript : MonoBehaviour
 
         SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
 
-        yield return new WaitForSecondsRealtime(4f);
+        yield return new WaitForSecondsRealtime(0f);
 
         GameOverUI.SetActive(true);
+
+        //save stuff here
+        PlayerPrefs.SetInt("ScoreData", roundScore);
+
+        if (roundScore <= 0)
+        {
+            //show player all their stats for the run
+
+            //delete stuff here
+            PlayerPrefs.DeleteAll();
+        }
+
     }
 
     IEnumerator restartRountRoutine()
@@ -211,5 +232,14 @@ public class GameManagerScript : MonoBehaviour
         GameOverUI.SetActive(false);
 
         yield return new WaitForSecondsRealtime(10f);
+    }
+
+    public void deleteData() 
+    {
+        //delete stuff here
+        PlayerPrefs.DeleteAll();
+
+        //debug
+        scoreText.text = "Score: " + roundScore;
     }
 }
