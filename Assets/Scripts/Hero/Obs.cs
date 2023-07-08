@@ -24,7 +24,14 @@ public class Obs : MonoBehaviour
 
         if (health <= 0)
         {
-            TriggerDestroy();
+            if (this.gameObject.GetComponent<PlayerScript>())//dont destroy the player
+            {
+                this.gameObject.GetComponent<PlayerScript>().TakeHit(help);
+            }
+            else 
+            { 
+                TriggerDestroy();
+            }
         }
     }
 

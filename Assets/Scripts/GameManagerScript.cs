@@ -93,6 +93,7 @@ public class GameManagerScript : MonoBehaviour
         }
         else 
         {
+            timerText.text = "";
             if (canCountStam)
             {
                 HeroStam -= 1 * Time.deltaTime;

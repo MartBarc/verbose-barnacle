@@ -2088,7 +2088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -266, y: -123}
+  m_AnchoredPosition: {x: -280, y: -80}
   m_SizeDelta: {x: 311.4657, y: 64.0475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699910494
@@ -3197,7 +3197,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 186, y: -57}
+  m_AnchoredPosition: {x: 180, y: -50}
   m_SizeDelta: {x: 311.4657, y: 64.0475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &933267105
@@ -4190,7 +4190,7 @@ MonoBehaviour:
   heroSpawnLocation: {fileID: 1444737785}
   HeroPrefab: {fileID: 3402274289338021390, guid: a52d0d0a740abaf47ad988ab6885f0bd, type: 3}
   HeroStamBar: {fileID: 302505640}
-  HeroStam: 100
+  HeroStam: 5
   StamText: {fileID: 1873522804}
   canCountStam: 1
   curHero: {fileID: 0}
