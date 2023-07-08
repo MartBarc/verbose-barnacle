@@ -12,12 +12,27 @@ public class Obs : MonoBehaviour
 
     public void TriggerDestroy()
     {
-        health = 0;
         priority = 0;
+
+        StartCoroutine(obsDestroyed());
     }
 
-    public void TriggerDamage(int help)
+    public void TakeHit(int help)
     {
         health -= help;
+
+        if (health <= 0)
+        {
+            TriggerDestroy();
+        }
+    }
+
+    IEnumerator obsDestroyed()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+
+        //Spawn destruction
+
+        Destroy(this.gameObject);
     }
 }
