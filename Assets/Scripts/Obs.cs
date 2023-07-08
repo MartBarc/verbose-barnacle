@@ -10,6 +10,8 @@ public class Obs : MonoBehaviour
 
     [SerializeField] public int insuranceValue = 0;
 
+    [SerializeField] public GameObject debriPrefab;
+
     //public GameObject obstacle;
 
     public void TriggerDestroy()
@@ -42,6 +44,7 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
+        Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
         yield return new WaitForSecondsRealtime(0f);
 
         //Spawn destruction
