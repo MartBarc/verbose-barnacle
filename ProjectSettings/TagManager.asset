@@ -9,6 +9,8 @@ TagManager:
   - Ground
   - Minion
   - Obs
+  - Hero
+  - Tower
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Minion
-  - 
+  - Tower
   - Map
   - 
   - 

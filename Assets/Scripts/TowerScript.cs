@@ -17,12 +17,15 @@ public class TowerScript : MonoBehaviour
     private bool purchased = true;
     public int towerid = -1;//1=villan speed, 2=hero slow
     public GameObject AoeImage;
-    public float newSpeed = 10f;
+    public bool abilityOn = false;
+    public float newPlayerSpeed = 10f;
+    public int newHeroSpeed = 2;
 
     private void Start()
     {
         buyText.SetText("Press E to purchase " + this.gameObject.name + " for $" + price + ".");
         buyText.gameObject.SetActive(false);
+        abilityOn = false;
         if (purchaseable)
         {
             purchased = false;
@@ -43,7 +46,7 @@ public class TowerScript : MonoBehaviour
 
     private void Update()
     {
-        if (GameObject.Find("Hero_peter(Clone)"))//change this to final hero name
+        if (GameObject.Find("Hero(Clone)"))//change this to final hero name
         {
             
         }
@@ -77,7 +80,11 @@ public class TowerScript : MonoBehaviour
                     myCollider.radius = defaultCollider;
                     AoeImage.SetActive(true);
                     buyText.SetText("");
-                    GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().moveSpeed = newSpeed;
+                    if (towerid == 1) 
+                    {
+                        towerxability(towerid); 
+                    }
+                    
                 }
             }
             else
@@ -91,34 +98,71 @@ public class TowerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (!purchased)
         {
-            if (purchased)
-            {
-                GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().moveSpeed = newSpeed;
-            }
-            else 
+            if (collision.gameObject.tag == "Player")
             {
                 buyText.gameObject.SetActive(true);
             }
-            
+            return;
+        }
+        if ((collision.gameObject.tag == "Player" && towerid == 1) || (collision.gameObject.tag == "Hero" && towerid == 2) && !abilityOn)
+        {
+            Debug.Log("Hero entered tower");
+            towerxability(towerid);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (!purchased)
         {
-            if (purchased)
-            {
-                GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().moveSpeed = GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().OGmoveSpeed;
-            }
-            else
+            if (collision.gameObject.tag == "Player") 
             {
                 buyText.gameObject.SetActive(false);
             }
-            
+            return;
+        }
+        if ((collision.gameObject.tag == "Player" && towerid == 1) || (collision.gameObject.tag == "Hero" && towerid == 2) && abilityOn)
+        {
+            Debug.Log("Hero left tower");
+            towerxability(towerid);
         }
     }
 
+    void towerxability(int id) 
+    {
+        if (abilityOn)
+        {
+            abilityOn = false;
+            if (id == 1)
+            {
+                GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().moveSpeed = GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().OGmoveSpeed;
+            }
+            if (id == 2)
+            {
+                GameObject.Find("Hero(Clone)").gameObject.GetComponent<HeroController>().setOGSpeed();
+            }
+            if (id == 3)
+            {
+
+            }
+        }
+        else 
+        {
+            abilityOn = true;
+            if (id == 1)
+            {
+                GameObject.Find("Player").gameObject.GetComponent<PlayerScript>().moveSpeed = newPlayerSpeed;
+            }
+            if (id == 2)
+            {
+                GameObject.Find("Hero(Clone)").gameObject.GetComponent<HeroController>().setNewSpeed(newHeroSpeed);
+            }
+            if (id == 3)
+            {
+
+            }
+        }
+    }
 }

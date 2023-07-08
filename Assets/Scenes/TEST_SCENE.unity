@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 119901358}
   - component: {fileID: 119901360}
   - component: {fileID: 119901359}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8739829413693421404, guid: 719cbf9222a436f4dbd882a6aca634f8, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8739829413693421404, guid: 719cbf9222a436f4dbd882a6aca634f8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 314021789}
   - component: {fileID: 314021791}
   - component: {fileID: 314021790}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1597,7 +1597,7 @@ MonoBehaviour:
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
-  showNavGraphs: 1
+  showNavGraphs: 0
   showUnwalkableNodes: 1
   debugMode: 0
   debugFloor: 0
@@ -1848,7 +1848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -155.73282, y: -54.99997}
+  m_AnchoredPosition: {x: -266, y: -123}
   m_SizeDelta: {x: 311.4657, y: 64.0475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699910494
@@ -2399,7 +2399,7 @@ GameObject:
   - component: {fileID: 824333664}
   - component: {fileID: 824333666}
   - component: {fileID: 824333665}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3629,7 +3629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186708264}
   - component: {fileID: 1186708265}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3975,7 +3975,7 @@ MonoBehaviour:
   timerText: {fileID: 699910494}
   GameOverUI: {fileID: 871896485}
   GameStarted: 0
-  setupTime: 4
+  setupTime: 6
   currentTimeLeft: 0
   heroSpawnLocation: {fileID: 1444737785}
   HeroPrefab: {fileID: 3402274289338021390, guid: a52d0d0a740abaf47ad988ab6885f0bd, type: 3}
@@ -4023,7 +4023,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481610275
 GameObject:
@@ -4415,7 +4415,7 @@ GameObject:
   - component: {fileID: 1695585798}
   - component: {fileID: 1695585797}
   - component: {fileID: 1695585796}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4530,7 +4530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1760117157}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4697,7 +4697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1918144923}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Firepos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4736,7 +4736,7 @@ GameObject:
   - component: {fileID: 2001322595}
   - component: {fileID: 2001322594}
   - component: {fileID: 2001322598}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4817,7 +4817,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -4976,7 +4976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1187c4b6d7da4b419f0d7b272939971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 100
   priority: 1
   health: 0
 --- !u!1 &2141200569

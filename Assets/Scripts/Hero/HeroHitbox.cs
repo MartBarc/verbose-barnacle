@@ -8,9 +8,9 @@ public class HeroHitbox : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Obs>() != null)
         {
-            Debug.Log($"{other.gameObject.name} found in player aggro range");
+            //Debug.Log($"{other.gameObject.name} found in player aggro range");
             //Destroy(other.gameObject);
-
+            Debug.Log($"{other.gameObject.name} found in player aggro range");
             other.gameObject.GetComponent<Obs>().TriggerDestroy();
         }
     }

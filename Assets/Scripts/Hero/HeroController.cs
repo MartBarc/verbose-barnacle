@@ -42,6 +42,8 @@ public class HeroController : MonoBehaviour
     public List<Obs> obsList;
     public int priorityIndex = 0;
     public int priorityValue = 0;
+    public int currentSpeed;
+    public int OGSpeed;
 
     // Animation
     public Animator EnemyAnimation;
@@ -57,6 +59,8 @@ public class HeroController : MonoBehaviour
         healthbar.SetHealth(hitPoints, maxHitPoints);
 
         StartCoroutine(WaitToAttack());
+        currentSpeed = (int)gameObject.GetComponent<AIPath>().maxSpeed;
+        OGSpeed = currentSpeed;
     }
 
 
@@ -238,5 +242,15 @@ public class HeroController : MonoBehaviour
         Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
         projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
+    }
+
+    public void setNewSpeed(int speed) 
+    {
+        gameObject.GetComponent<AIPath>().maxSpeed = speed;
+    }
+
+    public void setOGSpeed()
+    {
+        gameObject.GetComponent<AIPath>().maxSpeed = OGSpeed;
     }
 }

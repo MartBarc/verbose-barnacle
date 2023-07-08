@@ -80,9 +80,9 @@ public class MinionScript : MonoBehaviour
         }
 
         //debug
-        if (GameObject.Find("Hero_peter"))//change this to final hero name
+        if (GameObject.Find("Hero"))//change this to final hero name
         {
-            moveTo = GameObject.Find("Hero_peter").transform;//change this to final hero name
+            moveTo = GameObject.Find("Hero").transform;//change this to final hero name
         }
         else 
         {
@@ -96,9 +96,9 @@ public class MinionScript : MonoBehaviour
     public void Update()
     {
         this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        if (GameObject.Find("Hero_peter(Clone)"))//change this to final hero name
+        if (GameObject.Find("Hero(Clone)"))//change this to final hero name
         {
-            moveTo = GameObject.Find("Hero_peter(Clone)").transform;//change this to final hero name
+            moveTo = GameObject.Find("Hero(Clone)").transform;//change this to final hero name
         }
         else
         {
@@ -170,7 +170,7 @@ public class MinionScript : MonoBehaviour
                 {
                     isWalking = false;
                     EnemyAnimation.SetBool("isWalking", false);
-                    EnemyScript target = moveTo.gameObject.GetComponent<EnemyScript>();
+                    HeroController target = moveTo.gameObject.GetComponent<HeroController>();
                     if (canAttack)
                     {
                         canAttack = false;
@@ -267,7 +267,7 @@ public class MinionScript : MonoBehaviour
         canAttack = true;
     }
 
-    IEnumerator meleAttackCooldown(EnemyScript target)
+    IEnumerator meleAttackCooldown(HeroController target)
     {
         Debug.Log("Bat attack hero");
         yield return new WaitForSecondsRealtime(beforeAttackDelay);

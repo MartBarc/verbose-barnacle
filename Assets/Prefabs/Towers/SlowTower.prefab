@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6821507035462985588}
   - component: {fileID: 8007962978449771326}
   - component: {fileID: 7274871678964726905}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2619516688625871923}
   - component: {fileID: 2619516688625871922}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 2619516688859119441}
   - component: {fileID: 2619516688859119442}
   - component: {fileID: 2619516688859119443}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 2619516689335774325}
   - component: {fileID: 2619516689335774315}
   - component: {fileID: 2619516689335774324}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,9 +410,9 @@ GameObject:
   - component: {fileID: 2619516689336693109}
   - component: {fileID: 2619516689336693110}
   - component: {fileID: 7743251260128709269}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SlowTower
-  m_TagString: Minion
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,7 +434,7 @@ Transform:
   - {fileID: 7844897242015897500}
   - {fileID: 4253762861734997621}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2619516689336693109
 CircleCollider2D:
@@ -543,9 +543,12 @@ MonoBehaviour:
   isActive: 0
   buyText: {fileID: 2421842201835190344}
   price: 10
-  defaultCollider: 0.77
-  towerid: -1
+  defaultCollider: 10
+  towerid: 2
   AoeImage: {fileID: 6420037925025093522}
+  newPlayerSpeed: 10
+  abilityOn: 0
+  newHeroSpeed: 2
 --- !u!1 &2619516689408630532
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +560,7 @@ GameObject:
   - component: {fileID: 2619516689408630587}
   - component: {fileID: 2619516689408630585}
   - component: {fileID: 2619516689408630586}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2619516690016433903}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3766741436806252495}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Firepos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +704,7 @@ GameObject:
   - component: {fileID: 3079306341133374465}
   - component: {fileID: 4347024197280864121}
   - component: {fileID: 2421842201835190344}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BuyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -835,7 +838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4253762861734997621}
   - component: {fileID: 3638020324307746807}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: AoeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +902,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a8a212664661d5e479a4a9390ed8e39f, type: 3}
-  m_Color: {r: 0.36078432, g: 1, b: 0.36320752, a: 0.20392157}
+  m_Color: {r: 0.2971698, g: 0.4706328, b: 1, a: 0.20392157}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -921,7 +924,7 @@ GameObject:
   - component: {fileID: 6492974421261108583}
   - component: {fileID: 2581568910315131054}
   - component: {fileID: 140984526303674762}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
