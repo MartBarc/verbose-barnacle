@@ -551,17 +551,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4bad7335b79e8458d0f9330603e4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 100
   pathing: {fileID: 8334903768913298601}
   healthbar: {fileID: 6965254653632302710}
   hitPoints: 0
   isAlive: 1
+  hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1
   firepos: {fileID: 1865067820835090595}
   bulletForce: 10
   weaponRb: {fileID: 5543270977292285896}
-  projectilePrefab: {fileID: 0}
-  hitboxPrefab: {fileID: 0}
+  hitboxPrefab: {fileID: 875825041422809747, guid: c506907d3051b96439a3097d2ddfd393, type: 3}
   player: {fileID: 0}
   curTarget: {fileID: 0}
   obsList: []
@@ -811,7 +810,7 @@ GameObject:
   - component: {fileID: 2643604633915210482}
   - component: {fileID: 4306705253055723438}
   m_Layer: 0
-  m_Name: HitBox
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -941,6 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f69d25df0f594a891122b76fdd7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obsList: []
 --- !u!1 &4190700533145614168
 GameObject:
   m_ObjectHideFlags: 0

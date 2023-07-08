@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEditor.Tilemaps;
 
 public class HeroController : MonoBehaviour
 {
-    // Important parameters
-    public int id = -1;//301 = orc (EnemyMele), 302 = skele (EnemyRanged)
-
     // Movement
     [SerializeField] public AIPath pathing;
 
@@ -18,10 +16,12 @@ public class HeroController : MonoBehaviour
     public bool isAlive = true;
 
     //Combat
+    [SerializeField] public HeroHitbox hitbox;
     public bool canbeHurt = true;
+    public bool canAttack = true;
     private int attackDamage = 1;
-    private float shootDistance = 6f;
-    private float attackDistance = 1f;
+    //private float shootDistance = 6f;
+    private float attackDistance = 2f;
     
     private float attackDelay = 1f; //How long to wait before able to attack again
     private float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
@@ -33,7 +33,7 @@ public class HeroController : MonoBehaviour
 
     [SerializeField] public Rigidbody2D weaponRb;
 
-    [SerializeField] private BulletScriptEnemy projectilePrefab;
+    //[SerializeField] private BulletScriptEnemy projectilePrefab;
     [SerializeField] private MeleHitboxEnemy hitboxPrefab;
 
     // Targetting list
@@ -66,6 +66,28 @@ public class HeroController : MonoBehaviour
         if (isAlive)
         {
             RecalcTargets();
+
+            // Attack object?
+            if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
+            {
+                //isWalking = false;
+                //EnemyAnimation.SetBool("isWalking", false);
+                //PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
+                //if (canAttack)
+                //{
+                //    canAttack = false;
+                //foreach (Obs o in obsList)
+                //{
+                //    StartCoroutine(meleAttackCooldown());
+                //}
+
+                if (canAttack)
+                {
+                    canAttack = false;
+                    StartCoroutine(meleAttackCooldown());
+                }
+                //return;
+            }
         }
     }
 
@@ -79,9 +101,16 @@ public class HeroController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        //Debug.Log("Lost object");
         if (other.gameObject.GetComponent<Obs>() != null)
         {
-            //Debug.Log($"{other.gameObject.name} found outside in player aggro range");
+            for (int i = 0; i < obsList.Count; i++)
+            {
+                if (obsList[i] == null)
+                {
+                    obsList.RemoveAt(i);
+                }
+            }
         }
     }
 
@@ -89,6 +118,12 @@ public class HeroController : MonoBehaviour
     {
         for (int i = 0; i < obsList.Count; i++)
         {
+            if (obsList[i] == null)
+            {
+                obsList.RemoveAt(i);
+                continue;
+            }
+
             if (obsList[i].gameObject.GetInstanceID() == newObs.gameObject.GetInstanceID()) //already exists
             {
                 return;
@@ -137,10 +172,6 @@ public class HeroController : MonoBehaviour
                 isAlive = false;
                 //Destroy(gameObject);
                 EnemyAnimation.SetTrigger("EnemyDieTrig");
-                if (id == 301 || id == 302)  //301 = orc, 302 = skele
-                {
-                    Destroy(gameObject, 2f);
-                }
             }
         }
     }
@@ -161,36 +192,17 @@ public class HeroController : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
 
-    IEnumerator rangeAttackCooldown(PlayerScript player, Transform moveTo)
-    {
-        yield return new WaitForSecondsRealtime(beforeAttackDelay);
-        if (isAlive)
-        {
-            playAttackAnim();
-            if (id == 300)  //300 = frog, 301 = skele, 302 = orc, 303 = zombie, 304 = imp
-            {
-                GameObject.Find("Sounds/frogAttackNoise").GetComponent<AudioSource>().Play();
-            }
-            yield return new WaitForSecondsRealtime(beforeDamageDelay);
-            Shoot(moveTo);
-        }
-        yield return new WaitForSecondsRealtime(attackDelay);
-    }
-
-    IEnumerator meleAttackCooldown(PlayerScript player)
+    IEnumerator meleAttackCooldown()
     {
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (player != null)
         {
-            Vector2 targetposition = this.transform.position;
+            Vector2 targetposition = hitbox.transform.position;
             Vector2 lookDir = targetposition - weaponRb.position;
             float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             weaponRb.rotation = angle;
             playAttackAnim();
-            if (id == 300)  //300 = frog, 301 = skele, 302 = orc, 303 = zombie, 304 = imp
-            {
-                GameObject.Find("Sounds/frogAttackNoise").GetComponent<AudioSource>().Play();
-            }
+
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
             //maybe check if player is still in range of attack to deal damage?
             //or maybe turn into a melehitbox/bullet thing
@@ -198,6 +210,21 @@ public class HeroController : MonoBehaviour
             Swing(player.gameObject.transform);
         }
         yield return new WaitForSecondsRealtime(attackDelay);
+        canAttack = true;
+    }
+
+    public void Swing(Transform target)
+    {
+        //Vector2 targetposition = target.position;
+        Vector2 lookDir = hitbox.transform.position;//targetposition - weaponRb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        weaponRb.rotation = angle;
+
+        MeleHitboxEnemy projectile = Instantiate(hitboxPrefab, hitbox.transform.position, hitbox.transform.rotation);
+        projectile.damage = attackDamage;
+        Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+        projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
     }
 
     public void playAttackAnim()
@@ -210,33 +237,32 @@ public class HeroController : MonoBehaviour
         EnemyAnimation.SetTrigger("EnemyDieTrig");
     }
 
-    public void Shoot(Transform target)
-    {
-        BulletScriptEnemy projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
+    //IEnumerator rangeAttackCooldown(PlayerScript player, Transform moveTo)
+    //{
+    //    yield return new WaitForSecondsRealtime(beforeAttackDelay);
+    //    if (isAlive)
+    //    {
+    //        playAttackAnim();
 
-        Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    //        yield return new WaitForSecondsRealtime(beforeDamageDelay);
+    //        Shoot(moveTo);
+    //    }
+    //    yield return new WaitForSecondsRealtime(attackDelay);
+    //}
 
-        Vector3 dir = target.transform.position - transform.position;
-        dir = dir.normalized;
+    //public void Shoot(Transform target)
+    //{
+    //    BulletScriptEnemy projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        projectile.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); //
+    //    Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
-    }
+    //    Vector3 dir = target.transform.position - transform.position;
+    //    dir = dir.normalized;
 
-    public void Swing(Transform target)
-    {
-        Vector2 targetposition = target.position;
-        Vector2 lookDir = targetposition - weaponRb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        weaponRb.rotation = angle;
+    //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+    //    projectile.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); //
 
-        MeleHitboxEnemy projectile = Instantiate(hitboxPrefab, firepos.position, firepos.rotation);
-        projectile.damage = attackDamage;
-        Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-
-        projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
-    }
+    //    Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+    //    rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
+    //}
 }
