@@ -22,6 +22,10 @@ public class Attacking : MonoBehaviour
 
     void Update()
     {
+        if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameIsPaused)
+        {
+            return;
+        }
         if (!gameObject.GetComponent<PlayerScript>().isAlive)
         {
             return;
@@ -37,7 +41,7 @@ public class Attacking : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) && !fireRateWaitBool)// && ShootingEnabled)
+        if (Input.GetKeyDown(KeyCode.Space) && !fireRateWaitBool)// && ShootingEnabled)
         {
             firerate = this.gameObject.GetComponent<WeaponController>().currentWeapon.GetComponent<WeaponData>().firerate;
             fireRateWaitBool = true;

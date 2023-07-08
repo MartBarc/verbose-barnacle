@@ -14,6 +14,9 @@ public class GameManagerScript : MonoBehaviour
     //public TextMeshProUGUI totalDestroyedText;
     public TextMeshProUGUI timerText;
     public GameObject GameOverUI;
+    public GameObject RoundOverUI;
+    public GameObject WinUI;
+    public GameObject PauseUI;
     public bool GameStarted;
     public float setupTime = 30;
     public float currentTimeLeft;
@@ -23,6 +26,8 @@ public class GameManagerScript : MonoBehaviour
     //public float HeroStam;
     public TextMeshProUGUI StamText;
     public bool canCountStam = true;
+    public int ScoreToWin = 1000;
+    public bool GameIsPaused = false;
 
     public GameObject curHero;
     public bool canUpdate;
@@ -33,6 +38,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] float _interval = 1f;
 
     [SerializeField] public InsuredObsHandler insuredObs;
+    public int weWon = 0;
 
     
 
@@ -54,7 +60,9 @@ public class GameManagerScript : MonoBehaviour
         {
             roundScore = 100;
         }
+        weWon = PlayerPrefs.GetInt("WonData");
 
+        GameIsPaused = false;
         GameStarted = false;
         currentTimeLeft = setupTime;
         player = GameObject.Find("Player");
@@ -62,6 +70,9 @@ public class GameManagerScript : MonoBehaviour
         //totalDestroyedText.text = "Score: " + 0;
         timerText.text = "";
         GameOverUI.SetActive(false);
+        RoundOverUI.SetActive(false);
+        WinUI.SetActive(false);
+        PauseUI.SetActive(false);
         //start counting down from 30sec when game starts, spawn hero after 30 seconds
 
         _time = 0f;
@@ -83,6 +94,17 @@ public class GameManagerScript : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isRoundOverState)
+        {
+            if (GameIsPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
         if (GameStarted)
         {
             timerText.text = "";
@@ -133,7 +155,25 @@ public class GameManagerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (isRoundOverState) return;
+
+        if (roundScore <= 0)
+        {
+            StartCoroutine(roundOverRoutine());
+        }
+        if (roundScore >= ScoreToWin && weWon == 0)
+        {
+            Debug.Log("wow you won uwu");
+            //pause and pull up window saying you won, would you like to continue? and dont ask this ever again, 
+            //change round over window to ask if they also would like to start from scratch
+            weWon = 1;
+            PlayerPrefs.SetInt("WonData", weWon);
+            //pause game here
+            GameIsPaused = true;
+            WinUI.SetActive(true);
+            Time.timeScale = 0f;//pause
+        }
 
         if (GameStarted)
         {
@@ -184,11 +224,17 @@ public class GameManagerScript : MonoBehaviour
     {
         roundScore += scoreIncrease;
         scoreText.text = "Score: " + roundScore;
+        //if above 1000, you win
+        //bring up window that asks if you want to keep going for highscore
     }
 
     public void ScoreSub(int scoreDecrease)
     {
         roundScore -= scoreDecrease;
+        if (roundScore <= 0)
+        {
+            roundScore = 0;
+        }
         scoreText.text = "Score: " + roundScore;
     }
 
@@ -204,36 +250,42 @@ public class GameManagerScript : MonoBehaviour
 
     IEnumerator roundOverRoutine()
     {
-        //GameOverUI.SetActive(true);
+        player.GetComponent<PlayerScript>().isAlive = false;//not actually dead, just want to stop movement
         isRoundOverState = true;
-        curHero.GetComponent<HeroController>().isRoundOver = true;
+        if (curHero != null)
+        {
+            curHero.GetComponent<HeroController>().isRoundOver = true;
+        }
+        
 
         SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
 
         yield return new WaitForSecondsRealtime(0f);
 
-        GameOverUI.SetActive(true);
 
-        //save stuff here
-        PlayerPrefs.SetInt("ScoreData", roundScore);
 
         if (roundScore <= 0)
         {
+            roundScore = 0;
+
             //show player all their stats for the run
+            GameOverUI.SetActive(true);
 
             //delete stuff here
             PlayerPrefs.DeleteAll();
         }
+        else 
+        {
+            
+            RoundOverUI.SetActive(true);
+            
+        }
 
+        //save stuff here
+        PlayerPrefs.SetInt("ScoreData", roundScore);
     }
 
-    IEnumerator restartRountRoutine()
-    {
-        GameOverUI.SetActive(false);
-
-        yield return new WaitForSecondsRealtime(10f);
-    }
-
+    
     public void deleteData() 
     {
         //delete stuff here
@@ -241,5 +293,41 @@ public class GameManagerScript : MonoBehaviour
 
         //debug
         scoreText.text = "Score: " + roundScore;
+    }
+
+    public void AddData()
+    {
+        roundScore = roundScore + 100;
+        //save stuff here
+        PlayerPrefs.SetInt("ScoreData", roundScore);
+
+        //debug
+        scoreText.text = "Score: " + roundScore;
+    }
+
+    public void SubData()
+    {
+        roundScore = roundScore - 100;
+        //save stuff here
+        PlayerPrefs.SetInt("ScoreData", roundScore);
+
+        //debug
+        scoreText.text = "Score: " + roundScore;
+    }
+
+    public void ResumeGame() 
+    {
+        GameIsPaused = false;
+        WinUI.SetActive(false);
+        PauseUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void PauseGame()
+    {
+        GameIsPaused = true;
+        PauseUI.SetActive(true);
+        Time.timeScale = 0f;
+
     }
 }
