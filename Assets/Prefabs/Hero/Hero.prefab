@@ -507,7 +507,6 @@ GameObject:
   - component: {fileID: 5428331571641410952}
   - component: {fileID: 5379991397529421395}
   - component: {fileID: 6688963239604149443}
-  - component: {fileID: 2545390836775030239}
   - component: {fileID: 8334903768913298601}
   - component: {fileID: 619688551704650793}
   - component: {fileID: 7362143332672073826}
@@ -557,11 +556,13 @@ MonoBehaviour:
   isAlive: 1
   hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1
+  canAttack: 1
   firepos: {fileID: 1865067820835090595}
   bulletForce: 10
   weaponRb: {fileID: 5543270977292285896}
   hitboxPrefab: {fileID: 875825041422809747, guid: c506907d3051b96439a3097d2ddfd393, type: 3}
   player: {fileID: 0}
+  playerPriority: 0
   curTarget: {fileID: 0}
   obsList: []
   priorityIndex: 0
@@ -595,33 +596,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &2545390836775030239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3402274289338021390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radiusBackingField: 0.2
-  heightBackingField: 1
-  centerBackingField: 0
-  locked: 0
-  lockWhenNotMoving: 0
-  agentTimeHorizon: 0.6
-  obstacleTimeHorizon: 0.2
-  maxNeighbours: 10
-  layer: 1
-  collidesWith: -1
-  wallAvoidForce: 1
-  wallAvoidFalloff: 1
-  priority: 0.5
-  debug: 1
 --- !u!114 &8334903768913298601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,7 +914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f69d25df0f594a891122b76fdd7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obsList: []
 --- !u!1 &4190700533145614168
 GameObject:
   m_ObjectHideFlags: 0

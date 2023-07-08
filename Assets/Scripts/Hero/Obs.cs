@@ -19,6 +19,7 @@ public class Obs : MonoBehaviour
 
     public void TakeHit(int help)
     {
+        Debug.Log("Hero did damage");
         health -= help;
 
         if (health <= 0)
@@ -29,6 +30,7 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
+        Debug.Log("Hero destroyed obs");
         yield return new WaitForSecondsRealtime(1f);
 
         //Spawn destruction

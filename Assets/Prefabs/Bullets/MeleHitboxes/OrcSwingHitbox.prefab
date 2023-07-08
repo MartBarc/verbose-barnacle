@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5101096984527788800}
   - component: {fileID: 7850538191881275292}
   - component: {fileID: 875825041422809747}
+  - component: {fileID: 6445956041249406286}
   m_Layer: 0
   m_Name: OrcSwingHitbox
   m_TagString: Untagged
@@ -97,6 +98,25 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -118,6 +138,7 @@ PolygonCollider2D:
       - {x: -0.24317831, y: -0.48738396}
       - {x: 0.3120998, y: -0.48738384}
       - {x: 0.6064496, y: 0.03333181}
+  m_UseDelaunayMesh: 0
 --- !u!114 &875825041422809747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,9 +152,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 0}
-  damage: 1
-  knockBack: 0
+  damage: 110
+  knockBack: 5
   selfDestroyTime: 0.3
+--- !u!50 &6445956041249406286
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776474788108782536}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6839580884866868277
 GameObject:
   m_ObjectHideFlags: 0

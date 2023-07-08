@@ -38,6 +38,7 @@ public class HeroController : MonoBehaviour
 
     // Targetting list
     [SerializeField] public GameObject player;
+    public int playerPriority = 0;
     [SerializeField] public TargetPoint curTarget;
     public List<Obs> obsList;
     public int priorityIndex = 0;
@@ -137,6 +138,11 @@ public class HeroController : MonoBehaviour
     public void RecalcTargets()
     {
         priorityValue = 0;
+
+        // Calc distance to player and adjust his value
+        playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 2;
+
+        obsList[0].priority = playerPriority;
 
         for (int i = 0; i < obsList.Count; i++)
         {
