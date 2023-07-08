@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6e717bd005c3df34fb624c36ebb14075
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Pixeletter
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b244c4edcac36f448a4f061eca37d078, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

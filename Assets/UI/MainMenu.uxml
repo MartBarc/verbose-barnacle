@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:Label tabindex="-1" text="DUNGEON INSURANCE" display-tooltip-when-elided="true" style="left: 25%; top: 10%; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&amp;guid=d88689c742bf0914498cf69cfbf2b9f5&amp;type=3#Funstella&apos;); -unity-font-definition: initial; font-size: 66px; position: absolute; width: 50%; height: 15%; -unity-text-align: upper-center; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 2px;" />
+        <ui:Button text="NEW GAME" display-tooltip-when-elided="true" style="position: absolute; width: 40%; height: 15%; top: 30%; left: 30%; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 0; font-size: 40px; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&amp;guid=d88689c742bf0914498cf69cfbf2b9f5&amp;type=3#Funstella&apos;); -unity-font-definition: initial;" />
+    </ui:VisualElement>
+</ui:UXML>
