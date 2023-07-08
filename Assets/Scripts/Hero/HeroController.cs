@@ -38,7 +38,7 @@ public class HeroController : MonoBehaviour
 
     // Targetting list
     [SerializeField] public GameObject player;
-    [SerializeField] TargetPoint curTarget;
+    [SerializeField] public TargetPoint curTarget;
     public List<Obs> obsList;
     public int priorityIndex = 0;
     public int priorityValue = 0;
@@ -50,12 +50,15 @@ public class HeroController : MonoBehaviour
     void Start()
     {
         obsList = new List<Obs> { player.GetComponent<Obs>() };
+        //player = GameObject.Find("Player").gameObject;
+        //curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
 
         hitPoints = maxHitPoints;
         healthbar.SetHealth(hitPoints, maxHitPoints);
 
         StartCoroutine(WaitToAttack());
     }
+
 
     // Update is called once per frame
     void Update()
@@ -78,7 +81,7 @@ public class HeroController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Obs>() != null)
         {
-            Debug.Log($"{other.gameObject.name} found outside in player aggro range");
+            //Debug.Log($"{other.gameObject.name} found outside in player aggro range");
         }
     }
 
@@ -92,7 +95,7 @@ public class HeroController : MonoBehaviour
             }
         }
 
-        Debug.Log($"{newObs.gameObject.name} found in player aggro range");
+        //Debug.Log($"{newObs.gameObject.name} found in player aggro range");
         obsList.Add(newObs);
     }
 

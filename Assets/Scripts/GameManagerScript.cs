@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Pathfinding;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -39,7 +40,10 @@ public class GameManagerScript : MonoBehaviour
                 currentTimeLeft = 0;
                 GameStarted = true;
                 timerText.text = "";
-                //GameObject bullet = Instantiate(HeroPrefab, heroSpawnLocation.transform.position, heroSpawnLocation.transform.rotation);//add this later
+                GameObject bullet = Instantiate(HeroPrefab, heroSpawnLocation.transform.position, heroSpawnLocation.transform.rotation);//add this later
+                bullet.GetComponent<HeroController>().player = player;
+                bullet.GetComponent<HeroController>().curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
+                bullet.GetComponent<AIDestinationSetter>().target = GameObject.Find("HeroTarget").gameObject.transform;
             }
             int newCurrentTime = (int)currentTimeLeft;
             timerText.text = newCurrentTime.ToString();
