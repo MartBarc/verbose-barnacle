@@ -2,72 +2,81 @@
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     font-size: 40px;
-    -unity-font: url('project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&guid=d88689c742bf0914498cf69cfbf2b9f5&type=3#Funstella');
+    -unity-font: url('project://database/Assets/UI/Fonts/Diamonaire.ttf?fileID=12800000&guid=6c1636310b2f3cf44a8310ade9a2fa2d&type=3#Diamonaire');
     -unity-font-definition: initial;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 10px;
     border-bottom-width: 10px;
-    background-color: rgb(200, 200, 200);
+    background-color: rgba(200, 200, 200, 0);
     width: 50%;
     height: 15%;
     position: absolute;
     left: 25%;
+    background-image: url('project://database/Assets/Sprites/UI/UI_Paper_Button_Large_Lock_02a1.png?fileID=2800000&guid=2147a7e9a1c607845abdac6ea581c695&type=3#UI_Paper_Button_Large_Lock_02a1');
 }
 
 .button:hover {
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     font-size: 40px;
-    -unity-font: url('project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&guid=d88689c742bf0914498cf69cfbf2b9f5&type=3#Funstella');
+    -unity-font: url('project://database/Assets/UI/Fonts/Diamonaire.ttf?fileID=12800000&guid=6c1636310b2f3cf44a8310ade9a2fa2d&type=3#Diamonaire');
     -unity-font-definition: initial;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 10px;
     border-bottom-width: 10px;
-    background-color: rgb(159, 145, 145);
+    background-color: rgba(200, 200, 200, 0);
+    width: 50%;
+    height: 15%;
+    position: absolute;
+    left: 25%;
+    background-image: url('project://database/Assets/Sprites/UI/UI_Paper_Button_Large_Lock_02a1.png?fileID=2800000&guid=2147a7e9a1c607845abdac6ea581c695&type=3#UI_Paper_Button_Large_Lock_02a1');
+    -unity-background-image-tint-color: rgb(214, 195, 195);
 }
 
 .button:active {
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     font-size: 40px;
-    -unity-font: url('project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&guid=d88689c742bf0914498cf69cfbf2b9f5&type=3#Funstella');
+    -unity-font: url('project://database/Assets/UI/Fonts/Diamonaire.ttf?fileID=12800000&guid=6c1636310b2f3cf44a8310ade9a2fa2d&type=3#Diamonaire');
     -unity-font-definition: initial;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 10px;
     border-bottom-width: 10px;
-    background-color: rgb(159, 145, 145);
+    background-color: rgba(200, 200, 200, 0);
+    width: 50%;
+    height: 15%;
+    position: absolute;
+    left: 25%;
+    background-image: url('project://database/Assets/Sprites/UI/UI_Paper_Button_Large_Lock_02a1.png?fileID=2800000&guid=2147a7e9a1c607845abdac6ea581c695&type=3#UI_Paper_Button_Large_Lock_02a1');
+    -unity-background-image-tint-color: rgb(101, 89, 89);
 }
 
-.level-selectors {
-    top: 20%;
-    width: 25%;
-    height: 50%;
-    left: 5%;
+.toggles {
 }
