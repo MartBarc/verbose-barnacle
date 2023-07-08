@@ -1,0 +1,80 @@
+VisualElement {
+}
+
+.button {
+    position: absolute;
+    width: 40%;
+    height: 15%;
+    top: 30%;
+    left: 30%;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    font-size: 40px;
+    -unity-font: url('project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&guid=d88689c742bf0914498cf69cfbf2b9f5&type=3#Funstella');
+    -unity-font-definition: initial;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    background-color: rgb(200, 200, 200);
+}
+
+.button:hover {
+    position: absolute;
+    width: 40%;
+    height: 15%;
+    top: 30%;
+    left: 30%;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    font-size: 40px;
+    -unity-font: url('project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&guid=d88689c742bf0914498cf69cfbf2b9f5&type=3#Funstella');
+    -unity-font-definition: initial;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    background-color: rgb(159, 145, 145);
+}
+
+.button:active {
+    position: absolute;
+    width: 40%;
+    height: 15%;
+    top: 30%;
+    left: 30%;
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 0;
+    font-size: 40px;
+    -unity-font: url('project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&guid=d88689c742bf0914498cf69cfbf2b9f5&type=3#Funstella');
+    -unity-font-definition: initial;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    background-color: rgb(159, 145, 145);
+}
