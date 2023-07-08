@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=40df8cb341d308f41827425ce3cb80d3&amp;type=3#StyleSheet" />
-    <ui:VisualElement name="title-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex; background-image: url(&apos;project://database/Assets/Sprites/colored_castle.png?fileID=2800000&amp;guid=df8514c49f3643842aa4c0f303108c2e&amp;type=3#colored_castle&apos;); -unity-background-scale-mode: scale-and-crop;">
+    <ui:VisualElement name="title-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex; background-image: url(&apos;project://database/Assets/Sprites/colored_castle.png?fileID=2800000&amp;guid=df8514c49f3643842aa4c0f303108c2e&amp;type=3#colored_castle&apos;); -unity-background-scale-mode: scale-and-crop; -unity-background-image-tint-color: rgb(70, 70, 70);">
         <ui:Label tabindex="-1" text="DUNGEON INSURANCE" display-tooltip-when-elided="true" name="title" style="left: 25%; top: 15%; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Diamonaire.ttf?fileID=12800000&amp;guid=6c1636310b2f3cf44a8310ade9a2fa2d&amp;type=3#Diamonaire&apos;); -unity-font-definition: initial; font-size: 100px; position: absolute; width: 50%; height: 15%; -unity-text-align: middle-center; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 2px;" />
         <ui:Button text="NEW GAME" display-tooltip-when-elided="true" name="new-game" class="button" style="top: 40%; position: relative;" />
-        <ui:Button text="CONTINUE" display-tooltip-when-elided="true" name="continue" class="button" style="top: 40%; position: relative;" />
-        <ui:Button text="OPTIONS" display-tooltip-when-elided="true" name="options" class="button" style="top: 40%; position: relative;" />
+        <ui:Button text="CONTINUE" display-tooltip-when-elided="true" name="continue" class="button disabled" style="top: 40%; position: relative;" />
+        <ui:Button text="OPTIONS" display-tooltip-when-elided="true" name="options" class="button disabled" style="top: 40%; position: relative;" />
     </ui:VisualElement>
-    <ui:VisualElement name="options-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; left: 0; width: 100%; height: 100%;">
-        <ui:Toggle label="&#10;" name="audio-toggle" class="toggles" style="top: 50%; background-image: url(&apos;project://database/Assets/Sprites/UI/UI_Paper_Button_Large_Lock_02a1.png?fileID=2800000&amp;guid=2147a7e9a1c607845abdac6ea581c695&amp;type=3#UI_Paper_Button_Large_Lock_02a1&apos;); width: 40%; height: 20%; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Diamonaire.ttf?fileID=12800000&amp;guid=6c1636310b2f3cf44a8310ade9a2fa2d&amp;type=3#Diamonaire&apos;); -unity-font-definition: initial; font-size: 40px;" />
-        <ui:Toggle label="Music" name="music-toggle" value="false" class="toggles" />
-    </ui:VisualElement>
+    <ui:GroupBox name="options-container" style="position: absolute; width: 100%; height: 100%; display: none;">
+        <ui:Toggle name="audio-toggle" text="AUDIO" />
+        <ui:Toggle name="music-toggle" text="MUSIC" value="false" />
+    </ui:GroupBox>
 </ui:UXML>
