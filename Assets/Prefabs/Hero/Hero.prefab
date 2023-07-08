@@ -557,6 +557,7 @@ MonoBehaviour:
   hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1
   canAttack: 1
+  attackDamage: 110
   firepos: {fileID: 1865067820835090595}
   bulletForce: 10
   weaponRb: {fileID: 5543270977292285896}
@@ -733,7 +734,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

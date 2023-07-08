@@ -100,6 +100,7 @@ public class HeroController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Obs>() != null)
         {
+            Debug.Log("Adding new OBS");
             AddNewObs(other.gameObject.GetComponent<Obs>());
         }
     }
