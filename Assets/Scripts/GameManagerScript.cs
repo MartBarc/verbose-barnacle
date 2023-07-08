@@ -39,7 +39,7 @@ public class GameManagerScript : MonoBehaviour
                 currentTimeLeft = 0;
                 GameStarted = true;
                 timerText.text = "";
-                GameObject bullet = Instantiate(HeroPrefab, heroSpawnLocation.transform.position, heroSpawnLocation.transform.rotation);
+                //GameObject bullet = Instantiate(HeroPrefab, heroSpawnLocation.transform.position, heroSpawnLocation.transform.rotation);//add this later
             }
             int newCurrentTime = (int)currentTimeLeft;
             timerText.text = newCurrentTime.ToString();
