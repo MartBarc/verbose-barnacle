@@ -86,7 +86,7 @@ public class HeroController : MonoBehaviour
     {
         for (int i = 0; i < obsList.Count; i++)
         {
-            if (obsList[i].id == newObs.id)
+            if (obsList[i].gameObject.GetInstanceID() == newObs.gameObject.GetInstanceID()) //already exists
             {
                 return;
             }
