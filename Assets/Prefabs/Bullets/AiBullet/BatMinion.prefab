@@ -446,7 +446,7 @@ MonoBehaviour:
   shootDistance: 6
   canbeHurt: 1
   isTower: 0
-  attackDistance: 1
+  attackDistance: 2
   canAttack: 1
   moveTo: {fileID: 0}
   waitToSpawn: 1

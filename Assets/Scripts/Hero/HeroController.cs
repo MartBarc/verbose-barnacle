@@ -156,7 +156,11 @@ public class HeroController : MonoBehaviour
             priorityIndex = 0;
         }
 
-        curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
+        if (curTarget != null)
+        {
+            curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
+        }
+        
     }
 
     public void TakeHit(float damage)

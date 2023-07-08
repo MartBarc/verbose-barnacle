@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pathfinding;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class GameManagerScript : MonoBehaviour
     public float currentTimeLeft;
     public GameObject heroSpawnLocation;
     public GameObject HeroPrefab;
+    public Slider HeroStamBar;
+    public float HeroStam;
+    public TextMeshProUGUI StamText;
+    public bool canCountStam = true;
 
     private void Start()
     {
@@ -27,7 +32,11 @@ public class GameManagerScript : MonoBehaviour
         timerText.text = "";
         GameOverUI.SetActive(false);
         //start counting down from 30sec when game starts, spawn hero after 30 seconds
-
+        //HeroStam = 100;
+        HeroStamBar.value = HeroStam;
+        HeroStamBar.maxValue = HeroStam;
+        StamText.text = "";
+        
     }
 
     private void Update()
@@ -47,6 +56,21 @@ public class GameManagerScript : MonoBehaviour
             }
             int newCurrentTime = (int)currentTimeLeft;
             timerText.text = newCurrentTime.ToString();
+        }
+        else 
+        {
+            if (canCountStam)
+            {
+                HeroStam -= 1 * Time.deltaTime;
+            }
+            //HeroStam -= 1 * Time.deltaTime;
+            if (HeroStam < 0)
+            {
+                HeroStam = 0;
+            }
+            int newHeroStam = (int)HeroStam;
+            HeroStamBar.value = newHeroStam;
+            StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
         }
     }
 
@@ -89,5 +113,17 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    
+    public void reduceHeroStam(int value)
+    {
+        HeroStam = HeroStam - value;
+        if (HeroStam < 0)
+        {
+            HeroStam = 0;
+        }
+        int newHeroStam = (int)HeroStam;
+        HeroStamBar.value = newHeroStam;
+        StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
+    }
+
+
 }

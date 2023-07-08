@@ -285,8 +285,11 @@ public class MinionScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
             //maybe check if player is still in range of attack to deal damage?
             //or maybe turn into a melehitbox/bullet thing
-            target.TakeHit(attackDamage);//testing above comments, bring this back if not working
+            //target.TakeHit(attackDamage);//testing above comments, bring this back if not working
             //Swing(player.gameObject.transform);
+
+            GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().reduceHeroStam((int)attackDamage);
+
         }
         yield return new WaitForSecondsRealtime(attackDelay);
         canAttack = true;

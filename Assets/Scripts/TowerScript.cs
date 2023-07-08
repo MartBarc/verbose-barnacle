@@ -106,7 +106,7 @@ public class TowerScript : MonoBehaviour
             }
             return;
         }
-        if ((collision.gameObject.tag == "Player" && towerid == 1) || (collision.gameObject.tag == "Hero" && towerid == 2) && !abilityOn)
+        if ((collision.gameObject.tag == "Player" && towerid == 1) || (collision.gameObject.tag == "Hero" && towerid == 2) || (collision.gameObject.tag == "Hero" && towerid == 3) && !abilityOn)
         {
             Debug.Log("Hero entered tower");
             towerxability(towerid);
@@ -123,7 +123,7 @@ public class TowerScript : MonoBehaviour
             }
             return;
         }
-        if ((collision.gameObject.tag == "Player" && towerid == 1) || (collision.gameObject.tag == "Hero" && towerid == 2) && abilityOn)
+        if ((collision.gameObject.tag == "Player" && towerid == 1) || (collision.gameObject.tag == "Hero" && towerid == 2) || (collision.gameObject.tag == "Hero" && towerid == 3) && abilityOn)
         {
             Debug.Log("Hero left tower");
             towerxability(towerid);
@@ -145,7 +145,7 @@ public class TowerScript : MonoBehaviour
             }
             if (id == 3)
             {
-
+                GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().canCountStam = true;
             }
         }
         else 
@@ -161,7 +161,7 @@ public class TowerScript : MonoBehaviour
             }
             if (id == 3)
             {
-
+                GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().canCountStam = false;
             }
         }
     }
