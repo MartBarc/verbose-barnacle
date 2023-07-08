@@ -18,6 +18,11 @@ public class Obs : MonoBehaviour
     public CircleCollider2D normalColliderTower;
     public BoxCollider2D normalColliderObs;
 
+    // Dustruction
+    [SerializeField] public GameObject debriPrefab;
+    [SerializeField] public float rightMod = 0;
+    [SerializeField] public float upMod = 0;
+
     private void Start()
     {
         if (gameObject.tag == "Enemy")//Bat is only obs or minion with tag "Enemy"
@@ -88,6 +93,7 @@ public class Obs : MonoBehaviour
             
         }
     }
+    
 
     public void TriggerDestroy()
     {
@@ -119,14 +125,21 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
-        Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
-        yield return new WaitForSecondsRealtime(0f);
+        if (debriPrefab != null) 
+        {
+            GameObject spawnedDebris = Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
+        }
+       
+        //spawnedDebris.GetComponent<DebrisScript>().ModDir(rightMod, upMod);
+
+        //yield return new WaitForSecondsRealtime(0f);
 
         //Spawn destruction
 
         Destroy(this.gameObject);
 
         //do blow up physics on delete
+        yield return new WaitForSecondsRealtime(0f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
