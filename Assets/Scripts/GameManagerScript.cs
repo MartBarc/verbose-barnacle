@@ -26,6 +26,8 @@ public class GameManagerScript : MonoBehaviour
     public GameObject curHero;
     public bool canUpdate;
 
+    public bool isRoundOverState = false;
+
     float _time;
     [SerializeField] float _interval = 1f;
 
@@ -89,18 +91,6 @@ public class GameManagerScript : MonoBehaviour
         else 
         {
             timerText.text = "";
-            //Check player dead
-            if (player == null)
-            {
-                SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
-            }
-
-            //Check if hero dead
-            if (curHero == null)
-            {
-                SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
-            }
-
 
             if (canCountStam)
             {
@@ -125,21 +115,29 @@ public class GameManagerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player == null)
+        if (GameStarted)
         {
-            return;
-        }
-        if (!player.GetComponent<PlayerScript>().isAlive)
-        {
-            //Debug.Log("player dead ahahahahaha");
-            GameOverUI.SetActive(true);
-        }
-        if (roundScore <= 0)
-        {
-            //no money = bad
-        }
+            // Check player stamina zero
+            if (player == null || HeroStam <= 0f)
+            {
+                StartCoroutine(roundOverRoutine());
+                return;
+            }
 
-        //AstarPath.active.Scan();
+            // Check if hero dead
+            if (curHero == null || !player.GetComponent<PlayerScript>().isAlive)
+            {
+                StartCoroutine(roundOverRoutine());
+                return;
+            }
+
+            // If all objects destroyed
+            if (insuredObs.obsList.Count <= 0)
+            {
+                StartCoroutine(roundOverRoutine());
+                return;
+            }
+        }
     }
 
     IEnumerator updateScan()
@@ -175,7 +173,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void newGameBtn() 
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("TEST_SCENE");
     }
 
     public void QuitGameBtn()
@@ -195,5 +193,20 @@ public class GameManagerScript : MonoBehaviour
         StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
     }
 
+    IEnumerator roundOverRoutine()
+    {
+        //GameOverUI.SetActive(true);
+        SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
 
+        yield return new WaitForSecondsRealtime(4f);
+
+        GameOverUI.SetActive(true);
+    }
+
+    IEnumerator restartRountRoutine()
+    {
+        GameOverUI.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(10f);
+    }
 }

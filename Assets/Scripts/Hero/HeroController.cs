@@ -69,30 +69,15 @@ public class HeroController : MonoBehaviour
     {
         if (isAlive)
         {
-            if (player != null)
-            {
-                RecalcTargets();
-            }
-            else
-            {
-                // Player dead
-
-            }
+            //if (player != null)
+            //{
+                
+            //}
+            RecalcTargets();
 
             // Attack object?
             if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
             {
-                //isWalking = false;
-                //EnemyAnimation.SetBool("isWalking", false);
-                //PlayerScript player = moveTo.gameObject.GetComponent<PlayerScript>();
-                //if (canAttack)
-                //{
-                //    canAttack = false;
-                //foreach (Obs o in obsList)
-                //{
-                //    StartCoroutine(meleAttackCooldown());
-                //}
-
                 if (canAttack)
                 {
                     canAttack = false;

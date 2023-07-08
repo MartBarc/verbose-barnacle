@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InsuredObsHandler : MonoBehaviour
 {
-    [SerializeField] List<Obs> obsList;
+    [SerializeField] public List<Obs> obsList;
     public int totalStartingInsuranceValue;
 
     public void Start()
