@@ -1,12 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=40df8cb341d308f41827425ce3cb80d3&amp;type=3#StyleSheet" />
-    <ui:VisualElement name="title-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-        <ui:Label tabindex="-1" text="DUNGEON INSURANCE" display-tooltip-when-elided="true" name="title" style="left: 25%; top: 25%; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&amp;guid=d88689c742bf0914498cf69cfbf2b9f5&amp;type=3#Funstella&apos;); -unity-font-definition: initial; font-size: 66px; position: absolute; width: 50%; height: 15%; -unity-text-align: upper-center; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 2px;" />
+    <ui:VisualElement name="title-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
+        <ui:Label tabindex="-1" text="DUNGEON INSURANCE" display-tooltip-when-elided="true" name="title" style="left: 25%; top: 25%; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Funstella.ttf?fileID=12800000&amp;guid=d88689c742bf0914498cf69cfbf2b9f5&amp;type=3#Funstella&apos;); -unity-font-definition: initial; font-size: 66px; position: absolute; width: 50%; height: 15%; -unity-text-align: middle-center; -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 2px;" />
         <ui:Button text="START GAME" display-tooltip-when-elided="true" name="start-game" class="button" style="top: 45%;" />
     </ui:VisualElement>
-    <ui:VisualElement name="level-select-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; width: 100%; height: 100%; transition-property: left; transition-duration: 0.5s; transition-timing-function: ease-out-sine; transition-delay: 0.5s; left: 100%;">
+    <ui:VisualElement name="level-select-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; width: 100%; height: 100%; transition-property: left; transition-duration: 0.5s; transition-timing-function: ease-out-sine; transition-delay: 0.5s; left: 0;">
         <ui:Button text="Dingy Basement" display-tooltip-when-elided="true" name="level-1" class="button level-selectors" style="top: 27.5%;" />
-        <ui:Button text="Remote Cabin" display-tooltip-when-elided="true" name="level-2" class="button level-selectors" style="top: 27.5%; width: 30%; height: 50%; left: 35%;" />
-        <ui:Button text="Opulent Palace" display-tooltip-when-elided="true" name="level-3" class="button level-selectors" style="top: 27.5%; width: 30%; height: 50%; left: auto; right: 5%;" />
+        <ui:Button text="Remote Cabin" display-tooltip-when-elided="true" name="level-2" class="button level-selectors" style="top: 27.5%; width: 25%; height: 50%; left: 37.5%;" />
+        <ui:Button text="Opulent Palace" display-tooltip-when-elided="true" name="level-3" class="button level-selectors" style="top: 27.5%; width: 25%; height: 50%; left: auto; right: 5%;" />
     </ui:VisualElement>
 </ui:UXML>
