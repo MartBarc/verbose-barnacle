@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject player;
     public int roundScore;//money
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI totalDestroyedText;
     public TextMeshProUGUI timerText;
     public GameObject GameOverUI;
     public bool GameStarted;
@@ -19,7 +20,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject heroSpawnLocation;
     public GameObject HeroPrefab;
     public Slider HeroStamBar;
-    public float HeroStam;
+    //public float HeroStam;
     public TextMeshProUGUI StamText;
     public bool canCountStam = true;
 
@@ -49,6 +50,7 @@ public class GameManagerScript : MonoBehaviour
         currentTimeLeft = setupTime;
         player = GameObject.Find("Player");
         scoreText.text = "Score: " + roundScore;
+        totalDestroyedText.text = "Score: " + 0;
         timerText.text = "";
         GameOverUI.SetActive(false);
         //start counting down from 30sec when game starts, spawn hero after 30 seconds
@@ -64,44 +66,30 @@ public class GameManagerScript : MonoBehaviour
         //    if (graph == null) throw new System.Exception("The ProceduralGridMover was configured to use graph index " + graphIndex + " but that graph either does not exist or is not a GridGraph or LayerGridGraph");
         //}
         //HeroStam = 100;
-        HeroStamBar.value = HeroStam;
-        HeroStamBar.maxValue = HeroStam;
+        HeroStamBar.value = 0;
+        HeroStamBar.maxValue = 0;
         StamText.text = "";
         
     }
 
     private void Update()
     {
-        if (!GameStarted)
-        {
-            currentTimeLeft -= 1 * Time.deltaTime;
-            if (currentTimeLeft < 0)
-            {
-                currentTimeLeft = 0;
-                GameStarted = true;
-                timerText.text = "";
-                curHero = Instantiate(HeroPrefab, heroSpawnLocation.transform.position, heroSpawnLocation.transform.rotation);//add this later
-                curHero.GetComponent<HeroController>().player = player;
-                curHero.GetComponent<HeroController>().curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
-                curHero.GetComponent<AIDestinationSetter>().target = GameObject.Find("HeroTarget").gameObject.transform;
-            }
-            int newCurrentTime = (int)currentTimeLeft;
-            timerText.text = newCurrentTime.ToString();
-        }
-        else 
+        if (GameStarted)
         {
             timerText.text = "";
+            totalDestroyedText.text = "Total: " + insuredObs.GetDestroyedInsurance();
 
             if (canCountStam)
             {
-                HeroStam -= 1 * Time.deltaTime;
+                curHero.GetComponent<HeroController>().stam -= 1 * Time.deltaTime;
             }
-            //HeroStam -= 1 * Time.deltaTime;
-            if (HeroStam < 0)
+
+            int newHeroStam = 0;
+            if (curHero.GetComponent<HeroController>().stam > 0f)
             {
-                HeroStam = 0;
+                newHeroStam = (int)curHero.GetComponent<HeroController>().stam;
             }
-            int newHeroStam = (int)HeroStam;
+
             HeroStamBar.value = newHeroStam;
             StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
 
@@ -111,21 +99,42 @@ public class GameManagerScript : MonoBehaviour
             }
             //UpdatePathing();
         }
+        else 
+        {
+            currentTimeLeft -= 1 * Time.deltaTime;
+            if (currentTimeLeft < 0)
+            {
+                currentTimeLeft = 0;
+                GameStarted = true;
+                timerText.text = "";
+                curHero = Instantiate(HeroPrefab, heroSpawnLocation.transform.position, heroSpawnLocation.transform.rotation);//add this later
+                curHero.GetComponent<HeroController>().spawner = heroSpawnLocation;
+                curHero.GetComponent<HeroController>().player = player;
+                curHero.GetComponent<HeroController>().curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
+                curHero.GetComponent<AIDestinationSetter>().target = GameObject.Find("HeroTarget").gameObject.transform;
+
+                HeroStamBar.value = curHero.GetComponent<HeroController>().stam;
+                HeroStamBar.maxValue = curHero.GetComponent<HeroController>().maxStam;
+            }
+            int newCurrentTime = (int)currentTimeLeft;
+            timerText.text = newCurrentTime.ToString();
+        }
     }
 
     private void FixedUpdate()
     {
         if (GameStarted)
         {
-            // Check player stamina zero
-            if (player == null || HeroStam <= 0f)
+            // Check player splattered
+            if (player == null || !player.GetComponent<PlayerScript>().isAlive)
             {
+
                 StartCoroutine(roundOverRoutine());
                 return;
             }
 
-            // Check if hero dead
-            if (curHero == null || !player.GetComponent<PlayerScript>().isAlive)
+            // Check if hero big baby
+            if (curHero == null || curHero.GetComponent<HeroController>().stam <= 0f)
             {
                 StartCoroutine(roundOverRoutine());
                 return;
@@ -181,21 +190,11 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    public void reduceHeroStam(int value)
-    {
-        HeroStam = HeroStam - value;
-        if (HeroStam < 0)
-        {
-            HeroStam = 0;
-        }
-        int newHeroStam = (int)HeroStam;
-        HeroStamBar.value = newHeroStam;
-        StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
-    }
-
     IEnumerator roundOverRoutine()
     {
         //GameOverUI.SetActive(true);
+        curHero.GetComponent<HeroController>().isRoundOver = true;
+
         SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
 
         yield return new WaitForSecondsRealtime(4f);

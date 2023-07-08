@@ -288,9 +288,10 @@ public class MinionScript : MonoBehaviour
             //target.TakeHit(attackDamage);//testing above comments, bring this back if not working
             //Swing(player.gameObject.transform);
 
-            GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().reduceHeroStam((int)attackDamage);
-
+            target.ReduceHeroStam(attackDamage);
+            //GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().reduceHeroStam((int)attackDamage);
         }
+
         yield return new WaitForSecondsRealtime(attackDelay);
         canAttack = true;
     }

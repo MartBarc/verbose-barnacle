@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 2619516689336693109}
   - component: {fileID: 2619516689336693110}
   - component: {fileID: 7743251260128709269}
+  - component: {fileID: 3252005802521230204}
   m_Layer: 7
   m_Name: StamTower
   m_TagString: Tower
@@ -434,7 +435,7 @@ Transform:
   - {fileID: 7844897242015897500}
   - {fileID: 4253762861734997621}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2619516689336693109
 CircleCollider2D:
@@ -546,9 +547,24 @@ MonoBehaviour:
   defaultCollider: 10
   towerid: 3
   AoeImage: {fileID: 6420037925025093522}
-  newPlayerSpeed: 10
   abilityOn: 0
+  newPlayerSpeed: 10
   newHeroSpeed: 2
+--- !u!114 &3252005802521230204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619516689336693111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1187c4b6d7da4b419f0d7b272939971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 50
+  health: 100
+  insuranceValue: 30
 --- !u!1 &2619516689408630532
 GameObject:
   m_ObjectHideFlags: 0

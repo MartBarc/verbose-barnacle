@@ -8,11 +8,14 @@ public class HeroController : MonoBehaviour
     // Movement
     [SerializeField] public AIPath pathing;
 
+    // Spawn location // Game state
+    public bool isRoundOver = false;
+    public GameObject spawner;
+
     //Health
     [SerializeField] public HealthbarScript healthbar;
-    public float hitPoints;
-    private float maxHitPoints = 5;
-    public bool isAlive = true;
+    public float stam;
+    public float maxStam = 5;
 
     //Combat
     [SerializeField] public HeroHitbox hitbox;
@@ -55,8 +58,8 @@ public class HeroController : MonoBehaviour
         //player = GameObject.Find("Player").gameObject;
         //curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
 
-        hitPoints = maxHitPoints;
-        healthbar.SetHealth(hitPoints, maxHitPoints);
+        stam = maxStam;
+        healthbar.SetHealth(stam, maxStam);
 
         StartCoroutine(WaitToAttack());
         currentSpeed = (int)gameObject.GetComponent<AIPath>().maxSpeed;
@@ -67,12 +70,13 @@ public class HeroController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+        if (isRoundOver)
         {
-            //if (player != null)
-            //{
-                
-            //}
+            // Hero needs to start going back to entrance
+            curTarget.UpdateTargetPosition(spawner.transform.position);
+        }
+        else
+        {
             RecalcTargets();
 
             // Attack object?
@@ -81,10 +85,9 @@ public class HeroController : MonoBehaviour
                 if (canAttack)
                 {
                     canAttack = false;
-                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().reduceHeroStam(1);
+                    ReduceHeroStam(1f);
                     StartCoroutine(meleAttackCooldown());
                 }
-                //return;
             }
         }
     }
@@ -110,6 +113,18 @@ public class HeroController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ReduceHeroStam(float value)
+    {
+        stam -= value;
+        //if (stam <= 0f)
+        //{
+        //    HeroStam = 0;
+        //}
+        //int newHeroStam = (int)HeroStam;
+        //HeroStamBar.value = newHeroStam;
+        //StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
     }
 
     public void AddNewObs(Obs newObs)
@@ -147,9 +162,10 @@ public class HeroController : MonoBehaviour
             return;
         }
 
+        // Update player priority
         obsList[0].priority = playerPriority;
 
-        for (int i = 0; i < obsList.Count; i++)
+        for (int i = 0; i < obsList.Count; i++) // Search for heighest priority value and start targetting
         {
             if (obsList[i].priority > priorityValue)
             {
@@ -158,16 +174,16 @@ public class HeroController : MonoBehaviour
             }
         }
 
-        if (priorityValue <= 0)
+        if (priorityValue <= 0) // If priority 0 start targetting player index (0)
         {
             priorityIndex = 0;
         }
 
-        if (curTarget != null || obsList[0] != null)
+        if (curTarget != null || obsList[0] != null) // Update target pointer
         {
             curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
+            return;
         }
-        
     }
 
     public void TakeHit(float damage)
@@ -176,16 +192,12 @@ public class HeroController : MonoBehaviour
         {
             canbeHurt = false;
             StartCoroutine(damageFromPlayerCooldown());
-            hitPoints -= damage;
-            healthbar.SetHealth(hitPoints, maxHitPoints);
-            //Debug.Log("hitPoints = " + hitPoints + "/" + maxHitPoints);
+            stam -= damage;
+            healthbar.SetHealth(stam, maxStam);
 
-
-            if (hitPoints <= 0 && isAlive)
+            if (stam <= 0)
             {
-                //GameObject.Find("GameManager").GetComponent<GameManagerScript>().addEnemyScore();
-                isAlive = false;
-                //Destroy(gameObject);
+                isRoundOver = false;
                 EnemyAnimation.SetTrigger("EnemyDieTrig");
             }
         }
