@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Obs : MonoBehaviour
 {
-    public int id = 0;
     public int priority = 0;
 
     public int health = 100;
