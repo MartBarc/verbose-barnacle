@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5f1d025357c4deb4bb1b9cba0da57a74
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Video Glau
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b59ee76528f3ebc40a6e831fe7037f92, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
