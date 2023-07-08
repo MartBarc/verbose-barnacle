@@ -77,7 +77,8 @@ public class GameManagerScript : MonoBehaviour
         if (GameStarted)
         {
             timerText.text = "";
-            totalDestroyedText.text = "Total: " + insuredObs.GetDestroyedInsurance();
+            int tempScore = roundScore + insuredObs.GetDestroyedInsurance();
+            totalDestroyedText.text = "Total: " + tempScore;
 
             if (canCountStam)
             {
@@ -123,12 +124,14 @@ public class GameManagerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isRoundOverState) return;
+
         if (GameStarted)
         {
             // Check player splattered
             if (player == null || !player.GetComponent<PlayerScript>().isAlive)
             {
-
+                roundScore -= 50;
                 StartCoroutine(roundOverRoutine());
                 return;
             }
@@ -193,6 +196,7 @@ public class GameManagerScript : MonoBehaviour
     IEnumerator roundOverRoutine()
     {
         //GameOverUI.SetActive(true);
+        isRoundOverState = true;
         curHero.GetComponent<HeroController>().isRoundOver = true;
 
         SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
