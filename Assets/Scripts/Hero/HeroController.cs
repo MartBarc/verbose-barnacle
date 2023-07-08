@@ -1,36 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class HeroController : MonoBehaviour
 {
     // Important parameters
     public int id = -1;//301 = orc (EnemyMele), 302 = skele (EnemyRanged)
 
+    // Movement
+    [SerializeField] public AIPath pathing;
+
     //Health
-    public HealthbarScript healthbar;
+    [SerializeField] public HealthbarScript healthbar;
     public float hitPoints;
-    public float maxHitPoints = 5;
+    private float maxHitPoints = 5;
     public bool isAlive = true;
 
     //Combat
     public bool canbeHurt = true;
-    public int attackDamage = 1;
-    public float shootDistance = 6f;
-    public float attackDistance = 1f;
+    private int attackDamage = 1;
+    private float shootDistance = 6f;
+    private float attackDistance = 1f;
     
-    public float attackDelay = 1f; //How long to wait before able to attack again
-    public float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
-    public float beforeDamageDelay = 0.3f;//how long to wait to deal damage after starting animation
+    private float attackDelay = 1f; //How long to wait before able to attack again
+    private float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
+    private float beforeDamageDelay = 0.3f;//how long to wait to deal damage after starting animation
 
     public Transform firepos;
 
     public float bulletForce = 10f;
 
-    public Rigidbody2D weaponRb;
+    [SerializeField] public Rigidbody2D weaponRb;
 
     [SerializeField] private BulletScriptEnemy projectilePrefab;
     [SerializeField] private MeleHitboxEnemy hitboxPrefab;
+
+    // Targetting list
+    [SerializeField] public GameObject player;
+    [SerializeField] TargetPoint curTarget;
+    public List<Obs> obsList;
+    public int priorityIndex = 0;
+    public int priorityValue = 0;
 
     // Animation
     public Animator EnemyAnimation;
@@ -38,6 +49,8 @@ public class HeroController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        obsList = new List<Obs> { player.GetComponent<Obs>() };
+
         hitPoints = maxHitPoints;
         healthbar.SetHealth(hitPoints, maxHitPoints);
 
@@ -49,26 +62,59 @@ public class HeroController : MonoBehaviour
     {
         if (isAlive)
         {
-
+            RecalcTargets();
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Obs")
+        if (other.gameObject.GetComponent<Obs>() != null)
         {
-            Debug.Log($"{other.gameObject.name} found in player aggro range");
-            Destroy(other.gameObject);
+            AddNewObs(other.gameObject.GetComponent<Obs>());
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Obs")
+        if (other.gameObject.GetComponent<Obs>() != null)
         {
             Debug.Log($"{other.gameObject.name} found outside in player aggro range");
-            Destroy(other.gameObject);
         }
+    }
+
+    public void AddNewObs(Obs newObs)
+    {
+        for (int i = 0; i < obsList.Count; i++)
+        {
+            if (obsList[i].id == newObs.id)
+            {
+                return;
+            }
+        }
+
+        Debug.Log($"{newObs.gameObject.name} found in player aggro range");
+        obsList.Add(newObs);
+    }
+
+    public void RecalcTargets()
+    {
+        priorityValue = 0;
+
+        for (int i = 0; i < obsList.Count; i++)
+        {
+            if (obsList[i].priority > priorityValue)
+            {
+                priorityIndex = i;
+                priorityValue = obsList[i].priority;
+            }
+        }
+
+        if (priorityValue <= 0)
+        {
+            priorityIndex = 0;
+        }
+
+        curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
     }
 
     public void TakeHit(float damage)
@@ -179,10 +225,10 @@ public class HeroController : MonoBehaviour
 
     public void Swing(Transform target)
     {
-        //Vector2 targetposition = target.position;
-        //Vector2 lookDir = targetposition - weaponRb.position;
-        //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        //weaponRb.rotation = angle;
+        Vector2 targetposition = target.position;
+        Vector2 lookDir = targetposition - weaponRb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        weaponRb.rotation = angle;
 
         MeleHitboxEnemy projectile = Instantiate(hitboxPrefab, firepos.position, firepos.rotation);
         projectile.damage = attackDamage;

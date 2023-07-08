@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Pathfinding;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class GameManagerScript : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public GameObject GameOverUI;
 
+    [SerializeField] AstarPath AStar;
+
     private void Start()
     {
         player = GameObject.Find("Player");
         score = 0;
         scoreText.text = "Score: " + score;
         GameOverUI.SetActive(false);
+
+        StartCoroutine(logEvery5Second());
     }
 
     private void FixedUpdate()
@@ -29,6 +34,18 @@ public class GameManagerScript : MonoBehaviour
         {
             //Debug.Log("player dead ahahahahaha");
             GameOverUI.SetActive(true);
+        }
+
+        //AStar.Scan();
+    }
+
+    IEnumerator logEvery5Second()
+    {
+        while (true)
+        {
+            Debug.Log("Rescan");
+            AStar.ScanAsync();
+            yield return new WaitForSeconds(5);
         }
     }
 

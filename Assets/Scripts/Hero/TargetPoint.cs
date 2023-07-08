@@ -38,7 +38,8 @@ namespace Pathfinding {
             //}
         //}
 
-        public void UpdateTargetPosition () {
+        public void UpdateTargetPosition (Vector3 newPosition) {
+            this.transform.position = newPosition;
             //Vector3 newPosition = Vector3.zero;
             //bool positionFound = false;
 
