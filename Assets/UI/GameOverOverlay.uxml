@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=40df8cb341d308f41827425ce3cb80d3&amp;type=3#StyleSheet" />
+    <ui:VisualElement name="background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="dialog-container" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); position: absolute; height: 70%; width: 40%; top: 15%; left: 30%; background-image: url(&apos;project://database/Assets/Sprites/UI/UI_Paper_Frame_02_Standard.png?fileID=2800000&amp;guid=dc6a8640d624d47488824a116e9debac&amp;type=3#UI_Paper_Frame_02_Standard&apos;); -unity-background-scale-mode: stretch-to-fill;">
+            <ui:Label tabindex="-1" text="YOU DIED..." display-tooltip-when-elided="true" style="-unity-text-align: middle-center; top: 25%; font-size: 36px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Diamonaire.ttf?fileID=12800000&amp;guid=6c1636310b2f3cf44a8310ade9a2fa2d&amp;type=3#Diamonaire&apos;); color: rgb(154, 86, 53);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
