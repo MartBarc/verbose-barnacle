@@ -269,7 +269,7 @@ public class MinionScript : MonoBehaviour
 
     IEnumerator meleAttackCooldown(HeroController target)
     {
-        Debug.Log("Bat attack hero");
+        //Debug.Log("Bat attack hero");
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (target != null)
         {

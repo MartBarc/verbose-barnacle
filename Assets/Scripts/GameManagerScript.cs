@@ -4,13 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pathfinding;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject player;
-    public int score;//money
+    public int roundScore;//money
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
     public GameObject GameOverUI;
@@ -30,42 +29,38 @@ public class GameManagerScript : MonoBehaviour
     float _time;
     [SerializeField] float _interval = 1f;
 
-    /// <summary>
-    /// Grid graph to update.
-    /// This will be set at Start based on <see cref="graphIndex"/>.
-    /// During runtime you may set this to any graph or to null to disable updates.
-    /// </summary>
-    public GridGraph graph;
+    [SerializeField] public InsuredObsHandler insuredObs;
 
-    /// <summary>
-    /// Index for the graph to update.
-    /// This will be used at Start to set <see cref="graph"/>.
-    ///
-    /// This is an index into the AstarPath.active.data.graphs array.
-    /// </summary>
-    [HideInInspector]
-    public int graphIndex;
+    ///// <summary>
+    ///// Grid graph to update.
+    ///// This will be set at Start based on <see cref="graphIndex"/>.
+    ///// During runtime you may set this to any graph or to null to disable updates.
+    ///// </summary>
+    //public GridGraph graph;
+    //[HideInInspector]
+    //public int graphIndex;
 
     private void Start()
     {
+        roundScore = SharedInfo.Funds;
         GameStarted = false;
         currentTimeLeft = setupTime;
         player = GameObject.Find("Player");
-        scoreText.text = "Score: " + score;
+        scoreText.text = "Score: " + roundScore;
         timerText.text = "";
         GameOverUI.SetActive(false);
         //start counting down from 30sec when game starts, spawn hero after 30 seconds
 
         _time = 0f;
 
-        if (graph == null)
-        {
-            if (graphIndex < 0) throw new System.Exception("Graph index should not be negative");
-            if (graphIndex >= AstarPath.active.data.graphs.Length) throw new System.Exception("The ProceduralGridMover was configured to use graph index " + graphIndex + ", but only " + AstarPath.active.data.graphs.Length + " graphs exist");
+        //if (graph == null)
+        //{
+        //    if (graphIndex < 0) throw new System.Exception("Graph index should not be negative");
+        //    if (graphIndex >= AstarPath.active.data.graphs.Length) throw new System.Exception("The ProceduralGridMover was configured to use graph index " + graphIndex + ", but only " + AstarPath.active.data.graphs.Length + " graphs exist");
 
-            graph = AstarPath.active.data.graphs[graphIndex] as GridGraph;
-            if (graph == null) throw new System.Exception("The ProceduralGridMover was configured to use graph index " + graphIndex + " but that graph either does not exist or is not a GridGraph or LayerGridGraph");
-        }
+        //    graph = AstarPath.active.data.graphs[graphIndex] as GridGraph;
+        //    if (graph == null) throw new System.Exception("The ProceduralGridMover was configured to use graph index " + graphIndex + " but that graph either does not exist or is not a GridGraph or LayerGridGraph");
+        //}
         //HeroStam = 100;
         HeroStamBar.value = HeroStam;
         HeroStamBar.maxValue = HeroStam;
@@ -94,6 +89,19 @@ public class GameManagerScript : MonoBehaviour
         else 
         {
             timerText.text = "";
+            //Check player dead
+            if (player == null)
+            {
+                SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
+            }
+
+            //Check if hero dead
+            if (curHero == null)
+            {
+                SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
+            }
+
+
             if (canCountStam)
             {
                 HeroStam -= 1 * Time.deltaTime;
@@ -126,7 +134,7 @@ public class GameManagerScript : MonoBehaviour
             //Debug.Log("player dead ahahahahaha");
             GameOverUI.SetActive(true);
         }
-        if (score <= 0)
+        if (roundScore <= 0)
         {
             //no money = bad
         }
@@ -136,6 +144,7 @@ public class GameManagerScript : MonoBehaviour
 
     IEnumerator updateScan()
     {
+        //Debug.Log("Scanning map");
         canUpdate = false;
         UpdatePathing();
         yield return new WaitForSecondsRealtime(2f);
@@ -145,8 +154,8 @@ public class GameManagerScript : MonoBehaviour
     public void UpdatePathing()
     {
         // Move the center (this is in world units, so we need to convert it back from graph space)
-        graph.center = curHero.transform.position;
-        graph.UpdateTransform();
+        //graph.center = curHero.transform.position;
+        //graph.UpdateTransform();
 
         AstarPath.active.Scan();
         //Debug.Log("AStar Rescanned");
@@ -154,14 +163,14 @@ public class GameManagerScript : MonoBehaviour
 
     public void ScoreAdd(int scoreIncrease)
     {
-        score += scoreIncrease;
-        scoreText.text = "Score: " + score;
+        roundScore += scoreIncrease;
+        scoreText.text = "Score: " + roundScore;
     }
 
     public void ScoreSub(int scoreDecrease)
     {
-        score -= scoreDecrease;
-        scoreText.text = "Score: " + score;
+        roundScore -= scoreDecrease;
+        scoreText.text = "Score: " + roundScore;
     }
 
     public void newGameBtn() 
