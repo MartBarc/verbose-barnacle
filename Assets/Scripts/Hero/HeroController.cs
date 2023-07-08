@@ -89,6 +89,7 @@ public class HeroController : MonoBehaviour
                 if (canAttack)
                 {
                     canAttack = false;
+                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().reduceHeroStam(1);
                     StartCoroutine(meleAttackCooldown());
                 }
                 //return;
@@ -145,7 +146,11 @@ public class HeroController : MonoBehaviour
         priorityValue = 0;
 
         // Calc distance to player and adjust his value
-        playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 2;
+        if (player != null)
+        {
+            playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 2;
+        }
+        
 
         obsList[0].priority = playerPriority;
 
@@ -163,7 +168,7 @@ public class HeroController : MonoBehaviour
             priorityIndex = 0;
         }
 
-        if (curTarget != null)
+        if (curTarget != null || obsList[0] != null)
         {
             curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
         }

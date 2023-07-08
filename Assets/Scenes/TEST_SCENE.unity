@@ -4194,6 +4194,7 @@ MonoBehaviour:
   StamText: {fileID: 1873522804}
   canCountStam: 1
   curHero: {fileID: 0}
+  canUpdate: 1
   _interval: 1
   graphIndex: 0
 --- !u!4 &1337385825

@@ -25,6 +25,7 @@ public class GameManagerScript : MonoBehaviour
     public bool canCountStam = true;
 
     public GameObject curHero;
+    public bool canUpdate;
 
     float _time;
     [SerializeField] float _interval = 1f;
@@ -105,12 +106,11 @@ public class GameManagerScript : MonoBehaviour
             HeroStamBar.value = newHeroStam;
             StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
 
-            _time += Time.deltaTime;
-            while (_time >= _interval)
+            if (canUpdate)
             {
-                UpdatePathing();
-                _time -= _interval;
+                StartCoroutine(updateScan());
             }
+            //UpdatePathing();
         }
     }
 
@@ -131,6 +131,14 @@ public class GameManagerScript : MonoBehaviour
         }
 
         //AstarPath.active.Scan();
+    }
+
+    IEnumerator updateScan()
+    {
+        canUpdate = false;
+        UpdatePathing();
+        yield return new WaitForSecondsRealtime(2f);
+        canUpdate = true;
     }
 
     public void UpdatePathing()
