@@ -411,6 +411,7 @@ GameObject:
   - component: {fileID: 2619516689336693110}
   - component: {fileID: 7743251260128709269}
   - component: {fileID: 3252005802521230204}
+  - component: {fileID: -6649227959181398513}
   m_Layer: 7
   m_Name: StamTower
   m_TagString: Tower
@@ -435,7 +436,7 @@ Transform:
   - {fileID: 7844897242015897500}
   - {fileID: 4253762861734997621}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2619516689336693109
 CircleCollider2D:
@@ -444,7 +445,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2619516689336693111}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -538,13 +539,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 0
   maxHitPoints: 5
-  isAlive: 1
+  isAlive: 0
   healthbar: {fileID: 2619516688859119443}
-  purchaseable: 1
-  isActive: 0
-  buyText: {fileID: 2421842201835190344}
-  price: 10
-  defaultCollider: 10
+  purchased: 0
   towerid: 3
   AoeImage: {fileID: 6420037925025093522}
   abilityOn: 0
@@ -565,6 +562,50 @@ MonoBehaviour:
   priority: 50
   health: 100
   insuranceValue: 30
+  debriPrefab: {fileID: 0}
+  isActive: 0
+  isTower: 1
+  purchased: 0
+  purchaseable: 0
+  buyText: {fileID: 2421842201835190344}
+  buyableCollider: {fileID: -6649227959181398513}
+  normalColliderTower: {fileID: 2619516689336693109}
+  normalColliderObs: {fileID: 0}
+--- !u!58 &-6649227959181398513
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619516689336693111}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!1 &2619516689408630532
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +816,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy me
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

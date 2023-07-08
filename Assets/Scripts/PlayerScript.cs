@@ -49,6 +49,7 @@ public class PlayerScript : MonoBehaviour
         if (!isAlive)
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
             animator.SetFloat("Speed", 0); 

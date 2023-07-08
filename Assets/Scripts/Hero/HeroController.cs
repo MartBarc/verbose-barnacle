@@ -90,13 +90,14 @@ public class HeroController : MonoBehaviour
             // Attack object?
             if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
             {
+                Vector2 lookDir = curTarget.transform.position - transform.position;
+                float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+                gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
                 //gameObject.GetComponent<AIPath>().canMove = false;
                 if (canAttack)
                 {
                     //mele
-                    Vector2 lookDir = curTarget.transform.position - transform.position;
-                    float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-                    gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
+                    
                     EnemyAnimation.SetBool("isWalking", false);
                     canAttack = false;
                     ReduceHeroStam(1f);
@@ -288,34 +289,6 @@ public class HeroController : MonoBehaviour
     {
         EnemyAnimation.SetTrigger("EnemyDieTrig");
     }
-
-    //IEnumerator rangeAttackCooldown(PlayerScript player, Transform moveTo)
-    //{
-    //    yield return new WaitForSecondsRealtime(beforeAttackDelay);
-    //    if (isAlive)
-    //    {
-    //        playAttackAnim();
-
-    //        yield return new WaitForSecondsRealtime(beforeDamageDelay);
-    //        Shoot(moveTo);
-    //    }
-    //    yield return new WaitForSecondsRealtime(attackDelay);
-    //}
-
-    //public void Shoot(Transform target)
-    //{
-    //    BulletScriptEnemy projectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
-
-    //    Physics2D.IgnoreCollision(projectile.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-
-    //    Vector3 dir = target.transform.position - transform.position;
-    //    dir = dir.normalized;
-
-    //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-    //    projectile.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); //
-
-    //     projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
-    // }
 
     public void setNewSpeed(int speed) 
     {

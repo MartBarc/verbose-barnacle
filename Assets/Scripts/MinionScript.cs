@@ -104,54 +104,7 @@ public class MinionScript : MonoBehaviour
         {
             moveTo = null;
         }
-        if (!isActive)
-        {
-            EnemyAnimation.SetBool("isActive", false);
-            if (purchaseable)
-            {
-                //if gamemanager.gamestarted = true; 
-                //destroy this gameobject
-                if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameStarted)
-                {
-                    Destroy(gameObject);
-                }
-                purchased = false;
-                //buyText.SetText("Press E to purchase " + this.gameObject.name + " for $" + price + ".");
-                CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
-                myCollider.radius = 3f;
-                myCollider.isTrigger = true;
-                LayerMask mask1 = LayerMask.GetMask("Minion");
-                this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    purchased = true;
-                    purchaseable = false;
-                    isActive = true;
-                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().ScoreSub(price);
-                    myCollider.radius = defaultCollider;
-                    myCollider.isTrigger = false;
-                    mask1 = LayerMask.GetMask("Player") | LayerMask.GetMask("Minion");
-                    this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
-                }
-            }
-            else
-            {
-                CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
-                myCollider.radius = defaultCollider;
-                myCollider.isTrigger = false;
-                LayerMask mask1 = LayerMask.GetMask("Player") | LayerMask.GetMask("Minion");
-                this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
-            }
-            return;
-        }
-        else 
-        {
-            EnemyAnimation.SetBool("isActive", true);
-        }
-
-
-
+        
         if (isAlive && moveTo != null)
         {
             if (isTower)//ranged
@@ -206,7 +159,56 @@ public class MinionScript : MonoBehaviour
             }
         }
 
-        
+        if (gameObject.tag == "Enemy")
+        {
+            return;
+        }
+        if (!isActive)
+        {
+            EnemyAnimation.SetBool("isActive", false);
+            if (purchaseable)
+            {
+                //if gamemanager.gamestarted = true; 
+                //destroy this gameobject
+                if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameStarted)
+                {
+                    Destroy(gameObject);
+                }
+                purchased = false;
+                //buyText.SetText("Press E to purchase " + this.gameObject.name + " for $" + price + ".");
+                CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
+                myCollider.radius = 3f;
+                myCollider.isTrigger = true;
+                LayerMask mask1 = LayerMask.GetMask("Minion");
+                this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    purchased = true;
+                    purchaseable = false;
+                    isActive = true;
+                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().ScoreSub(price);
+                    myCollider.radius = defaultCollider;
+                    myCollider.isTrigger = false;
+                    mask1 = LayerMask.GetMask("Player") | LayerMask.GetMask("Minion");
+                    this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+                }
+            }
+            else
+            {
+                CircleCollider2D myCollider = transform.GetComponent<CircleCollider2D>();
+                myCollider.radius = defaultCollider;
+                myCollider.isTrigger = false;
+                LayerMask mask1 = LayerMask.GetMask("Player") | LayerMask.GetMask("Minion");
+                this.gameObject.GetComponent<Rigidbody2D>().excludeLayers = mask1;
+            }
+            return;
+        }
+        else
+        {
+            EnemyAnimation.SetBool("isActive", true);
+        }
+
     }
 
     public void TakeHit(float damage)

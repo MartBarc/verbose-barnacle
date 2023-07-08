@@ -1,18 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Obs : MonoBehaviour
 {
     public int priority = 0;
-
     public int health = 100;
-
-    [SerializeField] public int insuranceValue = 0;
-
+    [SerializeField] public int insuranceValue = 20;
     [SerializeField] public GameObject debriPrefab;
+    public bool isActive;
+    public bool isTower;
+    public bool purchased;
+    public bool purchaseable;
+    public TextMeshProUGUI buyText;
+    public CircleCollider2D buyableCollider;
+    public CircleCollider2D normalColliderTower;
+    public BoxCollider2D normalColliderObs;
 
-    //public GameObject obstacle;
+    private void Start()
+    {
+        if (gameObject.tag == "Enemy")//Bat is only obs or minion with tag "Enemy"
+        {
+            return;
+        }
+        if (this.gameObject.GetComponent<TowerScript>())
+        {
+            isTower = true;
+            normalColliderTower.enabled = false;
+        }
+        else 
+        {
+            normalColliderObs.enabled = false;
+        }
+        buyableCollider.enabled = true;
+    }
+
+    private void Update()
+    {
+        if (gameObject.tag == "Enemy")//Bat is only obs or minion with tag "Enemy"
+        {
+            return;
+        }
+        if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameStarted)
+        {
+
+            //if gamemanager.gamestarted = true; 
+            //destroy this gameobject
+            if (!isActive && isTower)
+            {
+                Destroy(gameObject);
+            }
+            if (!isActive && !isTower)
+            {
+                normalColliderObs.enabled = true;
+                buyableCollider.enabled = false;
+                insuranceValue = 0;
+            }
+        }
+        else 
+        {
+            if (purchaseable)
+            {
+                buyText.SetText("Press E to purchase " + gameObject.tag + " for $" + insuranceValue + ".");
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    buyText.gameObject.SetActive(false);
+                    purchaseable = false;
+                    isActive = true;
+                    purchased = true;
+                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().ScoreSub(insuranceValue);
+                    buyText.SetText("");
+                    if (isTower)
+                    {
+                        buyableCollider.enabled = false;
+                        normalColliderTower.enabled = true;
+                        if (this.gameObject.GetComponent<TowerScript>().towerid == 1)
+                        {
+                            this.gameObject.GetComponent<TowerScript>().abilityOn = true;
+                            this.gameObject.GetComponent<TowerScript>().towerxability(1);
+                        }
+                        this.gameObject.GetComponent<TowerScript>().AoeImage.SetActive(true);
+
+                    }
+                }
+            }
+            
+        }
+    }
 
     public void TriggerDestroy()
     {
@@ -52,5 +127,31 @@ public class Obs : MonoBehaviour
         Destroy(this.gameObject);
 
         //do blow up physics on delete
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!purchased)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                buyText.gameObject.SetActive(true);
+                purchaseable = true;
+            }
+            return;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!purchased)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                buyText.gameObject.SetActive(false);
+                purchaseable = false;
+            }
+            return;
+        }
     }
 }

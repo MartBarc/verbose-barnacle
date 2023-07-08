@@ -11,6 +11,7 @@ TagManager:
   - Obs
   - Hero
   - Tower
+  - Furniture
   layers:
   - Default
   - TransparentFX
