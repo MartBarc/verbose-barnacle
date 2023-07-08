@@ -43,6 +43,8 @@ public class HeroController : MonoBehaviour
     public List<Obs> obsList;
     public int priorityIndex = 0;
     public int priorityValue = 0;
+    public int currentSpeed;
+    public int OGSpeed;
 
     // Animation
     public Animator EnemyAnimation;
@@ -58,6 +60,8 @@ public class HeroController : MonoBehaviour
         healthbar.SetHealth(hitPoints, maxHitPoints);
 
         StartCoroutine(WaitToAttack());
+        currentSpeed = (int)gameObject.GetComponent<AIPath>().maxSpeed;
+        OGSpeed = currentSpeed;
     }
 
 
@@ -158,7 +162,11 @@ public class HeroController : MonoBehaviour
             priorityIndex = 0;
         }
 
-        curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
+        if (curTarget != null)
+        {
+            curTarget.UpdateTargetPosition(obsList[priorityIndex].transform.position);
+        }
+        
     }
 
     public void TakeHit(float damage)
@@ -268,7 +276,16 @@ public class HeroController : MonoBehaviour
     //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     //    projectile.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); //
 
-    //    Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-    //    rb.AddForce(dir * bulletForce, ForceMode2D.Impulse);
-    //}
+    //     projectile.GetComponent<MeleHitboxEnemy>().knockBack = hitboxPrefab.knockBack;
+    // }
+
+    public void setNewSpeed(int speed) 
+    {
+        gameObject.GetComponent<AIPath>().maxSpeed = speed;
+    }
+
+    public void setOGSpeed()
+    {
+        gameObject.GetComponent<AIPath>().maxSpeed = OGSpeed;
+    }
 }

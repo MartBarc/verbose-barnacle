@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pathfinding;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class GameManagerScript : MonoBehaviour
     public float currentTimeLeft;
     public GameObject heroSpawnLocation;
     public GameObject HeroPrefab;
+    public Slider HeroStamBar;
+    public float HeroStam;
+    public TextMeshProUGUI StamText;
+    public bool canCountStam = true;
 
     public GameObject curHero;
 
@@ -60,6 +65,11 @@ public class GameManagerScript : MonoBehaviour
             graph = AstarPath.active.data.graphs[graphIndex] as GridGraph;
             if (graph == null) throw new System.Exception("The ProceduralGridMover was configured to use graph index " + graphIndex + " but that graph either does not exist or is not a GridGraph or LayerGridGraph");
         }
+        //HeroStam = 100;
+        HeroStamBar.value = HeroStam;
+        HeroStamBar.maxValue = HeroStam;
+        StamText.text = "";
+        
     }
 
     private void Update()
@@ -80,8 +90,21 @@ public class GameManagerScript : MonoBehaviour
             int newCurrentTime = (int)currentTimeLeft;
             timerText.text = newCurrentTime.ToString();
         }
-        else
+        else 
         {
+            if (canCountStam)
+            {
+                HeroStam -= 1 * Time.deltaTime;
+            }
+            //HeroStam -= 1 * Time.deltaTime;
+            if (HeroStam < 0)
+            {
+                HeroStam = 0;
+            }
+            int newHeroStam = (int)HeroStam;
+            HeroStamBar.value = newHeroStam;
+            StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
+
             _time += Time.deltaTime;
             while (_time >= _interval)
             {
@@ -89,8 +112,6 @@ public class GameManagerScript : MonoBehaviour
                 _time -= _interval;
             }
         }
-
-        
     }
 
     private void FixedUpdate()
@@ -144,5 +165,17 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    
+    public void reduceHeroStam(int value)
+    {
+        HeroStam = HeroStam - value;
+        if (HeroStam < 0)
+        {
+            HeroStam = 0;
+        }
+        int newHeroStam = (int)HeroStam;
+        HeroStamBar.value = newHeroStam;
+        StamText.text = HeroStamBar.value + " / " + HeroStamBar.maxValue;
+    }
+
+
 }
