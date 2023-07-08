@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6670169390548041407}
   m_Layer: 10
   m_Name: BreakableDoor
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +50,18 @@ MonoBehaviour:
   priority: 30
   health: 100
   insuranceValue: 10
+  insuranceCost: 10
+  isActive: 0
+  isTower: 0
+  purchased: 0
+  purchaseable: 0
+  buyText: {fileID: 0}
+  buyableCollider: {fileID: 0}
+  normalColliderTower: {fileID: 0}
+  normalColliderObs: {fileID: 0}
   debriPrefab: {fileID: 8312599151372264871, guid: ae8305a528acee346a21ad7c8d73d7b2, type: 3}
+  rightMod: 0
+  upMod: 0
 --- !u!212 &3389403617812524021
 SpriteRenderer:
   m_ObjectHideFlags: 0

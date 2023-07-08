@@ -12,6 +12,7 @@ TagManager:
   - Hero
   - Tower
   - Furniture
+  - Door
   layers:
   - Default
   - TransparentFX

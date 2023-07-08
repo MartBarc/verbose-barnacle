@@ -240,7 +240,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void newGameBtn() 
     {
-        SceneManager.LoadScene("TEST_SCENE");
+        SceneManager.LoadScene("MAP1_SCENE");
     }
 
     public void QuitGameBtn()

@@ -8,7 +8,7 @@ public class Obs : MonoBehaviour
     public int priority = 0;
     public int health = 100;
     [SerializeField] public int insuranceValue = 20;
-    [SerializeField] public GameObject debriPrefab;
+    [SerializeField] public int insuranceCost = 10;
     public bool isActive;
     public bool isTower;
     public bool purchased;
@@ -25,7 +25,7 @@ public class Obs : MonoBehaviour
 
     private void Start()
     {
-        if (gameObject.tag == "Enemy")//Bat is only obs or minion with tag "Enemy"
+        if (gameObject.tag == "Enemy" || gameObject.tag == "Player" || gameObject.tag == "Door")//Bat is only obs or minion with tag "Enemy"
         {
             return;
         }
@@ -43,7 +43,7 @@ public class Obs : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.tag == "Enemy")//Bat is only obs or minion with tag "Enemy"
+        if (gameObject.tag == "Enemy" || gameObject.tag == "Player" || gameObject.tag == "Door")//Bat is only obs or minion with tag "Enemy"
         {
             return;
         }
@@ -74,7 +74,7 @@ public class Obs : MonoBehaviour
                     purchaseable = false;
                     isActive = true;
                     purchased = true;
-                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().ScoreSub(insuranceValue);
+                    GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().ScoreSub(insuranceCost);
                     buyText.SetText("");
                     if (isTower)
                     {

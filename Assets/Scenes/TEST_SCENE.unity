@@ -4162,7 +4162,7 @@ MonoBehaviour:
   priority: 1
   health: 100
   insuranceValue: 0
-  debriPrefab: {fileID: 0}
+  insuranceCost: 10
   isActive: 0
   isTower: 0
   purchased: 0
@@ -4171,6 +4171,9 @@ MonoBehaviour:
   buyableCollider: {fileID: 0}
   normalColliderTower: {fileID: 0}
   normalColliderObs: {fileID: 0}
+  debriPrefab: {fileID: 0}
+  rightMod: 0
+  upMod: 0
 --- !u!1 &2141200569
 GameObject:
   m_ObjectHideFlags: 0
