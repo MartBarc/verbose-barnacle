@@ -21,6 +21,7 @@ public class HeroController : MonoBehaviour
     public int attackDamage = 110;
     //private float shootDistance = 6f;
     private float attackDistance = 2f;
+    public GameObject weaponObj;
     
     private float attackDelay = 1f; //How long to wait before able to attack again
     private float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
@@ -29,8 +30,7 @@ public class HeroController : MonoBehaviour
     public Transform firepos;
 
     public float bulletForce = 10f;
-
-    [SerializeField] public Rigidbody2D weaponRb;
+    public Rigidbody2D rb;
 
     //[SerializeField] private BulletScriptEnemy projectilePrefab;
     [SerializeField] private MeleHitboxEnemy hitboxPrefab;
@@ -75,16 +75,30 @@ public class HeroController : MonoBehaviour
             //}
             RecalcTargets();
 
+            
+            
+
             // Attack object?
             if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
             {
+                //gameObject.GetComponent<AIPath>().canMove = false;
                 if (canAttack)
                 {
+                    //mele
+                    Vector2 lookDir = curTarget.transform.position - transform.position;
+                    float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+                    gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
+                    EnemyAnimation.SetBool("isWalking", false);
                     canAttack = false;
                     GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().reduceHeroStam(1);
                     StartCoroutine(meleAttackCooldown());
                 }
                 //return;
+            }
+            else 
+            {
+                //gameObject.GetComponent<AIPath>().canMove = true;
+                EnemyAnimation.SetBool("isWalking", true);
             }
         }
     }
@@ -209,13 +223,14 @@ public class HeroController : MonoBehaviour
 
     IEnumerator meleAttackCooldown()
     {
+        weaponObj.SetActive(false);
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (player != null)
         {
             Vector2 targetposition = hitbox.transform.position;
-            Vector2 lookDir = targetposition - weaponRb.position;
-            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-            weaponRb.rotation = angle;
+            //Vector2 lookDir = targetposition - weaponRb.position;
+            //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            //weaponRb.rotation = angle;
             playAttackAnim();
 
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
@@ -226,14 +241,15 @@ public class HeroController : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(attackDelay);
         canAttack = true;
+        weaponObj.SetActive(true);
     }
 
     public void Swing(Transform target)
     {
         //Vector2 targetposition = target.position;
         Vector2 lookDir = hitbox.transform.position;//targetposition - weaponRb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        weaponRb.rotation = angle;
+        //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        //weaponRb.rotation = angle;
 
         MeleHitboxEnemy projectile = Instantiate(hitboxPrefab, hitbox.transform.position, hitbox.transform.rotation);
         projectile.damage = attackDamage;
