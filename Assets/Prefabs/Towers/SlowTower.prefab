@@ -571,9 +571,11 @@ MonoBehaviour:
   buyableCollider: {fileID: -6649227959181398513}
   normalColliderTower: {fileID: 2619516689336693109}
   normalColliderObs: {fileID: 0}
+  basePriority: 0
+  priorityDecay: 20
+  stunHero: 0
   debriPrefab: {fileID: 0}
-  rightMod: 0
-  upMod: 0
+  moneyPrefab: {fileID: 1486927664496415570, guid: 0a787dac00d545c488a4fd3722c61375, type: 3}
 --- !u!58 &-6649227959181398513
 CircleCollider2D:
   m_ObjectHideFlags: 0

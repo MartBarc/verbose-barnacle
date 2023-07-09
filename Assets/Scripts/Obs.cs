@@ -26,6 +26,7 @@ public class Obs : MonoBehaviour
 
     // Dustruction
     [SerializeField] public GameObject debriPrefab;
+    public GameObject moneyPrefab;
 
     private void Start()
     {
@@ -163,6 +164,24 @@ public class Obs : MonoBehaviour
         if (debriPrefab != null) 
         {
             GameObject spawnedDebris = Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
+        }
+        if (moneyPrefab != null)
+        {
+            GameObject spawnedMoney = Instantiate(moneyPrefab, this.transform.position, this.transform.rotation);
+            if (insuranceValue > 0 && insuranceValue < 50)
+            {
+                spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim1");
+            }
+            if (insuranceValue > 50 && insuranceValue < 100)
+            {
+                spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim2");
+            }
+            if (insuranceValue > 100)
+            {
+                spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim3");
+            }
+            Destroy(spawnedMoney, 2f);
+
         }
 
         Destroy(this.gameObject);

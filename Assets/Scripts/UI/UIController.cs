@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
         #region Main Menu
         mainMenuRoot = mainMenu.rootVisualElement;
         startButtonsContainer = mainMenuRoot.Q<GroupBox>("start-buttons-container");
-        mainMenuStartButtons = new();
+        //mainMenuStartButtons = new();
         foreach (VisualElement startButton in startButtonsContainer.Children())
         {
             mainMenuStartButtons.Add((Button)startButton);
