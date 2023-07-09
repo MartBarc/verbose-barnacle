@@ -693,7 +693,7 @@ MonoBehaviour:
   nametag: {fileID: 3684685920544597997}
   healthbar: {fileID: 6965254653632302710}
   stam: 0
-  maxStam: 1000
+  maxStam: 100
   isStunned: 0
   hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1

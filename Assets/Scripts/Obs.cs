@@ -13,6 +13,7 @@ public class Obs : MonoBehaviour
     public bool isTower;
     public bool purchased;
     public bool purchaseable;
+    public bool preventPurchase = false;
     public TextMeshProUGUI buyText;
     public CircleCollider2D buyableCollider;
     public CircleCollider2D normalColliderTower;
@@ -77,9 +78,9 @@ public class Obs : MonoBehaviour
         }
         else 
         {
-            if (purchaseable)
+            if (purchaseable && !preventPurchase)
             {
-                buyText.SetText("Press E to purchase " + gameObject.tag + " for $" + insuranceValue + ".");
+                buyText.SetText($"Insurance cost: {insuranceCost}\nInsurance payout: ${insuranceValue}\nPress [E]");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     buyText.gameObject.SetActive(false);

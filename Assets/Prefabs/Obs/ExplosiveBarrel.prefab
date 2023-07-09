@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6670169390548041407}
   - component: {fileID: 8011012822445061982}
   - component: {fileID: 6309771393903799767}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ExplosiveBarrel
   m_TagString: Furniture
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ MonoBehaviour:
   isTower: 0
   purchased: 0
   purchaseable: 0
+  preventPurchase: 1
   buyText: {fileID: 1185801840250316227}
   buyableCollider: {fileID: 8011012822445061982}
   normalColliderTower: {fileID: 0}
@@ -65,7 +66,7 @@ MonoBehaviour:
   basePriority: 0
   priorityDecay: 20
   stunHero: 1
-  debriPrefab: {fileID: 8312599151372264871, guid: ae8305a528acee346a21ad7c8d73d7b2, type: 3}
+  debriPrefab: {fileID: 8312599151372264871, guid: b95902299033368418d524946fcce4cf, type: 3}
   moneyPrefab: {fileID: 1486927664496415570, guid: 0a787dac00d545c488a4fd3722c61375, type: 3}
 --- !u!212 &3389403617812524021
 SpriteRenderer:
@@ -254,7 +255,7 @@ GameObject:
   - component: {fileID: 4442707847389229626}
   - component: {fileID: 1080660454812706875}
   - component: {fileID: 4869179730132950784}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +357,7 @@ GameObject:
   - component: {fileID: 2523161986491984458}
   - component: {fileID: 3944944143362490318}
   - component: {fileID: 1185801840250316227}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: buyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
