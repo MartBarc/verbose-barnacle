@@ -6,33 +6,11 @@ using UnityEngine;
 
 public class HeroBody : MonoBehaviour
 {
-    //public float hitPoints;
-    //public float maxHitPoints = 5;
-    //public int attackDamage = 1;
-    //public float shootDistance = 6f;
-    //public bool canbeHurt = true;
-    ////public bool isMeleEnemy; //1=mele, 0=ranged
-    //public float attackDistance = 1f;
-    //public bool canAttack = true;
-    ////public Transform moveTo;
-    //public bool waitToSpawn = true;
-    //public bool isAlive = true;
-    //public HealthbarScript healthbar;
-    //public bool isWalking = false;
-    //public float attackDelay = 1f; //How long to wait before able to attack again
-    //public float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
-    //public float beforeDamageDelay = 0.3f;//how long to wait to deal damage after starting animation
-    //public int id = -1;//301 = orc (EnemyMele), 302 = skele (EnemyRanged)
-    //public float bulletForce = 10f;
-    //public Animator EnemyAnimation;
-    //[SerializeField] private BulletScriptEnemy projectilePrefab;
-    //[SerializeField] private MeleHitboxEnemy hitboxPrefab;
-    //public Rigidbody2D weaponRb;
-    //public Transform firepos;
+    [SerializeField] SpriteRenderer heroSprite;
 
-    void Start()
+    private void Start()
     {
-
+        heroSprite.color = new Color(Random.Range(0.6f, 1.0f), Random.Range(0.6f, 1.0f), Random.Range(0.6f, 1.0f));
     }
 
     public void Update()

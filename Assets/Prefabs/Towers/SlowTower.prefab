@@ -513,8 +513,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cf92c90fdf57bb242bc9aff9b5dcc06b, type: 3}
+  m_SortingOrder: 1800
+  m_Sprite: {fileID: -1071070001, guid: 0f0a70c3d4cb00c48b37f186a81e5591, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -562,7 +562,7 @@ MonoBehaviour:
   priority: 50
   health: 100
   insuranceValue: 30
-  debriPrefab: {fileID: 0}
+  insuranceCost: 10
   isActive: 0
   isTower: 1
   purchased: 0
@@ -571,6 +571,9 @@ MonoBehaviour:
   buyableCollider: {fileID: -6649227959181398513}
   normalColliderTower: {fileID: 2619516689336693109}
   normalColliderObs: {fileID: 0}
+  debriPrefab: {fileID: 0}
+  rightMod: 0
+  upMod: 0
 --- !u!58 &-6649227959181398513
 CircleCollider2D:
   m_ObjectHideFlags: 0
