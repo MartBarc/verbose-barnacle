@@ -8,6 +8,9 @@ public class dumbRunnerScript : MonoBehaviour
     public GameObject door;
     public float speed = 20f;
     public bool isAwake = false;
+    public bool dieWhenArrive = true;
+    public int id = 0;
+    public AudioSource attackSound;
 
     private void Awake()
     {
@@ -19,9 +22,23 @@ public class dumbRunnerScript : MonoBehaviour
     {
         if (isAwake)
         {
+            if (id == 1)
+            {
+                //attackSound = GameObject.Find("Sound/attacks").GetComponent<AudioSource>();
+                //attackSound.Play();
+            }
             if (Vector2.Distance(transform.position, door.transform.position) < 1)
             {
-                Destroy(gameObject);
+                if (dieWhenArrive)
+                {
+                    Destroy(gameObject);
+                }
+                else 
+                {
+                    gameObject.GetComponent<Animator>().SetTrigger("Arrive");
+                    //attackSound.Play();
+                }
+                
             }
             else
             {
