@@ -469,6 +469,8 @@ MonoBehaviour:
   buyText: {fileID: 630436286957013903}
   price: 10
   defaultCollider: 0.77
+  spawnSound: {fileID: 0}
+  dieSound: {fileID: 0}
 --- !u!50 &6795446374486143254
 Rigidbody2D:
   serializedVersion: 4
@@ -617,20 +619,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priority: 2000000
-  health: 200
+  health: 100
   insuranceValue: 20
   insuranceCost: 10
   isActive: 0
   isTower: 0
   purchased: 0
   purchaseable: 0
+  preventPurchase: 0
   buyText: {fileID: 0}
   buyableCollider: {fileID: 0}
   normalColliderTower: {fileID: 0}
   normalColliderObs: {fileID: 0}
+  destroySound: {fileID: 0}
+  MoneyDrop1: {fileID: 0}
+  MoneyDrop2: {fileID: 0}
+  MoneyDrop3: {fileID: 0}
+  BuySound: {fileID: 0}
+  basePriority: 0
+  priorityDecay: 20
+  stunHero: 0
   debriPrefab: {fileID: 0}
-  rightMod: 0
-  upMod: 0
+  moneyPrefab: {fileID: 0}
 --- !u!1 &6795446374486273044
 GameObject:
   m_ObjectHideFlags: 0
