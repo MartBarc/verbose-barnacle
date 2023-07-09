@@ -63,23 +63,23 @@ public class PauseMenuController : UIController
     {
         if (PlayerPrefs.GetInt("MuteAudio") == 0)
         {
-            audioSource.mute = false;
+            //audioSource.mute = false;
             audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
         }
         else
         {
-            audioSource.mute = true;
+            //audioSource.mute = true;
             audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
         }
 
         if (PlayerPrefs.GetInt("MuteMusic") == 0)
         {
-            musicSource.mute = false;
+            //musicSource.mute = false;
             musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
         }
         else
         {
-            musicSource.mute = true;
+            //musicSource.mute = true;
             musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
         }
     }
@@ -87,18 +87,22 @@ public class PauseMenuController : UIController
     public new void AudioToggle()
     {
         Debug.Log("Toggling audio!");
-        if (audioSource.mute)
+        if (audioController.audioMuted)
         {
-            audioSource.mute = false;
+            //audioSource.mute = false;
+            audioController.ToggleSounds();
             audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
             PlayerPrefs.SetInt("MuteAudio", 0);
         }
         else
         {
-            audioSource.mute = true;
+            //audioSource.mute = true;
+            audioController.ToggleSounds();
             audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
             PlayerPrefs.SetInt("MuteAudio", 1);
         }
+
+
         //audioSource.mute = !audioSource.mute;
         //audioToggle.ToggleInClassList(TOGGLE_OFF);
     }
@@ -106,15 +110,17 @@ public class PauseMenuController : UIController
     public new void MusicToggle()
     {
         Debug.Log("Toggling music!");
-        if (musicSource.mute)
+        if (audioController.musicMuted)
         {
-            musicSource.mute = false;
+            //musicSource.mute = false;
+            audioController.ToggleMusic();
             musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
             PlayerPrefs.SetInt("MuteMusic", 0);
         }
         else
         {
-            musicSource.mute = true;
+            //musicSource.mute = true;
+            audioController.ToggleMusic();
             musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
             PlayerPrefs.SetInt("MuteMusic", 0);
         }
@@ -122,25 +128,4 @@ public class PauseMenuController : UIController
         ////musicToggle.ToggleInClassList(TOGGLE_OFF);
         //musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
     }
-
-    //public void ToggleMenu(VisualElement visualElement)
-    //{
-    //    //Debug.Log("Toggling " + visualElement.name + ". Starting from y = " + visualElement.transform.position.y);
-
-    //    //if(visualElement.transform.position.y < Screen.height)
-    //    //{
-    //    //    visualElement.style.translate = new StyleTranslate(new Translate(0, visualElement.transform.position.y + Screen.height));
-    //    //}
-    //    //else
-    //    //{
-    //    //    visualElement.style.translate = new StyleTranslate(new Translate(0, visualElement.transform.position.y - Screen.height));
-    //    //}
-
-    //    //Debug.Log("Moved to y = " + visualElement.transform.position.y);
-
-
-
-
-    //    visualElement.ToggleInClassList(MENU_SLIDE_OFF);
-    //}
 }

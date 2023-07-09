@@ -19,8 +19,8 @@ public class UIController : MonoBehaviour
     //VisualElement inGameOverlayRoot;
     //VisualElement pauseMenuRoot;
     //VisualElement gameOverMenuRoot;
-    [SerializeField] protected AudioSource audioSource;
-    [SerializeField] protected AudioSource musicSource;
+    [SerializeField] protected AudioController audioController;
+    //[SerializeField] protected AudioSource musicSource;
     #endregion
 
     #region Menu Variables
@@ -90,23 +90,23 @@ public class UIController : MonoBehaviour
     {
         if(PlayerPrefs.GetInt("MuteAudio") == 0)
         {
-            audioSource.mute = false;
+            //audioSource.mute = false;
             audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
         }
         else
         {
-            audioSource.mute = true;
+            //audioSource.mute = true;
             audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
         }
 
         if (PlayerPrefs.GetInt("MuteMusic") == 0)
         {
-            musicSource.mute = false;
+            //musicSource.mute = false;
             musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
         }
         else
         {
-            musicSource.mute = true;
+            //musicSource.mute = true;
             musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
         }
     }
@@ -114,18 +114,22 @@ public class UIController : MonoBehaviour
     public void AudioToggle()
     {
         Debug.Log("Toggling audio!");
-        if(audioSource.mute)
+        if(audioController.audioMuted)
         {
-            audioSource.mute = false;
+            //audioSource.mute = false;
+            audioController.ToggleSounds();
             audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
             PlayerPrefs.SetInt("MuteAudio", 0); 
         }
         else
         {
-            audioSource.mute = true;
+            //audioSource.mute = true;
+            audioController.ToggleSounds();
             audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
             PlayerPrefs.SetInt("MuteAudio", 1);
         }
+
+
         //audioSource.mute = !audioSource.mute;
         //audioToggle.ToggleInClassList(TOGGLE_OFF);
     }
@@ -133,15 +137,17 @@ public class UIController : MonoBehaviour
     public void MusicToggle()
     {
         Debug.Log("Toggling music!");
-        if (musicSource.mute)
+        if (audioController.musicMuted)
         {
-            musicSource.mute = false;
+            //musicSource.mute = false;
+            audioController.ToggleMusic();
             musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
             PlayerPrefs.SetInt("MuteMusic", 0);
         }
         else
         {
-            musicSource.mute = true;
+            //musicSource.mute = true;
+            audioController.ToggleMusic();
             musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
             PlayerPrefs.SetInt("MuteMusic", 0);
         }
