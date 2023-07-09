@@ -6,25 +6,27 @@ using UnityEngine.Scripting;
 
 public class UIController : MonoBehaviour
 {
+    #region Variable Declaration
     #region Top Level Managers
     //[SerializeField] MainMenuManager mainMenuManager;
     //[SerializeField] GameManagerScript gameManager;
     [SerializeField] UIDocument mainMenu;
-    //[SerializeField] UIDocument inGameOverlay;
+    [SerializeField] UIDocument inGameOverlay;
     //[SerializeField] UIDocument pauseMenu;
     //[SerializeField] UIDocument gameOverMenu;
-    public VisualElement mainMenuRoot;
-    //public VisualElement inGameOverlayRoot;
-    //public VisualElement pauseMenuRoot;
-    //public VisualElement gameOverMenuRoot;
+    VisualElement mainMenuRoot;
+    VisualElement inGameOverlayRoot;
+    //VisualElement pauseMenuRoot;
+    //VisualElement gameOverMenuRoot;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioSource musicSource;
     #endregion
 
     #region Menu Variables
-    private const string MENU_SLIDE_IN = "menu-slide-in";
-    private const string MENU_SLIDE_OUT = "menu-slide-out";
+    Dictionary<VisualElement, VisualElement> parentMenus;
+    private const string MENU_SLIDE_OFF = "menu-slide-off";
     private const string DISABLED = "disabled";
+    private const string BUTTON = "button";
     [SerializeField] Sprite CHECKMARK; // = " url('project://database/assets/sprites/ui/ui_paper_checkmark_standard.png?fileid=2800000&guid=fbecb287c78e32a458252e3de1a26365&type=3#ui_paper_checkmark_standard')";
     [SerializeField] Sprite CROSS;
     #endregion
@@ -35,6 +37,12 @@ public class UIController : MonoBehaviour
     private GroupBox optionsContainer;
     private Button audioToggle;
     private Button musicToggle;
+    private Button optionsReturn;
+    #endregion
+
+    #region In Game Overlay
+    private Label score;
+    #endregion
     #endregion
 
     private void Start()
@@ -47,18 +55,32 @@ public class UIController : MonoBehaviour
         {
             mainMenuStartButtons.Add((Button)startButton);
         }
-        mainMenuStartButtons[0].clicked += newGameStart;
-        mainMenuStartButtons[1].clicked += continueGameStart;
-        mainMenuStartButtons[2].clicked += () => { ToggleMenu(optionsContainer);};
+        //mainMenuStartButtons[0].clicked += newGameStart;
+        CheckContinue();
+        //mainMenuStartButtons[1].clicked += continueGameStart;
+        mainMenuStartButtons[2].clicked += () =>
+        {
+            ToggleMenu(startButtonsContainer);
+            ToggleMenu(optionsContainer);
+        };
 
         optionsContainer = mainMenuRoot.Q<GroupBox>("options-container");
         audioToggle = (Button)optionsContainer.Q<GroupBox>("audio-option").ElementAt(0);
         audioToggle.clicked += AudioToggle;
         musicToggle = (Button)optionsContainer.Q<GroupBox>("music-option").ElementAt(0);
         musicToggle.clicked += MusicToggle;
+        optionsReturn = (Button)optionsContainer.Q<Button>("options-return");
+        optionsReturn.clicked += () =>
+        {
+            ToggleMenu(optionsContainer);
+            ToggleMenu(startButtonsContainer);
+        };
         #endregion
 
-        //inGameOverlayRoot = inGameOverlay.rootVisualElement;
+        #region In Game Overlay
+        inGameOverlayRoot = inGameOverlay.rootVisualElement;
+        #endregion
+
         //pauseMenuRoot = pauseMenu.rootVisualElement;
         //gameOverMenuRoot = gameOverMenu.rootVisualElement;
     }
@@ -100,7 +122,45 @@ public class UIController : MonoBehaviour
 
     public void ToggleMenu(VisualElement visualElement)
     {
+        //Debug.Log("Toggling " + visualElement.name + ". Starting from y = " + visualElement.transform.position.y);
 
+        //if(visualElement.transform.position.y < Screen.height)
+        //{
+        //    visualElement.style.translate = new StyleTranslate(new Translate(0, visualElement.transform.position.y + Screen.height));
+        //}
+        //else
+        //{
+        //    visualElement.style.translate = new StyleTranslate(new Translate(0, visualElement.transform.position.y - Screen.height));
+        //}
+
+        //Debug.Log("Moved to y = " + visualElement.transform.position.y);
+
+
+
+
+        visualElement.ToggleInClassList(MENU_SLIDE_OFF);
+    }
+
+    public void CheckContinue()
+    {
+        //if(mainMenuManager.continueBtnEnable)
+        if(true)
+        {
+            mainMenuStartButtons[1].RemoveFromClassList(DISABLED);
+            mainMenuStartButtons[1].AddToClassList(BUTTON);
+            mainMenuStartButtons[1].clicked += ContinueGameStart;
+        }
+        else
+        {
+            mainMenuStartButtons[1].RemoveFromClassList(BUTTON);
+            mainMenuStartButtons[1].AddToClassList(DISABLED);
+            mainMenuStartButtons[1].clicked -= ContinueGameStart;
+        }
+    }
+
+    public void ContinueGameStart()
+    {
+        Debug.Log("Continuing Game from Previous Save");
     }
 
 }
