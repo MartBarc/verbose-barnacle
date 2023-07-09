@@ -158,6 +158,7 @@ public class HeroController : MonoBehaviour
                 //gameObject.GetComponent<AIPath>().canMove = true;
                 EnemyAnimation.SetBool("isWalking", true);
             }
+
         }
     }
 
