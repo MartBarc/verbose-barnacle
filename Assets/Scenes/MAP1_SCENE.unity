@@ -10232,7 +10232,7 @@ MonoBehaviour:
   WinUI: {fileID: 1653766667}
   PauseUI: {fileID: 1235739804}
   GameStarted: 0
-  setupTime: 30
+  setupTime: 3
   currentTimeLeft: 0
   heroSpawnLocation: {fileID: 1444737785}
   HeroPrefab: {fileID: 3402274289338021390, guid: a52d0d0a740abaf47ad988ab6885f0bd, type: 3}
@@ -39500,6 +39500,10 @@ PrefabInstance:
     - target: {fileID: 5223453177832714726, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028813371244247183, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
+      propertyPath: maxHitPoints
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 7028813371244247183, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: insuranceValue

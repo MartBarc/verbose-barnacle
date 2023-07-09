@@ -186,23 +186,28 @@ public class Obs : MonoBehaviour
         }
         if (moneyPrefab != null)
         {
-            GameObject spawnedMoney = Instantiate(moneyPrefab, this.transform.position, this.transform.rotation);
-            if (insuranceValue > 0 && insuranceValue < 50)
+            if (insuranceValue > 0)
             {
-                spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim1");
-                MoneyDrop1.Play();
+                GameObject spawnedMoney = Instantiate(moneyPrefab, this.transform.position, this.transform.rotation);
+                if (insuranceValue > 0 && insuranceValue < 50)
+                {
+                    spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim1");
+                    MoneyDrop1.Play();
+                }
+                if (insuranceValue > 50 && insuranceValue < 100)
+                {
+                    spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim2");
+                    MoneyDrop2.Play();
+                }
+                if (insuranceValue > 100)
+                {
+                    spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim3");
+                    MoneyDrop3.Play();
+                }
+                Destroy(spawnedMoney, 2f);
             }
-            if (insuranceValue > 50 && insuranceValue < 100)
-            {
-                spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim2");
-                MoneyDrop2.Play();
-            }
-            if (insuranceValue > 100)
-            {
-                spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim3");
-                MoneyDrop3.Play();
-            }
-            Destroy(spawnedMoney, 2f);
+            
+            
 
         }
 

@@ -693,7 +693,7 @@ MonoBehaviour:
   nametag: {fileID: 3684685920544597997}
   healthbar: {fileID: 6965254653632302710}
   stam: 0
-  maxStam: 100
+  maxStam: 10000
   isStunned: 0
   hitbox: {fileID: 4306705253055723438}
   canbeHurt: 1
@@ -721,6 +721,8 @@ MonoBehaviour:
   attackAnimStarted: 0
   isFacingRight: 0
   attackSound: {fileID: 0}
+  attackSound2: {fileID: 0}
+  testingAngle: 0
 --- !u!114 &6688963239604149443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,7 +767,7 @@ MonoBehaviour:
   radius: 0.4
   height: 2
   canMove: 1
-  maxSpeed: 4
+  maxSpeed: 6
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -782,7 +784,7 @@ MonoBehaviour:
     maximumPeriod: 2
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
+  maxAcceleration: 12
   rotationSpeed: 360
   slowdownDistance: 1.8
   pickNextWaypointDist: 0.7
