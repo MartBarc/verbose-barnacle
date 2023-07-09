@@ -53,6 +53,8 @@ public class Attacking : MonoBehaviour
             }
             //this.gameObject.GetComponent<WeaponController>().attackSound.enabled = true;
             //this.gameObject.GetComponent<WeaponController>().attackSound.Play();
+            //sd
+
         }
     }
 
