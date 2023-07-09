@@ -70,7 +70,7 @@ public class MinionScript : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0f;
 
 
-        if (id == 301 || id == 100)//orc sprite was facing wrong way
+        if (id == 301)//orc sprite was facing wrong way
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -235,6 +235,17 @@ public class MinionScript : MonoBehaviour
         }
     }
 
+    public void killMinion() 
+    {
+        isAlive = false;
+        //Destroy(gameObject);
+        EnemyAnimation.SetTrigger("EnemyDieTrig");
+        if (id == 301 || id == 302 || id == 100)  //301 = orc, 302 = skele, 100 = batminion
+        {
+            Destroy(gameObject, 2f);
+        }
+    }
+
     IEnumerator damageFromPlayerCooldown()
     {
         gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
@@ -300,7 +311,7 @@ public class MinionScript : MonoBehaviour
 
     public void playAttackAnim()
     {
-        EnemyAnimation.SetTrigger("EnemyMeleAttackTrig");
+        //EnemyAnimation.SetTrigger("EnemyMeleAttackTrig");
     }
 
     public void playDieAnim()
