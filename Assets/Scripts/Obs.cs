@@ -55,6 +55,7 @@ public class Obs : MonoBehaviour
         {
             return;
         }
+
         if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameStarted)
         {
 
@@ -80,7 +81,7 @@ public class Obs : MonoBehaviour
         {
             if (purchaseable && !preventPurchase)
             {
-                buyText.SetText($"Insurance cost: {insuranceCost}\nInsurance payout: ${insuranceValue}\nPress [E]");
+                buyText.SetText($"Insurance cost: {insuranceCost}G\nInsurance payout: {insuranceValue}G\nPress [E]");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     buyText.gameObject.SetActive(false);
@@ -91,6 +92,7 @@ public class Obs : MonoBehaviour
                     buyText.SetText("");
                     if (isTower)
                     {
+                        Debug.Log("Purchased tower!");
                         buyableCollider.enabled = false;
                         normalColliderTower.enabled = true;
                         if (this.gameObject.GetComponent<TowerScript>().towerid == 1)
@@ -100,6 +102,10 @@ public class Obs : MonoBehaviour
                         }
                         this.gameObject.GetComponent<TowerScript>().AoeImage.SetActive(true);
 
+                    }
+                    else
+                    {
+                        normalColliderObs.enabled = true;
                     }
                 }
             }
