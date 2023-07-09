@@ -77,7 +77,7 @@ public class Attacking : MonoBehaviour
 
     void SpawnBat() 
     {
-        Debug.Log("make bat");
+        //Debug.Log("make bat");
         GameObject bullet = Instantiate(this.gameObject.GetComponent<WeaponController>().bulletPrefab, firepos.position, firepos.rotation);
         Vector3 newRotation = new Vector3(0, 0, 0);
         bullet.transform.eulerAngles = newRotation;

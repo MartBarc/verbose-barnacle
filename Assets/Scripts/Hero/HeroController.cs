@@ -62,10 +62,13 @@ public class HeroController : MonoBehaviour
     public AudioSource attackSound;
     public AudioSource attackSound2;
     //private Transform OGRotation;
+    public float testingAngle;
+    public bool canFlip;
 
     // Start is called before the first frame update
     void Start()
     {
+        canFlip = true;
         stam = maxStam;
         healthbar.SetHealth(stam, maxStam);
         //OGRotation = weaponObj.transform;
@@ -94,6 +97,7 @@ public class HeroController : MonoBehaviour
         {
             // Hero needs to start going back to entrance
             curTarget.UpdateTargetPosition(spawner.transform.position);
+            EnemyAnimation.SetBool("isWalking", true);
         }
         else
         {
@@ -104,22 +108,47 @@ public class HeroController : MonoBehaviour
             }
             //RecalcTargets();
 
-            if (this.transform.rotation.z <= 0f && this.transform.rotation.z >= -180f)
+            if (canFlip)
             {
-                isFacingRight = true;
-                gameObject.transform.localScale = new Vector3(1, 1, 1);
-                //flip weapon hand sprite here
-                weaponObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-                nametag.transform.localScale = new Vector3(1, 1, 1);
+                Vector2 lookDirr = curTarget.transform.position - transform.position;
+                testingAngle = Mathf.Atan2(lookDirr.y, lookDirr.x) * Mathf.Rad2Deg - 90f;
+
+                if (testingAngle <= 0f && testingAngle >= -180f)
+                {
+                    isFacingRight = true;
+                    gameObject.transform.localScale = new Vector3(1, 1, 1);
+                    //flip weapon hand sprite here
+                    weaponObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                    nametag.transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    isFacingRight = false;
+                    gameObject.transform.localScale = new Vector3(-1, 1, 1);
+                    //flip weapon hand sprite here
+                    weaponObj.transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
+                    nametag.transform.localScale = new Vector3(-1, 1, 1);
+                }
             }
-            else
-            {
-                isFacingRight = false;
-                gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                //flip weapon hand sprite here
-                weaponObj.transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
-                nametag.transform.localScale = new Vector3(-1, 1, 1);
-            }
+            //Vector2 lookDirr = curTarget.transform.position - transform.position;
+            //testingAngle = Mathf.Atan2(lookDirr.y, lookDirr.x) * Mathf.Rad2Deg - 90f;
+
+            //if (testingAngle <= 0f && testingAngle >= -180f)
+            //{
+            //    isFacingRight = true;
+            //    gameObject.transform.localScale = new Vector3(1, 1, 1);
+            //    //flip weapon hand sprite here
+            //    weaponObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            //    nametag.transform.localScale = new Vector3(1, 1, 1);
+            //}
+            //else
+            //{
+            //    isFacingRight = false;
+            //    gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            //    //flip weapon hand sprite here
+            //    weaponObj.transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
+            //    nametag.transform.localScale = new Vector3(-1, 1, 1);
+            //}
 
             if (isStunned)
             {
@@ -154,7 +183,6 @@ public class HeroController : MonoBehaviour
             else 
             {
                 RecalcTargets();
-
                 //gameObject.GetComponent<AIPath>().canMove = true;
                 EnemyAnimation.SetBool("isWalking", true);
             }
@@ -296,7 +324,10 @@ public class HeroController : MonoBehaviour
     IEnumerator meleAttackCooldown()
     {
         //weaponObj.SetActive(false);
+        
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
+        canFlip = false;
+
         attackSound.Play();
         if (player != null)
         {
@@ -311,8 +342,9 @@ public class HeroController : MonoBehaviour
             playAttackAnim();
             attackAnimStarted = true;
             
-
+            
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
+            canFlip = true;
 
             //maybe check if player is still in range of attack to deal damage?
             //or maybe turn into a melehitbox/bullet thing
