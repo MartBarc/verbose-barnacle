@@ -95,8 +95,6 @@ public class Obs : MonoBehaviour
                     buyText.SetText("");
                     if (isTower)
                     {
-                        Debug.Log("Purchased tower!");
-                        buyableCollider.enabled = false;
                         normalColliderTower.enabled = true;
                         if (this.gameObject.GetComponent<TowerScript>().towerid == 1)
                         {
@@ -106,10 +104,9 @@ public class Obs : MonoBehaviour
                         this.gameObject.GetComponent<TowerScript>().AoeImage.SetActive(true);
 
                     }
-                    else
-                    {
-                        normalColliderObs.enabled = true;
-                    }
+
+                    normalColliderObs.enabled = true;
+                    buyableCollider.enabled = false;
                 }
             }
             
