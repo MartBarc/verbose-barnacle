@@ -1094,6 +1094,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8739829413693421404, guid: 3f20a9e41b2eaa840be5c446a70a3b0d, type: 3}
   m_PrefabInstance: {fileID: 976564773}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &141974723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2113194013595579943, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
+  m_PrefabInstance: {fileID: 1268043317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &146351937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10141,7 +10146,7 @@ MonoBehaviour:
   GameOverUI: {fileID: 1842471615}
   RoundOverUI: {fileID: 48877177}
   WinUI: {fileID: 1653766667}
-  PauseUI: {fileID: 1235739804}
+  PauseUI: {fileID: 141974723}
   GameStarted: 0
   setupTime: 30
   currentTimeLeft: 0

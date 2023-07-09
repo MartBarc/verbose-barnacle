@@ -93,6 +93,10 @@ public class HeroController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameIsPaused)
+        {
+            return;
+        }
         if (isRoundOver)
         {
             // Hero needs to start going back to entrance

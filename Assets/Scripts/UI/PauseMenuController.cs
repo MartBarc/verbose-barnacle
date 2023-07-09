@@ -29,8 +29,16 @@ public class PauseMenuController : UIController
 
         buttons[0].clicked += () =>
         {
+            if (gameManager.GameIsPaused)
+            {
+                gameManager.ResumeGame();
+            }
+            else
+            {
+                gameManager.PauseGame();
+            }
             Debug.Log("resuming");
-            gameManager.ResumeGame();
+            //gameManager.ResumeGame();
         };
         
         buttons[1].clicked += () =>
