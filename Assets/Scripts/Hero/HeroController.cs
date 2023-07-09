@@ -79,7 +79,7 @@ public class HeroController : MonoBehaviour
         //attackSound.Play();
 
 
-
+        nametag.text = GetRandomName();
 
         StartCoroutine(WaitToAttack());
         currentSpeed = (int)gameObject.GetComponent<AIPath>().maxSpeed;
@@ -369,5 +369,33 @@ public class HeroController : MonoBehaviour
     public void setOGSpeed()
     {
         gameObject.GetComponent<AIPath>().maxSpeed = OGSpeed;
+    }
+
+    public string GetRandomName()
+    {
+        string[] names = new string[]
+        {
+            "Slayer",
+            "Demon",
+            "Kitty",
+            "Killa",
+            "Random",
+            "Theory",
+            "Risk",
+            "Gold",
+            "Paper",
+            "Apple",
+            "Story",
+            "Flip",
+            "Sicko"
+        };
+
+
+        string namepart1 = names[Random.Range(0, names.Length)];
+        string namepart2 = names[Random.Range(0, names.Length)];
+
+        string namepart3 = Random.Range(0, 100).ToString();
+
+        return namepart1 + namepart2 + namepart3;
     }
 }
