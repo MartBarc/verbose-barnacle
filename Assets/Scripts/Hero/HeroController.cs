@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using TMPro;
 
 public class HeroController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class HeroController : MonoBehaviour
     // Spawn location // Game state
     public bool isRoundOver = false;
     public GameObject spawner;
+
+    // Nametag
+    public TextMeshProUGUI nametag;
 
     //Health
     [SerializeField] public HealthbarScript healthbar;
@@ -22,18 +26,18 @@ public class HeroController : MonoBehaviour
     public bool canbeHurt = true;
     public bool canAttack = true;
     public int attackDamage = 110;
-    //private float shootDistance = 6f;
+
     public float attackDistance = 2f;
     public GameObject weaponObj;
 
-    public float attackDelay = 1.5f; //How long to wait before able to attack again
-    public float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
-    public float beforeDamageDelay = 0.8f;//how long to wait to deal damage after starting animation
-    public float weaponResetDelay = 0.5f;
+    public float attackDelay = 0.7f; //How long to wait before able to attack again
+    public float beforeAttackDelay = 0.05f;//how long to wait to attack after it gets to you
+    public float beforeDamageDelay = 0.4f;//how long to wait to deal damage after starting animation
+    public float weaponResetDelay = 0.25f;
 
     public Transform firepos;
 
-    public float bulletForce = 10f;
+    //public float bulletForce = 10f;
     public Rigidbody2D rb;
 
     //[SerializeField] private BulletScriptEnemy projectilePrefab;
@@ -54,12 +58,12 @@ public class HeroController : MonoBehaviour
     public Animator HandAnimation;
     public bool attackAnimStarted;//dont accurately follow target after starting swing anim
     public bool isFacingRight;
-    private Transform OGRotation;
+    //private Transform OGRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        OGRotation = weaponObj.transform;
+        //OGRotation = weaponObj.transform;
         obsList = new List<Obs> { player.GetComponent<Obs>() };
         //player = GameObject.Find("Player").gameObject;
         //curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
@@ -88,19 +92,23 @@ public class HeroController : MonoBehaviour
                 isRoundOver = false;
                 EnemyAnimation.SetTrigger("EnemyDieTrig");
             }
-            RecalcTargets();
+            //RecalcTargets();
 
             if (this.transform.rotation.z <= 0f && this.transform.rotation.z >= -180f)
             {
                 isFacingRight = true;
                 gameObject.transform.localScale = new Vector3(1, 1, 1);
                 //flip weapon hand sprite here
+
+                nametag.transform.localScale = new Vector3(1, 1, 1);
             }
             else
             {
                 isFacingRight = false;
                 gameObject.transform.localScale = new Vector3(-1, 1, 1);
                 //flip weapon hand sprite here
+
+                nametag.transform.localScale = new Vector3(-1, 1, 1);
             }
 
 
@@ -115,16 +123,23 @@ public class HeroController : MonoBehaviour
                     gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
                     //weaponObj.transform.rotation = Quaternion.identity;
                 }
+
                 if (canAttack)
                 {
                     EnemyAnimation.SetBool("isWalking", false);
                     canAttack = false;
-                    ReduceHeroStam(1f);
+                    ReduceHeroStam(5f);
                     StartCoroutine(meleAttackCooldown());
+                }
+                else
+                {
+                    RecalcTargets();
                 }
             }
             else 
             {
+                RecalcTargets();
+
                 //gameObject.GetComponent<AIPath>().canMove = true;
                 EnemyAnimation.SetBool("isWalking", true);
             }
@@ -201,7 +216,7 @@ public class HeroController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Player dead!!!");
+            //Debug.Log("Player dead!!!");
             return;
         }
 
@@ -279,7 +294,13 @@ public class HeroController : MonoBehaviour
             playAttackAnim();
             attackAnimStarted = true;
 
-            yield return new WaitForSecondsRealtime(beforeDamageDelay);
+
+
+
+            //yield return new WaitForSecondsRealtime(beforeDamageDelay);
+
+
+
             //maybe check if player is still in range of attack to deal damage?
             //or maybe turn into a melehitbox/bullet thing
             ///player.TakeHit(attackDamage);//testing above comments, bring this back if not working
@@ -297,7 +318,7 @@ public class HeroController : MonoBehaviour
     public void Swing(Transform target)
     {
         //Vector2 targetposition = target.position;
-        Vector2 lookDir = hitbox.transform.position;//targetposition - weaponRb.position;
+        ////Vector2 lookDir = hitbox.transform.position;//targetposition - weaponRb.position;
         //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         //weaponRb.rotation = angle;
 

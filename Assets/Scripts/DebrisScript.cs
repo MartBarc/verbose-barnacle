@@ -11,20 +11,11 @@ public class DebrisScript : MonoBehaviour
 
     public float selfDestroyTime = 2f;
 
-    //private float rightMod = 0f;
-    //private float upMod = 0f;
-
-    //public void ModDir(float right, float up)
+    //void Start()
     //{
-    //    rightMod = right;
-    //    upMod = up;
+    //    Destroy(gameObject, selfDestroyTime);
+    //    //damage = gameObject.GetComponent<EnemyScript>().attackDamage;
     //}
-
-    void Start()
-    {
-        Destroy(gameObject, selfDestroyTime);
-        //damage = gameObject.GetComponent<EnemyScript>().attackDamage;
-    }
 
     void FixedUpdate()
     {

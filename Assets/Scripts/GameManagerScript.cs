@@ -193,11 +193,11 @@ public class GameManagerScript : MonoBehaviour
             }
 
             // If all objects destroyed
-            if (insuredObs.obsList.Count <= 0)
-            {
-                StartCoroutine(roundOverRoutine());
-                return;
-            }
+            //if (insuredObs.obsList.Count <= 0)
+            //{
+            //    StartCoroutine(roundOverRoutine());
+            //    return;
+            //}
         }
     }
 
@@ -258,7 +258,7 @@ public class GameManagerScript : MonoBehaviour
         }
         
 
-        SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
+        //SharedInfo.InsurancePayoff = insuredObs.GetDestroyedInsurance();
 
         yield return new WaitForSecondsRealtime(0f);
 

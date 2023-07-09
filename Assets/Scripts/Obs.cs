@@ -18,13 +18,17 @@ public class Obs : MonoBehaviour
     public CircleCollider2D normalColliderTower;
     public BoxCollider2D normalColliderObs;
 
+    bool canDecay = true;
+    public int basePriority;
+    public int priorityDecay = 20;
+
     // Dustruction
     [SerializeField] public GameObject debriPrefab;
-    [SerializeField] public float rightMod = 0;
-    [SerializeField] public float upMod = 0;
 
     private void Start()
     {
+        basePriority = priority;
+
         if (gameObject.tag == "Enemy" || gameObject.tag == "Player" || gameObject.tag == "Door")//Bat is only obs or minion with tag "Enemy"
         {
             return;
@@ -61,6 +65,11 @@ public class Obs : MonoBehaviour
                 normalColliderObs.enabled = true;
                 buyableCollider.enabled = false;
                 insuranceValue = 0;
+            }
+
+            if (priority > basePriority && canDecay)
+            {
+                StartCoroutine(DecayPriority());
             }
         }
         else 
@@ -105,6 +114,18 @@ public class Obs : MonoBehaviour
         StartCoroutine(obsDestroyed());
     }
 
+    IEnumerator DecayPriority()
+    {
+        canDecay = false;
+        priority -= priorityDecay;
+        if (basePriority > priority)
+        {
+            priority= basePriority;
+        }
+        yield return new WaitForSecondsRealtime(1f);
+        canDecay = true;
+    }
+
     public void TakeHit(int help)
     {
         health -= help;
@@ -136,12 +157,6 @@ public class Obs : MonoBehaviour
         {
             GameObject spawnedDebris = Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
         }
-       
-        //spawnedDebris.GetComponent<DebrisScript>().ModDir(rightMod, upMod);
-
-        //yield return new WaitForSecondsRealtime(0f);
-
-        //Spawn destruction
 
         Destroy(this.gameObject);
 
