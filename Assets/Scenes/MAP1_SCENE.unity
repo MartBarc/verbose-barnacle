@@ -123,6 +123,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &48877177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48877179}
+  - component: {fileID: 48877178}
+  - component: {fileID: 48877180}
+  m_Layer: 5
+  m_Name: Round End Menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &48877178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48877177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: cda6807b814092b4aa184923754a08a7, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 194b5795f650347478fd6a2882cd3bcc, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &48877179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48877177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &48877180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48877177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b28ceb389a571d48ba69ede3e6f2e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1337385824}
+  uiDocument: {fileID: 48877178}
 --- !u!1001 &57364586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4196,7 +4259,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -7430,7 +7493,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1014586172
 PrefabInstance:
@@ -9781,6 +9844,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: newGameBtn
       objectReference: {fileID: 0}
+    - target: {fileID: 3186567419592763351, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3350098602409762463, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -10228,7 +10295,7 @@ MonoBehaviour:
   scoreText: {fileID: 1973385282}
   timerText: {fileID: 296912957}
   GameOverUI: {fileID: 1842471615}
-  RoundOverUI: {fileID: 1663392973}
+  RoundOverUI: {fileID: 48877177}
   WinUI: {fileID: 1653766667}
   PauseUI: {fileID: 1235739804}
   GameStarted: 0
@@ -20069,11 +20136,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1663392973 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3186567419592763351, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
-  m_PrefabInstance: {fileID: 1268043317}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1680791544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3752671645536620169, guid: 8b1bb06921962e64694a737cdcc84e3e, type: 3}
