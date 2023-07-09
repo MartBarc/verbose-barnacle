@@ -105,14 +105,6 @@
     -unity-background-image-tint-color: rgb(50, 50, 50);
 }
 
-.toggle-on {
-    background-image: url('project://database/Assets/Sprites/UI/UI_Paper_Checkmark_Standard.png?fileID=2800000&guid=fbecb287c78e32a458252e3de1a26365&type=3#UI_Paper_Checkmark_Standard');
-}
-
-.toggle-off {
-    background-image: url('project://database/Assets/Sprites/UI/UI_Paper_Cross_Standard.png?fileID=2800000&guid=08d4ecd0eca215349bddb21a107985bd&type=3#UI_Paper_Cross_Standard');
-}
-
 .menu-slide-on {
 }
 
