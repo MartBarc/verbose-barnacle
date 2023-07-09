@@ -17,6 +17,7 @@ public class Obs : MonoBehaviour
     public CircleCollider2D buyableCollider;
     public CircleCollider2D normalColliderTower;
     public BoxCollider2D normalColliderObs;
+    public AudioSource destroySound;
 
     bool canDecay = true;
     public int basePriority;
@@ -46,6 +47,7 @@ public class Obs : MonoBehaviour
             normalColliderObs.enabled = false;
         }
         buyableCollider.enabled = true;
+        destroySound = GameObject.Find("Sounds/ObsDestroy").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -82,6 +84,7 @@ public class Obs : MonoBehaviour
                 buyText.SetText("Press E to purchase " + gameObject.tag + " for $" + insuranceValue + ".");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    //purchase sound//destroySound.Play();//testing sounds here
                     buyText.gameObject.SetActive(false);
                     purchaseable = false;
                     isActive = true;
@@ -185,6 +188,7 @@ public class Obs : MonoBehaviour
         }
 
         Destroy(this.gameObject);
+        destroySound.Play();
 
         //do blow up physics on delete
         yield return new WaitForSecondsRealtime(0f);
