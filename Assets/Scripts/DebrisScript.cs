@@ -11,6 +11,8 @@ public class DebrisScript : MonoBehaviour
 
     public float selfDestroyTime = 2f;
 
+    [SerializeField] public GameObject landAnim;
+
     //void Start()
     //{
     //    Destroy(gameObject, selfDestroyTime);
