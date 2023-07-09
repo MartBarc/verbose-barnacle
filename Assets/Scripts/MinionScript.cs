@@ -172,7 +172,7 @@ public class MinionScript : MonoBehaviour
                 //destroy this gameobject
                 if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameStarted)
                 {
-                    Destroy(gameObject);//ASDF
+                    Destroy(gameObject);
                 }
                 purchased = false;
                 //buyText.SetText("Press E to purchase " + this.gameObject.name + " for $" + price + ".");
