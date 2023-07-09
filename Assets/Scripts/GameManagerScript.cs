@@ -68,8 +68,7 @@ public class GameManagerScript : MonoBehaviour
         GameStarted = false;
         currentTimeLeft = setupTime;
         player = GameObject.Find("Player");
-        scoreText.text = "Score: " + roundScore;
-        //totalDestroyedText.text = "Score: " + 0;
+        scoreText.text = $"{roundScore} Gold";
         timerText.text = "";
         GameOverUI.SetActive(false);
         RoundOverUI.SetActive(false);
@@ -224,7 +223,7 @@ public class GameManagerScript : MonoBehaviour
     public void ScoreAdd(int scoreIncrease)
     {
         roundScore += scoreIncrease;
-        scoreText.text = "Score: " + roundScore;
+        scoreText.text = $"{roundScore} Gold";
         //if above 1000, you win
         //bring up window that asks if you want to keep going for highscore
     }
@@ -236,7 +235,7 @@ public class GameManagerScript : MonoBehaviour
         {
             roundScore = 0;
         }
-        scoreText.text = "Score: " + roundScore;
+        scoreText.text = $"{roundScore} Gold";
     }
 
     public void newGameBtn() 
@@ -298,7 +297,7 @@ public class GameManagerScript : MonoBehaviour
         PlayerPrefs.DeleteAll();
 
         //debug
-        scoreText.text = "Score: " + roundScore;
+        scoreText.text = $"{roundScore} Gold";
     }
 
     public void AddData()
@@ -308,7 +307,7 @@ public class GameManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("ScoreData", roundScore);
 
         //debug
-        scoreText.text = "Score: " + roundScore;
+        scoreText.text = $"{roundScore} Gold";
     }
 
     public void SubData()
@@ -318,7 +317,7 @@ public class GameManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("ScoreData", roundScore);
 
         //debug
-        scoreText.text = "Score: " + roundScore;
+        scoreText.text = $"{roundScore} Gold";
     }
 
     public void ResumeGame() 
