@@ -565,6 +565,7 @@ MonoBehaviour:
   attackDelay: 2
   beforeAttackDelay: 0.15
   beforeDamageDelay: 0.8
+  weaponResetDelay: 0.5
   firepos: {fileID: 0}
   bulletForce: 10
   rb: {fileID: 0}
@@ -644,9 +645,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 2
+  slowdownDistance: 1.8
   pickNextWaypointDist: 0.7
-  endReachedDistance: 2
+  endReachedDistance: 1.8
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -744,7 +745,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -794,8 +795,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7957334128602684146}
   - component: {fileID: 8559741042241873518}
-  - component: {fileID: 2643604633915210482}
   - component: {fileID: 4306705253055723438}
+  - component: {fileID: 5588849723233734582}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -860,7 +861,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 39686c2cb262d5c4c8f7b17726791e97, type: 3}
-  m_Color: {r: 1, g: 0.110657506, b: 0, a: 0.3764706}
+  m_Color: {r: 1, g: 0.10980393, b: 0, a: 0.3764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -870,8 +871,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2643604633915210482
-BoxCollider2D:
+--- !u!114 &4306705253055723438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3488549740640901021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c2f69d25df0f594a891122b76fdd7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &5588849723233734582
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -885,7 +898,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -912,21 +925,26 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &4306705253055723438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3488549740640901021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c2f69d25df0f594a891122b76fdd7c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: 0.5}
+      - {x: -0.70881766, y: 0.32366112}
+      - {x: -0.7696175, y: 0.12804143}
+      - {x: -0.73437357, y: -0.15274061}
+      - {x: -0.5273041, y: -0.61798054}
+      - {x: -0.32707497, y: -0.73663443}
+      - {x: -0.3134503, y: -0.7462191}
+      - {x: -0.25812668, y: -0.6247965}
+      - {x: 0.0011126995, y: -0.49884215}
+      - {x: 0.25323892, y: -0.59731615}
+      - {x: 0.3270749, y: -0.7730397}
+      - {x: 0.5239719, y: -0.67188954}
+      - {x: 0.60962, y: -0.5916363}
+      - {x: 0.80265117, y: -0.07550739}
+      - {x: 0.8334036, y: 0.12561499}
+      - {x: 0.78237206, y: 0.2806449}
+      - {x: 0.5, y: 0.5}
+  m_UseDelaunayMesh: 0
 --- !u!1 &4190700533145614168
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +972,7 @@ Transform:
   m_GameObject: {fileID: 4190700533145614168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.06, y: -0.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2018463893280018778}

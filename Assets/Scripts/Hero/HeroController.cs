@@ -26,9 +26,10 @@ public class HeroController : MonoBehaviour
     public float attackDistance = 2f;
     public GameObject weaponObj;
 
-    public float attackDelay = 2f; //How long to wait before able to attack again
+    public float attackDelay = 1.5f; //How long to wait before able to attack again
     public float beforeAttackDelay = 0.15f;//how long to wait to attack after it gets to you
     public float beforeDamageDelay = 0.8f;//how long to wait to deal damage after starting animation
+    public float weaponResetDelay = 0.5f;
 
     public Transform firepos;
 
@@ -53,10 +54,12 @@ public class HeroController : MonoBehaviour
     public Animator HandAnimation;
     public bool attackAnimStarted;//dont accurately follow target after starting swing anim
     public bool isFacingRight;
+    private Transform OGRotation;
 
     // Start is called before the first frame update
     void Start()
     {
+        OGRotation = weaponObj.transform;
         obsList = new List<Obs> { player.GetComponent<Obs>() };
         //player = GameObject.Find("Player").gameObject;
         //curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
@@ -87,21 +90,21 @@ public class HeroController : MonoBehaviour
             }
             RecalcTargets();
 
-            //if (rb.rotation <= 0f && rb.rotation >= -180f)
-            //{
-            //    isFacingRight = true;
-            //    gameObject.transform.localScale = new Vector3(1, 1, 1);
-            //    //flip weapon hand sprite here
-            //}
-            //else
-            //{
-            //    isFacingRight = false;
-            //    gameObject.transform.localScale = new Vector3(-1, 1, 1);
-            //    //flip weapon hand sprite here
-            //}
+            if (this.transform.rotation.z <= 0f && this.transform.rotation.z >= -180f)
+            {
+                isFacingRight = true;
+                gameObject.transform.localScale = new Vector3(1, 1, 1);
+                //flip weapon hand sprite here
+            }
+            else
+            {
+                isFacingRight = false;
+                gameObject.transform.localScale = new Vector3(-1, 1, 1);
+                //flip weapon hand sprite here
+            }
 
 
-
+            
             // Attack object?
             if (Vector2.Distance(transform.position, curTarget.transform.position) < attackDistance)
             {
@@ -110,6 +113,7 @@ public class HeroController : MonoBehaviour
                     Vector2 lookDir = curTarget.transform.position - transform.position;
                     float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
                     gameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
+                    //weaponObj.transform.rotation = Quaternion.identity;
                 }
                 if (canAttack)
                 {
@@ -264,10 +268,14 @@ public class HeroController : MonoBehaviour
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
         if (player != null)
         {
-            Vector2 targetposition = hitbox.transform.position;
-            //Vector2 lookDir = targetposition - weaponRb.position;
+            //Vector2 targetposition = hitbox.transform.position;
+            //Vector2 lookDir = targetposition - weaponObj.transform.position;
             //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             //weaponRb.rotation = angle;
+            Vector2 lookDir = curTarget.transform.position - transform.position;
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            weaponObj.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
+            //weaponObj.transform.rotation = hitbox.transform.rotation;
             playAttackAnim();
             attackAnimStarted = true;
 
@@ -276,8 +284,11 @@ public class HeroController : MonoBehaviour
             //or maybe turn into a melehitbox/bullet thing
             ///player.TakeHit(attackDamage);//testing above comments, bring this back if not working
             Swing(player.gameObject.transform);
+            yield return new WaitForSecondsRealtime(weaponResetDelay);
+            weaponObj.transform.rotation = Quaternion.identity;
         }
         yield return new WaitForSecondsRealtime(attackDelay);
+        //weaponObj.transform.rotation = Quaternion.identity;
         canAttack = true;
         attackAnimStarted = false;
         //weaponObj.SetActive(true);
