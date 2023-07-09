@@ -149,7 +149,7 @@ public class GameManagerScript : MonoBehaviour
                 HeroStamBar.maxValue = curHero.GetComponent<HeroController>().maxStam;
             }
             int newCurrentTime = (int)currentTimeLeft;
-            timerText.text = newCurrentTime.ToString();
+            timerText.text = $"{newCurrentTime} seconds\nuntil the hero arrives!";
         }
     }
 
