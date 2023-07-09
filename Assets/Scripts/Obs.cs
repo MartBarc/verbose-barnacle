@@ -13,10 +13,12 @@ public class Obs : MonoBehaviour
     public bool isTower;
     public bool purchased;
     public bool purchaseable;
+    public bool preventPurchase = false;
     public TextMeshProUGUI buyText;
     public CircleCollider2D buyableCollider;
     public CircleCollider2D normalColliderTower;
     public BoxCollider2D normalColliderObs;
+    public AudioSource destroySound;
 
     bool canDecay = true;
     public int basePriority;
@@ -46,6 +48,7 @@ public class Obs : MonoBehaviour
             normalColliderObs.enabled = false;
         }
         buyableCollider.enabled = true;
+        destroySound = GameObject.Find("Sounds/ObsDestroy").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -54,6 +57,7 @@ public class Obs : MonoBehaviour
         {
             return;
         }
+
         if (GameObject.Find("GameManager").GetComponent<GameManagerScript>().GameStarted)
         {
 
@@ -77,11 +81,12 @@ public class Obs : MonoBehaviour
         }
         else 
         {
-            if (purchaseable)
+            if (purchaseable && !preventPurchase)
             {
-                buyText.SetText("Press E to purchase " + gameObject.tag + " for $" + insuranceValue + ".");
+                buyText.SetText($"Insurance cost: {insuranceCost}G\nInsurance payout: {insuranceValue}G\nPress [E]");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    //purchase sound//destroySound.Play();//testing sounds here
                     buyText.gameObject.SetActive(false);
                     purchaseable = false;
                     isActive = true;
@@ -90,7 +95,6 @@ public class Obs : MonoBehaviour
                     buyText.SetText("");
                     if (isTower)
                     {
-                        buyableCollider.enabled = false;
                         normalColliderTower.enabled = true;
                         if (this.gameObject.GetComponent<TowerScript>().towerid == 1)
                         {
@@ -100,6 +104,9 @@ public class Obs : MonoBehaviour
                         this.gameObject.GetComponent<TowerScript>().AoeImage.SetActive(true);
 
                     }
+
+                    normalColliderObs.enabled = true;
+                    buyableCollider.enabled = false;
                 }
             }
             
@@ -185,6 +192,7 @@ public class Obs : MonoBehaviour
         }
 
         Destroy(this.gameObject);
+        destroySound.Play();
 
         //do blow up physics on delete
         yield return new WaitForSecondsRealtime(0f);

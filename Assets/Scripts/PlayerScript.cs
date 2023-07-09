@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     public bool isGrounded = false; 
     public float jumpForce = 10f;
     public float gravity = 2f;
-    [SerializeField] public int insuranceValue = 0;
+    [SerializeField] public int insuranceValue = 200;
 
     Vector2 movement;
     Vector2 moveWeapon;
@@ -147,7 +147,7 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator playerDied()
     {
-        Debug.Log("Player died");
+        //Debug.Log("Player died");
         GameObject.Find("GameManager").GetComponent<GameManagerScript>().ScoreSub(insuranceValue);
         animator.SetTrigger("PlayerDieTrig");
 

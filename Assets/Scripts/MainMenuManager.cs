@@ -33,7 +33,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void newGameBtn()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("CutsceneScene");
     }
 
     public void PlayMenuBtn()
