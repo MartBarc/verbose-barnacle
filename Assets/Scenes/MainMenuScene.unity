@@ -1006,6 +1006,7 @@ MonoBehaviour:
   MainMenu: {fileID: 1050594862}
   PlayMenu: {fileID: 1753485538}
   SettingsMenu: {fileID: 659417491}
+  continueBtnEnable: 0
 --- !u!4 &1348831783
 Transform:
   m_ObjectHideFlags: 0
