@@ -42,13 +42,13 @@ public class UIController : MonoBehaviour
         #region Main Menu
         mainMenuRoot = mainMenu.rootVisualElement;
         startButtonsContainer = mainMenuRoot.Q<GroupBox>("start-buttons-container");
-        mainMenuStartButtons = new();
+        //mainMenuStartButtons = new();
         foreach (VisualElement startButton in startButtonsContainer.Children())
         {
             mainMenuStartButtons.Add((Button)startButton);
         }
-        mainMenuStartButtons[0].clicked += newGameStart;
-        mainMenuStartButtons[1].clicked += continueGameStart;
+        //mainMenuStartButtons[0].clicked += newGameStart;
+        //mainMenuStartButtons[1].clicked += continueGameStart;
         mainMenuStartButtons[2].clicked += () => { ToggleMenu(optionsContainer);};
 
         optionsContainer = mainMenuRoot.Q<GroupBox>("options-container");

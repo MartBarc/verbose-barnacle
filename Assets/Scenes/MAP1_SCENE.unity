@@ -8060,6 +8060,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -94
       objectReference: {fileID: 0}
+    - target: {fileID: 7049671195887904319, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 7049671195887904319, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
+      objectReference: {fileID: 0}
     - target: {fileID: 7153655263799054298, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -36158,7 +36166,7 @@ MonoBehaviour:
   rb: {fileID: 2001322592}
   animator: {fileID: 2001322595}
   hitPoints: 0
-  maxHitPoints: 100
+  maxHitPoints: 1000000
   isAlive: 1
   isFacingRight: 1
   healthbar: {fileID: 1695585796}
@@ -36313,6 +36321,7 @@ MonoBehaviour:
   priorityDecay: 20
   stunHero: 0
   debriPrefab: {fileID: 0}
+  moneyPrefab: {fileID: 0}
 --- !u!4 &2022904894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8739829413693421404, guid: 719cbf9222a436f4dbd882a6aca634f8, type: 3}

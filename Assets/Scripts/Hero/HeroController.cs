@@ -100,7 +100,7 @@ public class HeroController : MonoBehaviour
                 isFacingRight = true;
                 gameObject.transform.localScale = new Vector3(1, 1, 1);
                 //flip weapon hand sprite here
-
+                weaponObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                 nametag.transform.localScale = new Vector3(1, 1, 1);
             }
             else
@@ -108,7 +108,7 @@ public class HeroController : MonoBehaviour
                 isFacingRight = false;
                 gameObject.transform.localScale = new Vector3(-1, 1, 1);
                 //flip weapon hand sprite here
-
+                weaponObj.transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
                 nametag.transform.localScale = new Vector3(-1, 1, 1);
             }
 
@@ -294,18 +294,13 @@ public class HeroController : MonoBehaviour
             //float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
             //weaponRb.rotation = angle;
             Vector2 lookDir = curTarget.transform.position - transform.position;
-            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 50f;
             weaponObj.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); //
             //weaponObj.transform.rotation = hitbox.transform.rotation;
             playAttackAnim();
             attackAnimStarted = true;
 
-
-
-
-            //yield return new WaitForSecondsRealtime(beforeDamageDelay);
-
-
+            yield return new WaitForSecondsRealtime(beforeDamageDelay);
 
             //maybe check if player is still in range of attack to deal damage?
             //or maybe turn into a melehitbox/bullet thing
