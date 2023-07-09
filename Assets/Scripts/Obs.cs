@@ -131,6 +131,7 @@ public class Obs : MonoBehaviour
 
     IEnumerator obsDestroyed()
     {
+        //asdf
         if (debriPrefab != null) 
         {
             GameObject spawnedDebris = Instantiate(debriPrefab, this.transform.position, this.transform.rotation);
