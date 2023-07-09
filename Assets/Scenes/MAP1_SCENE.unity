@@ -39493,6 +39493,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5852040801893795116, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7028813371244247183, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: maxHitPoints
       value: 100
@@ -39507,7 +39511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8802550190137901243, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -97,6 +97,7 @@ public class HeroController : MonoBehaviour
         {
             // Hero needs to start going back to entrance
             curTarget.UpdateTargetPosition(spawner.transform.position);
+            EnemyAnimation.SetBool("isWalking", true);
         }
         else
         {
@@ -184,8 +185,6 @@ public class HeroController : MonoBehaviour
                 RecalcTargets();
                 //gameObject.GetComponent<AIPath>().canMove = true;
                 EnemyAnimation.SetBool("isWalking", true);
-                
-                
             }
 
         }
