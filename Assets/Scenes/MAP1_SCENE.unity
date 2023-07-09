@@ -9644,6 +9644,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: newGameBtn
       objectReference: {fileID: 0}
+    - target: {fileID: 1322339536831980577, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1243560854, guid: e81e38e4126e3824d9d69910b76ae3cc, type: 3}
     - target: {fileID: 1415817575309799730, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -9852,6 +9856,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -94
       objectReference: {fileID: 0}
+    - target: {fileID: 6547457023710056366, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1243560854, guid: e81e38e4126e3824d9d69910b76ae3cc, type: 3}
     - target: {fileID: 7049671195887904319, guid: 833810f56a8dde445bc47f2bda82291e, type: 3}
       propertyPath: m_ReferenceResolution.x
       value: 1280
