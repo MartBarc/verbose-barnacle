@@ -8,6 +8,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject MainMenu;
     public GameObject PlayMenu;
     public GameObject SettingsMenu;
+    private int roundScore = 0;
+    private int weWon = 0;
+    public bool continueBtnEnable;
 
 
     private void Start()
@@ -15,7 +18,17 @@ public class MainMenuManager : MonoBehaviour
         MainMenu.SetActive(true);
         PlayMenu.SetActive(false);
         SettingsMenu.SetActive(false);
-        //marty
+        roundScore = PlayerPrefs.GetInt("ScoreData");
+        if (roundScore <= 0)
+        {
+            roundScore = 100;
+            continueBtnEnable = false;
+            //dear chris,
+            //if the above bool is false, set "continueBtn.SetActive(false);"
+            //if the above bool is true,  set "continueBtn.SetActive(true);"
+            //ps: i love you 
+        }
+        weWon = PlayerPrefs.GetInt("WonData");
     }
 
     public void newGameBtn()

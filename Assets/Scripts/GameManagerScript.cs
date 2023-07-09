@@ -164,7 +164,6 @@ public class GameManagerScript : MonoBehaviour
         }
         if (roundScore >= ScoreToWin && weWon == 0)
         {
-            Debug.Log("wow you won uwu");
             //pause and pull up window saying you won, would you like to continue? and dont ask this ever again, 
             //change round over window to ask if they also would like to start from scratch
             weWon = 1;
