@@ -11,7 +11,7 @@ public class HeroInWayBox : MonoBehaviour
             Debug.Log($"{other.gameObject.name} found in player aggro range");
             //Destroy(other.gameObject);
 
-            other.gameObject.GetComponent<Obs>().priority += 130;
+            other.gameObject.GetComponent<Obs>().priority += 80;
         }
     }
 }

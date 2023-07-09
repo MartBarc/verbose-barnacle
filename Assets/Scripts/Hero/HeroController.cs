@@ -193,11 +193,11 @@ public class HeroController : MonoBehaviour
         // Calc distance to player and adjust his value
         if (player != null)
         {
-            playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 5;
-            //if (playerPriority <= 35)
-            //{
-            //    playerPriority = 35;
-            //}
+            playerPriority = (int)Vector2.Distance(player.transform.position, this.transform.position) * 10;
+            if (playerPriority <= 100)
+            {
+                playerPriority = 100;
+            }
         }
         else
         {
