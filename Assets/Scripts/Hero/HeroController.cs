@@ -59,18 +59,27 @@ public class HeroController : MonoBehaviour
     public Animator HandAnimation;
     public bool attackAnimStarted;//dont accurately follow target after starting swing anim
     public bool isFacingRight;
+    public AudioSource attackSound;
+    public AudioSource attackSound2;
     //private Transform OGRotation;
 
     // Start is called before the first frame update
     void Start()
     {
+        stam = maxStam;
+        healthbar.SetHealth(stam, maxStam);
         //OGRotation = weaponObj.transform;
         obsList = new List<Obs> { player.GetComponent<Obs>() };
         //player = GameObject.Find("Player").gameObject;
         //curTarget = GameObject.Find("HeroTarget").gameObject.GetComponent<TargetPoint>();
 
-        stam = maxStam;
-        healthbar.SetHealth(stam, maxStam);
+        attackSound = GameObject.Find("Sounds/HeroSwing").GetComponent<AudioSource>();
+        attackSound2 = GameObject.Find("Sounds/SwordSound").GetComponent<AudioSource>();
+        //attackSound.enabled = true;
+        //attackSound.Play();
+
+
+
 
         StartCoroutine(WaitToAttack());
         currentSpeed = (int)gameObject.GetComponent<AIPath>().maxSpeed;
@@ -287,6 +296,7 @@ public class HeroController : MonoBehaviour
     {
         //weaponObj.SetActive(false);
         yield return new WaitForSecondsRealtime(beforeAttackDelay);
+        attackSound.Play();
         if (player != null)
         {
             //Vector2 targetposition = hitbox.transform.position;
@@ -299,6 +309,7 @@ public class HeroController : MonoBehaviour
             //weaponObj.transform.rotation = hitbox.transform.rotation;
             playAttackAnim();
             attackAnimStarted = true;
+            
 
             yield return new WaitForSecondsRealtime(beforeDamageDelay);
 
@@ -306,6 +317,7 @@ public class HeroController : MonoBehaviour
             //or maybe turn into a melehitbox/bullet thing
             ///player.TakeHit(attackDamage);//testing above comments, bring this back if not working
             Swing(player.gameObject.transform);
+            attackSound2.Play();
             yield return new WaitForSecondsRealtime(weaponResetDelay);
             weaponObj.transform.rotation = Quaternion.identity;
         }
