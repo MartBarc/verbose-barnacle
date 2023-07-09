@@ -170,9 +170,9 @@ public class GameManagerScript : MonoBehaviour
             weWon = 1;
             PlayerPrefs.SetInt("WonData", weWon);
             //pause game here
-            GameIsPaused = true;
-            WinUI.SetActive(true);
-            Time.timeScale = 0f;//pause
+            //GameIsPaused = true;
+            //WinUI.SetActive(true);
+            //Time.timeScale = 0f;//pause
         }
 
         if (GameStarted)
