@@ -17,20 +17,25 @@ public class PauseMenuController : UIController
     Button optionsReturn;
 
 
-    private void Awake()
+    private void Start()
     {
         root = uiDocument.rootVisualElement;
-        buttonsContainer = root.Q<GroupBox>("start-buttons-container");
+        buttonsContainer = root.Q<GroupBox>("buttons-container");
         buttons = new();
         foreach (VisualElement button in buttonsContainer.Children())
         {
             buttons.Add((Button)button);
         }
 
-        buttons[0].clicked += gameManager.ResumeGame;
+        buttons[0].clicked += () =>
+        {
+            Debug.Log("resuming");
+            gameManager.ResumeGame();
+        };
         
         buttons[1].clicked += () =>
         {
+            Debug.Log("toggle menu");
             ToggleMenu(buttonsContainer);
             ToggleMenu(optionsContainer);
         };
@@ -46,7 +51,7 @@ public class PauseMenuController : UIController
         musicToggle = (Button)optionsContainer.Q<GroupBox>("music-option").ElementAt(0);
         musicToggle.clicked += MusicToggle;
         SetTogglesOnStart();
-        optionsReturn = (Button)optionsContainer.Q<Button>("options-return");
+        optionsReturn = optionsContainer.Q<Button>("options-return");
         optionsReturn.clicked += () =>
         {
             ToggleMenu(optionsContainer);
@@ -54,69 +59,69 @@ public class PauseMenuController : UIController
         };
     }
 
-    //public void SetTogglesOnStart()
-    //{
-    //    if (PlayerPrefs.GetInt("MuteAudio") == 0)
-    //    {
-    //        audioSource.mute = false;
-    //        audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
-    //    }
-    //    else
-    //    {
-    //        audioSource.mute = true;
-    //        audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
-    //    }
+    public new void SetTogglesOnStart()
+    {
+        if (PlayerPrefs.GetInt("MuteAudio") == 0)
+        {
+            audioSource.mute = false;
+            audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
+        }
+        else
+        {
+            audioSource.mute = true;
+            audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
+        }
 
-    //    if (PlayerPrefs.GetInt("MuteMusic") == 0)
-    //    {
-    //        musicSource.mute = false;
-    //        musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
-    //    }
-    //    else
-    //    {
-    //        musicSource.mute = true;
-    //        musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
-    //    }
-    //}
+        if (PlayerPrefs.GetInt("MuteMusic") == 0)
+        {
+            musicSource.mute = false;
+            musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
+        }
+        else
+        {
+            musicSource.mute = true;
+            musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
+        }
+    }
 
-    //public void AudioToggle()
-    //{
-    //    Debug.Log("Toggling audio!");
-    //    if (audioSource.mute)
-    //    {
-    //        audioSource.mute = false;
-    //        audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
-    //        PlayerPrefs.SetInt("MuteAudio", 0);
-    //    }
-    //    else
-    //    {
-    //        audioSource.mute = true;
-    //        audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
-    //        PlayerPrefs.SetInt("MuteAudio", 1);
-    //    }
-    //    //audioSource.mute = !audioSource.mute;
-    //    //audioToggle.ToggleInClassList(TOGGLE_OFF);
-    //}
+    public new void AudioToggle()
+    {
+        Debug.Log("Toggling audio!");
+        if (audioSource.mute)
+        {
+            audioSource.mute = false;
+            audioToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
+            PlayerPrefs.SetInt("MuteAudio", 0);
+        }
+        else
+        {
+            audioSource.mute = true;
+            audioToggle.style.backgroundImage = Background.FromSprite(CROSS);
+            PlayerPrefs.SetInt("MuteAudio", 1);
+        }
+        //audioSource.mute = !audioSource.mute;
+        //audioToggle.ToggleInClassList(TOGGLE_OFF);
+    }
 
-    //public void MusicToggle()
-    //{
-    //    Debug.Log("Toggling music!");
-    //    if (musicSource.mute)
-    //    {
-    //        musicSource.mute = false;
-    //        musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
-    //        PlayerPrefs.SetInt("MuteMusic", 0);
-    //    }
-    //    else
-    //    {
-    //        musicSource.mute = true;
-    //        musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
-    //        PlayerPrefs.SetInt("MuteMusic", 0);
-    //    }
-    //    //musicSource.mute = !musicSource.mute;
-    //    ////musicToggle.ToggleInClassList(TOGGLE_OFF);
-    //    //musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
-    //}
+    public new void MusicToggle()
+    {
+        Debug.Log("Toggling music!");
+        if (musicSource.mute)
+        {
+            musicSource.mute = false;
+            musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
+            PlayerPrefs.SetInt("MuteMusic", 0);
+        }
+        else
+        {
+            musicSource.mute = true;
+            musicToggle.style.backgroundImage = Background.FromSprite(CROSS);
+            PlayerPrefs.SetInt("MuteMusic", 0);
+        }
+        //musicSource.mute = !musicSource.mute;
+        ////musicToggle.ToggleInClassList(TOGGLE_OFF);
+        //musicToggle.style.backgroundImage = Background.FromSprite(CHECKMARK);
+    }
 
     //public void ToggleMenu(VisualElement visualElement)
     //{
