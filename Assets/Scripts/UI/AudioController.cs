@@ -10,7 +10,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] List<AudioSource> music;
     public bool musicMuted;
 
-    public void Start()
+    public void Awake()
     {
         if(PlayerPrefs.GetInt("MuteAudio") == 1)
         {
