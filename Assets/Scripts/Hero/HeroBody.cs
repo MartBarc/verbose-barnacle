@@ -10,7 +10,7 @@ public class HeroBody : MonoBehaviour
 
     private void Start()
     {
-        heroSprite.color = new Color(Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f));
+        heroSprite.color = new Color(Random.Range(0.6f, 1.0f), Random.Range(0.6f, 1.0f), Random.Range(0.6f, 1.0f));
     }
 
     public void Update()

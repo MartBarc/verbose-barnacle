@@ -20,6 +20,7 @@ public class HeroController : MonoBehaviour
     [SerializeField] public HealthbarScript healthbar;
     public float stam;
     public float maxStam = 5;
+    public bool isStunned = false;
 
     //Combat
     [SerializeField] public HeroHitbox hitbox;
@@ -111,6 +112,11 @@ public class HeroController : MonoBehaviour
                 nametag.transform.localScale = new Vector3(-1, 1, 1);
             }
 
+            if (isStunned)
+            {
+                setNewSpeed(0);
+                StartCoroutine(stunCooldown());
+            }
 
             
             // Attack object?
@@ -313,6 +319,13 @@ public class HeroController : MonoBehaviour
         canAttack = true;
         attackAnimStarted = false;
         //weaponObj.SetActive(true);
+    }
+
+    IEnumerator stunCooldown()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        isStunned = false;
+        setNewSpeed(OGSpeed);
     }
 
     public void Swing(Transform target)

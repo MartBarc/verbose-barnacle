@@ -284,6 +284,11 @@ public class GameManagerScript : MonoBehaviour
         PlayerPrefs.SetInt("ScoreData", roundScore);
     }
 
+    public void StunPlayer()
+    {
+        curHero.GetComponent<HeroController>().isStunned = true;
+        curHero.GetComponent<HeroController>().stam -= 20;
+    }
     
     public void deleteData() 
     {

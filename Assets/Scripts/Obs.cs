@@ -22,6 +22,8 @@ public class Obs : MonoBehaviour
     public int basePriority;
     public int priorityDecay = 20;
 
+    public bool stunHero = false;
+
     // Dustruction
     [SerializeField] public GameObject debriPrefab;
 
@@ -133,6 +135,7 @@ public class Obs : MonoBehaviour
         if (health <= 0)
         {
             GameObject.Find("GameManager").GetComponent<GameManagerScript>().ScoreAdd(insuranceValue);
+
             if (this.gameObject.GetComponent<PlayerScript>())//dont destroy the player
             {
                 this.gameObject.GetComponent<PlayerScript>().TakeHit(help);
@@ -145,6 +148,10 @@ public class Obs : MonoBehaviour
             }
             else
             {
+                if (stunHero)
+                {
+                    GameObject.Find("GameManager").GetComponent<GameManagerScript>().StunPlayer();
+                }
                 TriggerDestroy();
             }
         }
