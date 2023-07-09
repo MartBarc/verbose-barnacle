@@ -116,8 +116,14 @@ public class Obs : MonoBehaviour
             {
                 this.gameObject.GetComponent<PlayerScript>().TakeHit(help);
             }
-            else 
-            { 
+            else if (this.gameObject.GetComponent<MinionScript>()) 
+            {
+                this.gameObject.GetComponent<MinionScript>().killMinion();
+                priority = 0;
+
+            }
+            else
+            {
                 TriggerDestroy();
             }
         }
