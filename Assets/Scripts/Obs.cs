@@ -19,6 +19,10 @@ public class Obs : MonoBehaviour
     public CircleCollider2D normalColliderTower;
     public BoxCollider2D normalColliderObs;
     public AudioSource destroySound;
+    public AudioSource MoneyDrop1;
+    public AudioSource MoneyDrop2;
+    public AudioSource MoneyDrop3;
+    public AudioSource BuySound;
 
     bool canDecay = true;
     public int basePriority;
@@ -36,6 +40,10 @@ public class Obs : MonoBehaviour
 
         if (gameObject.tag == "Enemy" || gameObject.tag == "Player" || gameObject.tag == "Door")//Bat is only obs or minion with tag "Enemy"
         {
+            if (gameObject.tag == "Door")
+            {
+                destroySound = GameObject.Find("Sounds/ObsDestroy").GetComponent<AudioSource>();
+            }
             return;
         }
         if (this.gameObject.GetComponent<TowerScript>())
@@ -49,6 +57,10 @@ public class Obs : MonoBehaviour
         }
         buyableCollider.enabled = true;
         destroySound = GameObject.Find("Sounds/ObsDestroy").GetComponent<AudioSource>();
+        MoneyDrop1 = GameObject.Find("Sounds/MoneyDrop1").GetComponent<AudioSource>();
+        MoneyDrop2 = GameObject.Find("Sounds/MoneyDrop2").GetComponent<AudioSource>();
+        MoneyDrop3 = GameObject.Find("Sounds/MoneyDrop3").GetComponent<AudioSource>();
+        BuySound = GameObject.Find("Sounds/BuySound").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -86,7 +98,7 @@ public class Obs : MonoBehaviour
                 buyText.SetText($"Insurance cost: {insuranceCost}G\nInsurance payout: {insuranceValue}G\nPress [E]");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    //purchase sound//destroySound.Play();//testing sounds here
+                    BuySound.Play();
                     buyText.gameObject.SetActive(false);
                     purchaseable = false;
                     isActive = true;
@@ -178,21 +190,25 @@ public class Obs : MonoBehaviour
             if (insuranceValue > 0 && insuranceValue < 50)
             {
                 spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim1");
+                MoneyDrop1.Play();
             }
             if (insuranceValue > 50 && insuranceValue < 100)
             {
                 spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim2");
+                MoneyDrop2.Play();
             }
             if (insuranceValue > 100)
             {
                 spawnedMoney.GetComponent<Animator>().SetTrigger("playAnim3");
+                MoneyDrop3.Play();
             }
             Destroy(spawnedMoney, 2f);
 
         }
 
-        Destroy(this.gameObject);
         destroySound.Play();
+        Destroy(this.gameObject);
+        
 
         //do blow up physics on delete
         yield return new WaitForSecondsRealtime(0f);

@@ -51,8 +51,8 @@ public class Attacking : MonoBehaviour
             {
                 SpawnBat();
             }
-            this.gameObject.GetComponent<WeaponController>().attackSound.enabled = true;
-            this.gameObject.GetComponent<WeaponController>().attackSound.Play();
+            //this.gameObject.GetComponent<WeaponController>().attackSound.enabled = true;
+            //this.gameObject.GetComponent<WeaponController>().attackSound.Play();
         }
     }
 

@@ -39,8 +39,9 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] public InsuredObsHandler insuredObs;
     public int weWon = 0;
+    public AudioSource GameMusic;
 
-    
+
 
     ///// <summary>
     ///// Grid graph to update.
@@ -53,7 +54,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void Start()
     {
-
+        GameMusic = GameObject.Find("Sounds/GameMusic").GetComponent<AudioSource>();
+        GameMusic.Play();
         //load stuff here
         roundScore = PlayerPrefs.GetInt("ScoreData");
         if (roundScore <= 0)
@@ -149,7 +151,7 @@ public class GameManagerScript : MonoBehaviour
                 HeroStamBar.maxValue = curHero.GetComponent<HeroController>().maxStam;
             }
             int newCurrentTime = (int)currentTimeLeft;
-            timerText.text = newCurrentTime.ToString();
+            timerText.text = $"{newCurrentTime} seconds\nuntil the hero arrives!";
         }
     }
 

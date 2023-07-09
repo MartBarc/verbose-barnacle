@@ -35,6 +35,8 @@ public class MinionScript : MonoBehaviour
     public int price = 10;
     public float defaultCollider = 0.77f;
     private bool purchased = true;
+    public AudioSource spawnSound;
+    public AudioSource dieSound;
 
     void Start()
     {
@@ -77,6 +79,13 @@ public class MinionScript : MonoBehaviour
         else
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        if (id == 100)//bat
+        {
+            spawnSound = GameObject.Find("Sounds/BatSound1").GetComponent<AudioSource>();
+            dieSound = GameObject.Find("Sounds/BatSound2").GetComponent<AudioSource>();
+            spawnSound.Play();
         }
 
         //debug
@@ -229,6 +238,7 @@ public class MinionScript : MonoBehaviour
                 EnemyAnimation.SetTrigger("EnemyDieTrig");
                 if (id == 301 || id == 302 || id == 100)  //301 = orc, 302 = skele, 100 = batminion
                 {
+                    dieSound.Play();
                     Destroy(gameObject, 2f);
                 }
             }
@@ -242,6 +252,7 @@ public class MinionScript : MonoBehaviour
         EnemyAnimation.SetTrigger("EnemyDieTrig");
         if (id == 301 || id == 302 || id == 100)  //301 = orc, 302 = skele, 100 = batminion
         {
+            dieSound.Play();
             Destroy(gameObject, 2f);
         }
     }
