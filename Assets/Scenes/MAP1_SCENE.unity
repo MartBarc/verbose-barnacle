@@ -39227,6 +39227,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 362324795588092182, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
+      propertyPath: insuranceCost
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1745085472607012617, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -39301,7 +39305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7028813371244247183, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: insuranceValue
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7730190559372220642, guid: 4690f64c90f282c49b6e53d64ba27313, type: 3}
       propertyPath: m_Name

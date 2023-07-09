@@ -27,7 +27,7 @@ public class Obs : MonoBehaviour
     bool canDecay = true;
     public int basePriority;
     public int priorityDecay = 20;
-
+    public bool affordable;
     public bool stunHero = false;
 
     // Dustruction
@@ -95,8 +95,16 @@ public class Obs : MonoBehaviour
         {
             if (purchaseable && !preventPurchase)
             {
+                if (GameObject.Find("GameManager").gameObject.GetComponent<GameManagerScript>().roundScore >= insuranceCost)
+                {
+                    affordable = true;
+                }
+                else 
+                {
+                    affordable = false;
+                }
                 buyText.SetText($"Insurance cost: {insuranceCost}G\nInsurance payout: {insuranceValue}G\nPress [E]");
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) && affordable)
                 {
                     BuySound.Play();
                     buyText.gameObject.SetActive(false);

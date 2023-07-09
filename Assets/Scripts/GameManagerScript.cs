@@ -159,7 +159,7 @@ public class GameManagerScript : MonoBehaviour
         
         if (isRoundOverState) return;
 
-        if (roundScore <= 0)
+        if (roundScore < 0)
         {
             StartCoroutine(roundOverRoutine());
         }
@@ -231,7 +231,7 @@ public class GameManagerScript : MonoBehaviour
     public void ScoreSub(int scoreDecrease)
     {
         roundScore -= scoreDecrease;
-        if (roundScore <= 0)
+        if (roundScore < 0)
         {
             roundScore = 0;
         }
@@ -264,12 +264,13 @@ public class GameManagerScript : MonoBehaviour
 
 
 
-        if (roundScore <= 0)
+        if (roundScore < 0)
         {
             roundScore = 0;
 
             //show player all their stats for the run
-            GameOverUI.SetActive(true);
+            //GameOverUI.SetActive(true);
+            RoundOverUI.SetActive(true);
 
             //delete stuff here
             PlayerPrefs.DeleteAll();
